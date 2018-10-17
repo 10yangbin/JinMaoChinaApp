@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<link type="text/css" rel="stylesheet" href="css/base.css">
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+
+<script type="text/javascript">
+	
+	var TypeTag = getUrlParamValByKey('from');
+	
+	var WaringIndex = getUrlParamValByKey('WaringIndex');
+		
+	    $(function(){
+	        setTimeout(function(){
+	        	
+	        	//通过id去查找对应单条通知
+	        	 var sql;
+	        	var item;
+	    	
+	    		if(WaringIndex==5){
+	  				sql = "select  warning_name as title, warning_desc as content, dms_update_time as time ,warning_user as user from APP_WARNINGMSG where  id ='"+getUrlParamValByKey('waringsOrAccetp_id')+"'";
+	  		    
+	  			}else {
+	    			sql = "select dms_notice_theme as title,dms_notice_content as content,dms_update_time as time,dms_notice_by_id as user from APP_NOTICE where  dms_notice_id ='"+getUrlParamValByKey('notice_id')+"'";
+	  		    }
+	           
+	    		var data =window.csq_db.db_select(0,sql,'',2);
+	          
+	    		var notice = eval("(" + data + ");");
+	    		if(notice.length>0){
+	    			item = notice[0];
+					title = item.title;
+					content = item.content;
+					time = formatDataWithoutMillisecond(item.time);
+					name = item.user;
+					
+					$("#title").html(title);
+					$("#content").html(content);
+					$("#name").html(getUserAlias(name));
+					$("#time").html(time);
+
+	    		}
+	           
+	        },200);
+		});
+		
+		function backTrack() {
+			
+			if(TypeTag==2){
+		      window.location.href = "notice.html";
+		    
+			}else if(TypeTag==1){
+		      window.location.href = "index.html";
+		    
+			}else if(TypeTag==3){
+		      window.location.href = "waring_info.html";
+		    }
+		}
+		
+		 //安卓虚拟返回键   ios 去掉 
+        function backCallBack() {
+        	backTrack();
+        }
+		 
+      
+	</script>
+	
+	
+<style>
+        body,p,h2{margin: 0;padding: 0;}
+        .con{max-width: 630px; margin: 0 auto; box-sizing: border-box;margin-top:48px;}
+        .con h2{font-size: 18px;line-height:30px;padding: 30px 4%;color: #333333;}
+        .con article{padding: 0 4%;}
+        .con article .detail{margin-bottom: 20px;}
+        .con article p{font-size: 16px;line-height: 26px;color: #666666;word-break: break-all;}
+        #content{text-indent:2em;}
+        #title{word-break: break-all;text-align:center;}
+        .con article .publish-people,.con article .publish-date{text-align: right;}
+        .con article .publish-people span,.con article .publish-date span{display:inline-block;width:130px;text-align:center;}
+ </style>
+</head>
+<body>
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">详情</p>
+		<span></span>
+	</header>
+	
+<div class="con">
+    
+    <article>
+        <section class="detail">
+        
+           <h2 id="title"><!-- 停电通知 --></h2>
+           
+           <p id="content"><!-- 明日早10:00至下午5:00整个小区电力检修，为您带来的不便请你原谅。 --></p>
+        </section>
+        
+        <p class="publish-people" id="name"><span><!-- 普洛斯物业 --></span></p>
+        <p class="publish-date" id="time"><span><!-- 2015-05-03 15:23 --></span></p>
+    </article>
+</div>
+
+
+</body>
+</html>

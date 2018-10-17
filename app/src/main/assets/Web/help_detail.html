@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<link type="text/css" rel="stylesheet" href="css/base.css">
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+
+<script type="text/javascript">
+	
+	var help_id = getUrlParamValByKey('help_id');
+	var prob_type = getUrlParamValByKey('probtype');
+	var task_id = getUrlParamValByKey('taskid');
+/* 
+	alert(prob_type);
+	alert(task_id);
+	
+	alert("help_id"+help_id);
+ */
+		
+	    $(function(){
+	
+	    	   var A = "/onlinehelp/selectContentById";
+			var param = {
+				"id":help_id
+			};
+			 var bool = window.csq_exe.doexec(A, JSON.stringify(param));
+		    //var bool = '{"ret":true,"msg":{\"id\":\"4763\",\"sub_man\":\"张萌\",\"sub_time\":\"2017-09-20 00:00:00.0\",\"prob_type\":\"201101101\",\"help_title\":\"空调使用技巧\",\"help_content\":\"吹冷风向，等房间凉爽之后，会一边控制耗电量，一边保持设定温度。\" }}';
+			// var bool ='{"ret":true,"msg":{"id":"4763","sub_man":"张萌","sub_time":"2017-09-20 00:00:00.0","prob_type":"201101101","help_title":"空调使用技巧","help_content":"吹冷风向，等房间凉爽之后，会一边控制耗电量，一边保持设定温度。" }}';
+            // var bool = '{"ret":true,"msg":"{'id':"4765",'sub_man':"张萌",'sub_time':"2017-09-21 00:00:00.0",'prob_type':"201101101",'help_title':"空调使用技巧",'help_content':"吹冷气时，调微风模式其实也是耗电的行为。这是因为空调在。" }}';
+		    //alert(bool);
+			 var retObj = eval("(" +bool + ");");
+			
+				$("#title").html(retObj.msg.help_title);
+				$("#content").html(retObj.msg.help_content);
+				$("#name").html(retObj.msg.sub_man);
+				$("#time").html(formatDataWithoutMillisecond(retObj.msg.displaysubtime));
+		});
+	    
+ 	function appendList(data) {
+			
+			for (var i = 0; i < data.length; i++) {
+				item = data[i];  
+			
+			}
+			
+    	}
+		
+		function backTrack() {
+			 window.location.href = "helplist.html?probtype=" + prob_type +"&taskid=" +task_id;
+		
+		}
+		
+		 //安卓虚拟返回键   ios 去掉 
+        function backCallBack() {
+        	backTrack();
+        }
+		 
+      
+	</script>
+	
+	
+<style>
+        body,p,h2{margin: 0;padding: 0;}
+        .con{max-width: 630px; margin: 0 auto; box-sizing: border-box;margin-top:48px;}
+        .con h2{font-size: 18px;line-height:30px;padding: 30px 4%;color: #333333;}
+        .con article{padding: 0 4%;}
+        .con article .detail{margin-bottom: 20px;}
+        .con article p{font-size: 16px;line-height: 26px;color: #666666;word-break: break-all;}
+        #content{text-indent:2em;}
+        #title{word-break: break-all;text-align:center;}
+        .con article .publish-people,.con article .publish-date{text-align: right;}
+        .con article .publish-people span,.con article .publish-date span{display:inline-block;width:130px;text-align:center;}
+ </style>
+</head>
+<body>
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">帮助详情</p>
+		<span></span>
+	</header>
+	
+<div class="con">
+    
+    <article>
+        <section class="detail">
+        
+           <h2 id="title"><!-- 停电通知 --></h2>
+           
+           <p id="content"><!-- 明日早10:00至下午5:00整个小区电力检修，为您带来的不便请你原谅。 --></p>
+        </section>
+        
+        <p class="publish-people" id="name"><span><!-- 普洛斯物业 --></span></p>
+        <p class="publish-date" id="time"><span><!-- 2015-05-03 15:23 --></span></p>
+    </article>
+</div>
+
+
+</body>
+</html>

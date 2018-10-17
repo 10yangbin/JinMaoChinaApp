@@ -1,0 +1,17 @@
+
+
+
+/* 收发函新建样式*/
+
+.unit{position:fixed;left:50%;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);max-width: 640px;transform:translateX(-50%);-webkit-transform:translateX(-50%);z-index: 99999;display: none;}
+.unit .con{width:92%;height:60%;background:#fff;position:absolute;top:20%;left:4%;border-radius: 5px;-webkit-border-radius: 5px;display: box;display:-webkit-box;box-orient:vertical;-webkit-box-orient:vertical;}
+.unit .con .title{padding:0 3%;display: box;display: -webkit-box;line-height: 30px;color:#fccb00;border-bottom: 1px solid #fccb00;}
+.unit .con .title h4{font-weight:normal;box-flex:1;-webkit-box-flex:1;font-size: 16px;}
+.unit .con .title .close{font-size: 14px;}
+.unit .unit-list{box-flex:1;-webkit-box-flex:1;overflow: hidden;}
+.unit .unit-list li{height:40px;line-height: 40px;border-bottom: 1px solid #e5e5e5;padding:0 3%;font-size: 14px;}
+
+
+.sgclamin li{padding:12px 0;margin:0 16px;}
+.sgclamin .unit_name{padding:0;font-size: 16px;color: #333333;padding-right:12px;}
+.repair_unit{background:url("../img/arrow_r1.png") no-repeat right center;background-size: 12px auto;}

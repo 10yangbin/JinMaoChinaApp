@@ -1,0 +1,217 @@
+
+
+/***** Global Settings 
+*
+* typography（字体）
+* colour（颜色）
+* link（链接）
+* forms（表单）
+* layout（布局）
+* navigation（导航）
+* function  功能
+* 页面
+ * *****/
+
+body,ul,p,input,figure,h2,h3,h4,hr{margin:0;padding:0;}
+li{list-style:none;}
+a{text-decoration:none; -webkit-tap-highlight-color: transparent; tap-highlight-color: transparent;color: #6d6e71;}
+i{font-style:normal;}
+img{border:none;vertical-align:top;}
+body{width:100%;max-width: 640px;margin: 0 auto;}
+input[type="text"],textarea{-webkit-appearance:none !important;appearance: none !important;}
+input[type="text"]{border:1px solid #999;}
+
+
+.clearfix:after {content:"";display: block ;height: 0;clear: both;}
+
+
+/* 顶部导航样式*/
+
+
+header{position:fixed;left:50%;top:0;width:100%;z-index:9999;padding:0 4%;box-sizing: border-box;height:48px;line-height: 48px;background:#fccb00;color:#ffffff;display:box;display:-webkit-box;max-width:640px;transform:translateX(-50%);-webkit-transform:translateX(-50%);}
+header .arrow-left{width: 12px;margin:13px 0;}
+header .title{box-flex:1;-webkit-box-flex:1;text-align: center;font-size: 16px;padding:0 10;overflow: hidden;}
+header span{min-width: 24px;display: block;}
+/* font-size:12px;*/ 
+
+/* 底部导航处理统一样式*/
+
+.footnav {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+}
+.footnav ul {
+    background: #fff;
+    display: table;
+    height:50px;
+    border-top:1px solid #e0e0e0;
+    width:100%;
+}
+.footnav li {
+    width: 33.333%;
+    float: left;
+    text-align: center;
+}
+.footnav li a {
+    display: block;
+    height:50px;
+}
+.footnav li img {
+    width: 24px;
+    height:24px;
+    margin-top: 6px;
+}
+.footnav li i {
+    display: block;
+    font-size: 12px;
+    color: #999999;
+    height: 18px;
+    line-height: 18px;
+}
+.footnav li .active i{
+    color: #fccb00;
+}
+.my-footnav {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+	
+}
+.my-footnav ul {
+    background: #fff;
+    height:50px;
+    border-top:1px solid #e0e0e0;
+	display:box;
+	display:-webkit-box;
+}
+.my-footnav li {
+    text-align: center;
+	-webkit-box-flex:1;
+	box-flex:1;
+}
+.my-footnav li a {
+    display: block;
+    height:50px;
+}
+.my-footnav li img {
+    width: 24px;
+    height:24px;
+    margin-top: 6px;
+}
+.my-footnav li i {
+    display: block;
+    font-size: 12px;
+    color: #999999;
+    height: 18px;
+    line-height: 18px;
+}
+.my-footnav li .active i{
+    color: #fccb00;
+}
+
+
+
+.foot_menu{
+	position: fixed;
+	bottom: 0;
+	display: table;
+	width: 100%;
+}
+.foot_menu a{
+	display: table-cell;
+	text-align: center;
+	height: 48px;
+	background: #fccb00;
+	color: #FFFFFF;
+	line-height: 48px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+}
+
+
+/* 单行信息样式，左侧信息，右侧时间。通知公告列表，预警列表，整改消息列表*/
+.single_line_info {
+   
+}
+
+.things-list{width:100%;max-width: 640px;margin:0 auto;}
+.things-list li{width:94%;padding:0 3%;background:#fff;border-bottom:1px solid #e5e5e5;height:56px;line-height: 56px;}
+.things-list li a{display: block;}
+.things-list li .tit{width:60%; font-weight:bold; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;color: #000000;font-size: 16px;display: inline-block;}
+.things-list li .date{float:right;color: #999999;font-size: 12px;}
+
+
+
+/*底部提交按钮，统一样式管理*/
+
+.bottomBtn{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+.bottomBtn input{	 
+	 width: 100%;
+	 height: 48px; 
+	 background: #fccb00; 
+	 border: 0 none; 
+	 outline: none; 
+	 font-size: 18px; color: #FFFFFF;
+}
+
+/*开关统一样式*/
+.baoshi_kaiguan_on{
+	padding: 16px;
+	font-size: 16px;
+	color: #333333;
+	background: url(../img/baoshi_kaiguan_on.png) no-repeat right center;
+	background-size: auto 32px;
+	background-origin: content-box;
+}
+.baoshi_kaiguan_on:hover{
+	background:url(../img/baoshi_kaiguan_on.png) no-repeat right center;
+	background-size: auto 32px;
+	background-origin: content-box;
+}
+.baoshi_kaiguan{
+	padding: 16px;
+	font-size: 16px;
+	color: #333333;
+	background: url(../img/baoshi_kaiguan.png) no-repeat right center;
+	background-size: auto 32px;
+	background-origin: content-box;
+}
+.baoshi_kaiguan:hover{
+	background:  url(../img/baoshi_kaiguan.png) no-repeat right center;
+	background-size: auto 32px;
+	background-origin: content-box;
+}
+
+
+/* functionList 统一处理图片排列和样式,如车辆管理，二装，收发函 */
+
+.functionList{width:100%;max-width:640px;margin:48px auto 0 auto;}
+.functionList li{width:33.33%;float:left;text-align:center;margin-top:25px;}
+.functionList li a{display:block;}
+.functionList li img{width:48px;height:48px;}
+.functionList li p{font-size:14px;line-height:40px;color:#333;}
+
+
+#Photo{
+    display: block;
+    padding-top: 10px;
+}
+#Photo>a{
+    margin-right: 12px;
+    display: inline-block;
+}
+#Photo img{
+    width:48px;
+}
+
+
+

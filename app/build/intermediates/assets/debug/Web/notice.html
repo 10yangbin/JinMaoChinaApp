@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+
+<link type="text/css" rel="stylesheet" href="css/base.css">
+
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+
+<script type="text/javascript">
+	
+var changeData;
+
+		$(function() {
+			window.csq_data.getErZhuangService("notice");
+			getChangeList();
+			appendList(changeData);
+		});
+		
+		function backTrack() {
+			window.location.href = "index.html";
+		}
+		
+		 //获取数据
+    	function getChangeList() {
+        	
+    		var sql_fire;
+    	
+ 			  sql_fire = "SELECT * FROM APP_NOTICE  where site_id ='" + getUserMsg('site_id') + "' ORDER BY DMS_UPDATE_TIME DESC ";
+ 			  
+ 		
+    		    changeData =window.csq_db.db_select(0,sql_fire, '',2);
+    		   // alert(changeData);
+    		    changeData = eval("(" + changeData + ");");
+    		
+    	}
+		 
+        //拼接整改数据
+    	function appendList(data) {
+    		
+    		var item;
+    		//主键rn_id 
+			var id;
+    		// 单子创建时间 
+			var time;
+    		// 创建人
+			var name;
+		
+			
+			for (var i = 0; i < data.length; i++) {
+				item = data[i];  
+				id = item.dms_notice_id;
+				name = item.dms_notice_theme;
+				time = formatDataWithoutMillisecond(item.dms_update_time);
+				change_items = item.change_items;
+				var htmlStr='';
+				htmlStr = "<li data-id='" + id + "'  onclick='onItemClick(this)'>";
+				htmlStr = htmlStr +	"<span class='tit'>" + name + "</span><span class='date'>" + time + "</span></li>";
+			  
+			   $('#things-list').append(htmlStr);
+			}
+			
+    	}
+        
+        
+    	function onItemClick(obj) {
+			var $this = $(obj);
+			var notice_id = $this.data('id');
+			window.location.href="notice_detail.html?notice_id="+notice_id + "&from=" +2;
+
+		}
+        
+		
+		 //安卓虚拟返回键   ios 去掉 
+        function backCallBack() {
+        	backTrack();
+        }
+		 
+      
+	</script>
+</head>
+<body>
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">通知列表</p>
+		<span></span>
+	</header>
+	
+	<div class="things-list" style="margin-top:50px;">
+			<ul id="things-list">
+			 <!--  <li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li>
+				<li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li>
+				<li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li>
+				<li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li> -->
+				
+			</ul>
+	</div>
+
+
+</body>
+</html>

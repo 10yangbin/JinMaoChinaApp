@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue_background">#fccb00</color>
+    <color name="gray_background">#e0e0e0</color>
+    <color name="blue_text_color">#006e92</color>
+    <color name="icon_back_pressed">#005875</color>
+    <color name="radio_checked_bg">#0099cc</color>
+    <color name="radio_normal_bg">#006e92</color>
+
+    <color name="choose_pic_none_color">#00000000</color>
+    <color name="choose_pic_bule_overlay">#660D92DD</color>
+
+    <color name="gold_yellow">#fccb00</color> <!-- 金黄色 -->
+
+    <color name="main_bg">#E6E6E6</color>
+    <color name="transparent">#00000000</color>
+    <color name="OrderStatus_Color_Finish">#505050</color>
+    <color name="Font_Color_Green">#009867</color>
+    <color name="HB_Color_Green">#009867</color>
+
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="mainColor">#573567</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="font_gray_b">#d4d4d3</color>
+
+    <color name="font_tab_1">#42369a</color>
+    <color name="font_tab_0">#b1b1b1</color>
+
+
+    <color name="font_common_1">#424242</color>
+    <color name="font_common_2">#a1a1a1</color>
+    <color name="font_blue">#42369a</color>
+
+    <color name="font_green">#00cccc</color>
+
+    <color name="commom_background">#f3f3f3</color>
+    <color name="account_bg_color">#3D00C1DE</color>
+
+    <color name="color_030303">#030303</color>
+    <color name="color_1FC88B">#1FC88B</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_CCCCCC">#CCCCCC</color>
+    <color name="color_EDEDED">#EDEDED</color>
+
+    <!--工业版同一颜色  步科 #1FC88B   的替换-->
+    <color name="industry_common_background">#1FC88B</color>
+    <!--############-->
+    <color name="ali_sdk_openaccount_attrs_send_sms_code_color">@color/industry_common_background</color>
+</resources>

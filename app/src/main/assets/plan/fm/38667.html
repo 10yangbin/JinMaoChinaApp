@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="format-detection" content="email=no" />
+        <meta name="format-detection" content="address=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <title>工单</title>
+        <link type="text/css" rel="stylesheet" href="../css/gongdan_jihua.css">
+        <script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
+        <script type="text/javascript" src="../js/gongdan.js"></script>
+        <script type="text/javascript" src="../js/sqlite.js"></script>
+        <link href="../css/wl_bounced.css" rel="stylesheet" type="text/css">
+        <script src="../js/newpmorder.js"></script>
+        <style>
+            
+			.wHeader {
+                clear: both;
+                display: table;
+                background: #006648;
+                height: 44px;
+                width: 100%;
+                position:fixed;
+                left:0;
+                top:0;
+                z-index: 999;
+            }
+
+            .wHeader a {
+                display: table-cell;
+                width: 44px;
+                text-align: center;
+                vertical-align: middle;
+            }
+            .wHeader h1 {
+                display: table-cell;
+                text-align: center;
+                font-size: 16px;
+                color: #FFFFFF;
+                line-height: 44px;
+                margin: 0;
+                padding: 0;
+            }
+            .wHeader .wHeaderDuiChen {
+                display: table-cell;
+                width: 44px;
+            }
+            .workList .location {
+                color: #828282;
+            }
+        </style>
+        <script type="text/javascript">
+                        isSearch = true;
+
+            //deviceCode
+            function searchCode() {
+            var saoCode = $("#search_input").val();
+            $("header").find("input").attr("value", saoCode);
+            deviceCode = saoCode;
+
+            var arrows = $(".arrow");
+            var code1;
+            var index = 0;
+            var isError = true;
+           for (var i = 0; i < arrows.length; i++) {
+            code1 = $(arrows[i]).data("code");
+            if (code1.indexOf(deviceCode)>=0) {
+            selectedArrow = arrows[i];
+            index = i;
+            deviceCode = code1;
+            isError = false;
+            } else if (code1 === lastCode) {
+            lastArrow = arrows[i];
+            }
+            }
+            if (isError) {
+            window.csq_hw.showToast("输入的查询码有误,重新输入！");
+            return;
+            } else {
+			currentCode=deviceCode;
+            var flag = $(selectedArrow).parents("li").find(".con").css("display");
+                
+            if (flag == "none") {
+            $(".con").slideUp();
+            $(selectedArrow).parents("li").find(".con").slideDown();
+            } else {
+            $(selectedArrow).parents("li").find(".con").slideUp();
+            }
+            $(selectedArrow).children("scan-input").attr("value",true);
+            //alert($(selectedArrow).children(".scan-input").attr("value"));
+            setTimeout(function(){
+            var top = $(selectedArrow).parent();
+            var singleHeight = top.outerHeight();
+            //计算高度
+            var height =  (index-1)*singleHeight +140+(index+1)*8;
+            $(document).scrollTop(height);
+            },200);
+            }
+
+            if (lastArrow && deviceCode && deviceCode != lastCode) {
+            checkStatus(lastArrow);
+            lastCode = deviceCode;
+            }
+			lazyload();
+            }
+            $(function(){
+			
+            loadAll();
+            });
+        </script>
+
+    </head>
+    <body>
+		
+
+        <div class="wHeader">
+            <a href="javascript:void(0)" onclick="backTrack();" data-role='none'  ><img src="../images/arrow_l.png" width="12" height="21"/></a>
+
+            <h1 id="woId" class="">P20170612000025</h1><!-- ui-hidden-accessible -->
+            <div class="wHeaderDuiChen"></div>
+        </div>
+        <header >
+            <div  class="search">
+                <input type="text" id ="search_input" value="">
+            </div>
+			<div class="cha">
+                <img src="../images/sgclico1.png" id="cha-001" onclick="scanToSelect();">
+            </div>
+            <div class="cha">
+                <img src="../images/cha.png" id="cha-001" onclick="searchCode();">
+            </div>
+
+        </header>
+		
+		
+        <form id="callAjaxForm">
+
+            <ul class="workList">
+      <!-- /用于判断是否是第一个生成 -->
+					       <!-- /第一个生成条件 -->
+					                   <!-- /第一个生成条件 -->
+						<li>
+                    <div class="top">
+                        <div class="workName" id="BJ-YZJMY-X88-12-01-1F-0108-SBQDGJGYDL001">
+                            <h2>BJ-YZJMY-X88-12-01-1F-0108-SBQDGJGYDL001.亦庄金茂悦X88地块新增12栋01单元新增地上1层0108室高压断路器001</h2>
+                            <p class="location">
+                                BJ-YZJMY-X88-12-01-1F-0108-SBQDGJGYDL001
+                            </p>
+                        </div>
+                        <div class="status">
+                            <span class="no">未完成</span>
+                            <input type="text" class="device-status"   name="BJ-YZJMY-X88-12-01-1F-0108-SBQDGJGYDL001-status" code="BJ-YZJMY-X88-12-01-1F-0108-SBQDGJGYDL001" style="display:none;" value="false"/>
+                        </div>
+
+                        <div class="arrow" data-code="BJ-YZJMY-X88-12-01-1F-0108-SBQDGJGYDL001">
+                            <img src="../images/arrow1.jpg">
+                            </div>
+                    </div>
+                    <div class="con">
+                        <table cellpadding="0" cellspacing="0" border="0" >
+                            <tbody>
+					
+					
+					
+					
+					
+					       <!-- /非第一个生成条件 -->
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+										
+										
+					
+					     <!-- /7扫码 -->
+						
+						<tr>
+                            <td>1.扫描设施二维码</td>
+                        </tr>
+                        <tr>
+                             <td>
+                                 <img src="../images/icon_saoma.png" class="scan-icon" id ='scan-96948'>
+								<input type="text" class="scan-input" id="96948-scan"  name="96948-scan" code="BJ-YZJMY-X88-12-01-1F-0108-SBQDGJGYDL001"  readonly placeholder="请扫码验证"/>
+                             </td>
+                        </tr>
+					
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+					   <!-- /1单行文本 -->
+								<tr>
+                                    <td>2.对消防火灾报警控制器进行自检功能检查</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="96949" id="96949" value="" type="text" placehoder="单行文本" onblur="saveHuancun();">
+                                    </td>
+                                </tr>
+					
+										
+										
+					
+										
+										
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+										
+					   <!-- /6数字 -->	
+							<tr>
+                                 <td>3.控制器工作电压测试</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="96950" id="96950" value="" placehoder="数字" type="number" onblur="saveHuancun();">
+                                </td>
+                            </tr>
+					
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>4.烟感器、温感器安装与底座接触良好、外观洁净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96951"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96951" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>5.抽取5%烟感器进行喷烟测试是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96952"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96952" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>6.检查手动报警按钮安装固、无破损及丢失</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96953"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96953" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>7.抽测2个手动报警按钮功能正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96954"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96954" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>8.检查各消防模块外接线固定良好</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96955"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96955" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>9.对火灾报警控制柜、联动控制柜等进行清扫除尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96956"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96956" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>10.对火灾报警控制柜、联动控制柜等进行线路紧固</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96957"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96957" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>11.对火灾报警控制柜、联动控制柜等进行主电源与备用电源切换</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96958"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96958" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>12.检查消防水系统供水压力及补压情况</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96959"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96959" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>13.检查报警阀启动是否灵活，水力警铃是否工作正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96960"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96960" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>14.检查系统供水控制阀门开启状态</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96961"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96961" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>15.每季度按分区逐一打开末端试验装置放水阀，试验系统灵敏性</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96962"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96962" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+					   <!-- /4拍照 -->								
+								<tr>
+                                    <td>16.检查、补充、替换消防水泵润滑油</td>
+                                <tr>
+                                    <td>
+                                        <ul class="imgList" id="Photo_96963">
+                                            <li>
+                                                <img src="../images/camera.jpg" id="photo-96963">
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+					
+										
+					
+										
+										
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>17.检查消防水泵无渗水、溢水情况</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96964"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96964" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>18.检查消防水泵转动灵活，无卡壳</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96965"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96965" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>19.检查消防水泵外观整洁，油漆完好，标志清楚，铭牌字迹清晰</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96966"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96966" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>20.检查消防水泵单向阀动作灵活，无漏水情况</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96967"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96967" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>21.检查消防水泵压力表指针灵活，指示准确，表盘清晰，表阀及接头不渗水</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96968"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96968" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>22.检查消防水泵电机线耳联接端紧密牢靠，无变色迹象，无裸露部分，接地良好</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96969"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96969" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>23.检查气体稳压罐及附属设备工作正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96970"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96970" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>24.检查水系统安全附件检验有效</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96971"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96971" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>25.检查水系统防冻及保暖措施</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96972"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96972" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+					   <!-- /1单行文本 -->
+								<tr>
+                                    <td>26.进行水系统定期排污</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="96973" id="96973" value="" type="text" placehoder="单行文本" onblur="saveHuancun();">
+                                    </td>
+                                </tr>
+					
+										
+										
+					
+										
+										
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>27.检查气体灭火系统检测符合要求</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96974"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96974" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>28.检查气体灭火系统主机巡检是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96975"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96975" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>29.控制中心手动操作卷帘门能否自动关闭</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96976"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96976" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>30.检查灭火器检验标识是否有效，外观及压力是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96977"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96977" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>31.检查消火栓配件完好齐全，抽测10%功能正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96978"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96978" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>32.检查防排烟系统功能正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="96979"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="96979" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+					  <!-- /3多行文本 -->
+								
+								<tr>
+                                    <td>33.记录异常及维修情况</td>
+                                </tr>
+                                <tr>
+                                    <td><textarea  name="96980" id="96980" onblur="saveHuancun();"></textarea></td>
+                                </tr>
+								
+					
+					
+										
+										
+										
+					
+										
+					
+					
+										
+					
+					
+								</tbody>
+							</table>
+						</div>
+					</li>
+					
+					
+					
+				<ul class="footer">
+
+                <li onclick="saveCache();">
+                    <a id="huancun"  data-icon="alert">暂存</a>
+                </li>
+			
+                <li onclick="sendToServer();">
+                    <a id="submit"  data-icon="check">提交</a>
+                </li>
+				</ul>
+            </ul>
+        </form>
+    </body>
+    </body>
+</html>

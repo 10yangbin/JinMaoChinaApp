@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+
+<link type="text/css" rel="stylesheet" href="css/base.css">
+
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/afm_user.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript">
+	
+		$(function() {
+			window.csq_data.getErZhuangService("warning");
+			getChangeList();
+			appendList(changeData);
+	
+		});
+		
+		function backTrack() {
+			window.location.href = "index.html";
+		}
+		
+		
+		 //安卓虚拟返回键   ios 去掉 
+        function backCallBack() {
+        	backTrack();
+        }
+		 
+		 //获取数据
+    	function getChangeList() {
+        	
+    		var sql_fire;
+ 			  sql_fire = "SELECT * FROM APP_WARNINGMSG  where site_id ='" + getUserMsg('site_id') + "' and warning_user ='" + getUserMsg('user_id') + "' ORDER BY DMS_UPDATE_TIME DESC ";
+ 			  
+    		    changeData =window.csq_db.db_select(0,sql_fire, '',2);
+    		    //alert(changeData);
+    		    changeData = eval("(" + changeData + ");");
+    		
+    	}
+		 
+        //拼接数据
+    	function appendList(data) {
+    		var item;
+			var id;
+			var time;
+			var desc;
+		
+			for (var i = 0; i < data.length; i++) {
+				item = data[i];  
+				id = item.id;
+				time = formatDataWithoutMillisecond(item.dms_update_time);
+				desc = item.warning_name;
+				var htmlStr='';
+				htmlStr = "<li data-id='" + id + "' onclick='onItemWaringsAndAccetpClick(this)' >";
+				htmlStr = htmlStr +	"<span class='tit'>" + desc + "</span>";
+				htmlStr = htmlStr +	"<span class='date'>" + time + "</span></li>";
+			   
+			   $('#things-list').append(htmlStr);
+			}
+			
+    	}
+        
+    	function onItemWaringsAndAccetpClick(obj) {
+    		var $this = $(obj);
+    		var id = $this.data('id');
+    		    window.location.href="notice_detail.html?waringsOrAccetp_id="+id + "&from=" +3 + "&WaringIndex=" +5;
+    	}
+		 
+      
+	</script>
+</head>
+<body>
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<p class="title">预警信息</p>
+		<span></span>
+	</header>
+	
+	
+	<div class="things-list" style="margin-top:50px;">
+			<ul id="things-list">
+				<!-- <li><span class="tit">京东合同到期</span><span class="date">2016-12-06</span></li>
+				<li><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></li>
+				<li><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></li> -->
+			</ul>
+	</div>
+
+
+</body>
+</html>

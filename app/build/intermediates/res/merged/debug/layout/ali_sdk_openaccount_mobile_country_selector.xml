@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+
+
+    <EditText
+        android:id="@+id/search_box"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/ali_sdk_openaccount_mobile_country_search_edittext_bg"
+        android:drawableLeft="@drawable/ali_sdk_openaccount_search_btn_bg"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ali_sdk_openaccount_search_btn_bg"
+        android:hint="@string/ali_sdk_openaccount_text_mobile_country_search_hint"
+        android:imeOptions="actionSearch"
+        android:singleLine="true" />
+
+    <!--  android:background="@drawable/ali_sdk_openaccount_bg_corners_white" -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       >
+        <!--
+       -->
+        <ListView
+            android:id="@+id/country_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" />
+
+        <TextView
+            android:id="@+id/country_dialog"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/openaccount_country_toast_bg"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30dp"
+            android:visibility="invisible" />
+
+        <com.alibaba.sdk.android.openaccount.ui.widget.SiderBar
+            android:id="@+id/country_sidebar"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"
+            android:layout_marginBottom="5dip" />
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
+
+    defaultConfig {
+        applicationId "com.jinmaochina.propertyservice"
+        minSdkVersion 17
+        targetSdkVersion 28
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def SEP = "_"
+            def flavor = "JinMao"
+            def buildType =
+                    variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName
+            def date = new Date()
+            def formattedDate = date.format('yyyyMMdd_HHmm')
+            def newApkName = flavor + SEP + buildType + SEP + version + SEP + formattedDate + ".apk"
+            def file = new File(newApkName)
+            output.outputFileName  = file
+        }
+    }
+
+    if (project.hasProperty('devBuild')) {
+        // disable multi-apk generation
+        splits.abi.enable = false
+        splits.density.enable = false
+        ext.enableCrashlytics = false
+        ext.alwaysUpdateBuildId = false
+        aaptOptions {
+            cruncherEnabled false // crunchPngs false 新版本用这个
+        }
+
+    }
+
+}
+
+dependencies {
+
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-v4:23.4.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation files('libs/jg_filter_sdk_1.1.jar')
+    implementation files('libs/mid-core-sdk-3.9.0.jar')
+    implementation files('libs/org.apache.http.legacy.jar')
+    implementation files('libs/pushservice-4.4.0.71.jar')
+    implementation files('libs/universal-image-loader-1.9.3-with-sources.jar')
+    implementation files('libs/wup-1.0.0.E-SNAPSHOT.jar')
+    implementation files('libs/Xg_sdk_v3.12_20171113_1059.jar')
+    implementation files('libs/xUtils-2.6.14.jar')
+    implementation files('libs/zxing.jar')
+
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.lovedise:permissiongen:0.0.6'
+
+    implementation('com.alibaba.sdk.android.openaccount:openaccount-ui-default:3.5.1.8')
+    implementation('com.alibaba.sdk.android.openaccount:openaccount-core:3.5.1.8')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+
+
+}

@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title></title>
+
+<link href="css/listnav.css" rel="stylesheet" type="text/css">
+<!-- 日期样式 -->
+<link rel="stylesheet" href="DTPicker/css/normalize3.0.2.min.css" />
+<link rel="stylesheet" href="DTPicker/css/style.css?v=7" />
+<link href="DTPicker/css/mobiscroll.css" rel="stylesheet" />
+<link href="DTPicker/css/mobiscroll_date.css" rel="stylesheet" />
+
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+
+<script type="text/javascript" src="js/common.js"></script>
+<!-- 日期插件 -->
+<script src="DTPicker/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="DTPicker/js/mobiscroll.js"></script> 
+
+<style>
+.wode_huanying{
+	padding: 16px;
+	font-size: 14px;
+	color: #1bacfe;
+	background-color: #f6f6f6;
+	border-bottom: 1px solid #e3e3e3;
+}
+.wode_huanying span{
+	margin: 0 4px;
+	font-size: 16px;
+	color: #ffc000;
+	font-weight: bold;
+}
+.wode_tongji{
+	margin: 0 16px;
+	padding: 16px 16px 0 16px;
+	border-bottom: 1px solid #E0E0E0;
+}
+.wode_tongji li{
+	padding-bottom: 16px;
+	font-size: 14px;
+	color: #333333;
+}
+.wode_tongji li span{
+	margin: 0 4px;
+	color: #FFC000;
+	font-size: 16px;
+	font-weight: bold;
+}
+.wode_baobiao{
+	padding: 0 32px;
+	font-size: 14px;
+}
+.wode_baobiao p{
+	padding: 16px 0;
+	color: #333333;
+}
+.wode_baobiao p span{
+	color: #1bacfe;
+	font-size: 16px;
+	margin: 0 4px;
+	font-weight: bold;
+}
+.wode_baobiao li{
+	clear: both;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border-radius: 7px;
+}
+.wode_baobiao li span{
+	display: block;
+	font-weight: bold;
+	height: 48px;
+	line-height: 48px;
+	color: #FFFFFF;
+	float: left;
+}
+.wode_baobiao li span b{
+	float: right;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.wode_baobiao li span i{
+	float: left;
+	padding-right: 10px;
+	color: #FFFFFF;
+}
+.wode_baobiao li i{
+	float: left;
+	padding-left: 8px;
+	line-height: 48px;
+	color: #999999;
+}
+.wode_wangqi_btn{
+	clear: both;
+	padding: 16px 32px 60px 32px;
+}
+.wode_wangqi_btn a{
+	display: block;
+	float: right;
+	padding: 16px;
+	font-size: 16px;
+	color: #FFFFFF;
+	background: #1892ba;
+	border-radius: 4px;
+}
+.wode_wangqi_btn a:hover{
+	background: #006E92;
+}
+.wo_nums{
+display: block;position: absolute; left: 50%;transform: translate(-50%);width:100px;text-align:center;
+}
+
+</style>
+
+ <script type="text/javascript">
+ 
+	var backgroud = ['#90e4ff','#5bd7ff','#2dc6f8',' #15b1e4','#0396c6','#006e92'];
+	var username = "";
+
+	
+	//回退按钮回调
+	function backCallBack(url){
+		window.location.href = "wode_shezhi.html";
+	}
+		
+	function backTrack(){
+		window.location.href = "wode_shezhi.html";
+	}
+	
+	
+	$(function() {
+		
+		$(function () {
+			var currYear = (new Date()).getFullYear();	
+			var opt={};
+			opt.date = {preset : 'date'};
+			opt.datetime = {preset : 'date'};
+			opt.time = {preset : 'time'};
+			opt.default = {
+				theme: 'android-ics light', //皮肤样式
+				display: 'modal', //显示方式 
+				mode: 'scroller', //日期选择模式
+				dateFormat: 'yyyy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+				startYear: currYear - 50, //开始年份
+				endYear: currYear + 10 //结束年份
+			};
+			
+			//  修改 datetime 时间格式为  date
+			$("#baoshi_start_time").mobiscroll($.extend(opt['date'], opt['default']));
+			$("#baoshi_end_time").mobiscroll($.extend(opt['date'], opt['default']));
+			
+			//执行时间暂时不做处理 ,工单表中没有执行时间的数据和字段
+			//$("#zhixing_start_time").mobiscroll($.extend(opt['datetime'], opt['default']));
+			//$("#zhixing_end_time").mobiscroll($.extend(opt['datetime'], opt['default']));
+
+		});
+		
+          setTimeout(function(){
+            username = getUserMsg("name");
+            var userhtml = username + "：欢迎您!";
+            $('#username').append(userhtml);
+            
+        });
+        
+
+        
+     	
+	});   
+	
+	
+	function shaixuan(){
+		
+        var start_time =$("#baoshi_start_time").val();
+        var end_time =$("#baoshi_end_time").val();
+        
+        var A = "/cf/selectWoForself";
+	 	var param = {
+			"date_from":start_time,	
+			"date_end":end_time
+		};
+	 	//alert(JSON.stringify(param));
+		 var bool = window.csq_exe.doexec(A,JSON.stringify(param));
+		 //var bool = {"ret":true,"msg":"{\"args1\":\"0\",\"args2\":\"0\",\"args3\":\"1\",\"args4\":\"0\",\"args5\":\"0\",\"args6\":\"0\",\"args7\":\"1\",\"args8\":\"0\"}"};
+		 //var xx =  {"ret":true,"msg":"[{\"user_id\":\"ZHANGMENG01\",\"user_name\":\"张萌01\",\"role_title\":\"工程主管\"}]"};
+		var retObj = eval("(" + bool + ");");
+		/*  alert(retObj);
+		 alert(retObj.msg);
+		 alert(retObj.ret); */
+		if(retObj.ret){
+			var userList = eval("(" + retObj.msg + ");");
+			//整合数据
+		  /* 	alert(userList.length);
+			alert(userList.args1);
+			alert(userList.args2); */
+			 $('#wo_nums_1').text(userList.args1);
+			 $('#wo_score_1').text(userList.args2);
+			 $('#wo_nums_2').text(userList.args3);
+			 $('#wo_score_2').text(userList.args4);
+			 $('#wo_nums_3').text(userList.args5);
+			 $('#wo_score_3').text(userList.args6);
+			 $('#wo_nums_4').text(userList.args7);
+			 $('#wo_score_4').text(userList.args8);
+		}
+	
+	}
+
+    
+	
+
+</script>
+</head>
+<body>
+	
+    
+    <header>
+    <img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+    <p class="title">工作统计</p>
+    <span class="right"></span>
+    </header>
+    
+	<div class="wode_huanying" style="margin-top:50px;" id='username'>
+	</div>
+	<div class="wode_baobiao" id='report' style="padding-top:10px;">
+	<div style="position: relative">
+	<span class="wo_nums">数量</span>
+	<span style="float:right;padding-bottom:20px;">积分</span>
+	</div>
+		<ul style="position: relative">
+			<li>
+				<span style=" width: 100%; background: #5dd8ff;">
+					<i>入室工单</i><b id="wo_score_1"></b><span class="wo_nums" id="wo_nums_1"></span>
+				</span>
+			</li>
+			<li>
+				<span style=" width: 100%; background: #74b9f2;">
+					<b id="wo_score_2"></b><span class="wo_nums" id="wo_nums_2"></span><i>公区工单</i>
+				</span>
+			</li>
+			<li>
+				<span style=" width: 100%; background: #65d0c6;">
+					<b id="wo_score_3"></b><span class="wo_nums" id="wo_nums_3"></span><i>计划工单</i>
+				</span>
+			</li>
+			<li style=" width: 100%; background: #b0b1e1;">
+				<span style=" width: 100%; background: #b0b1e1;">
+					<b id="wo_score_4"></b><span class="wo_nums" id="wo_nums_4"></span><i>积分汇总</i>
+				</span>
+			</li>
+			<b>
+			数量：本人所有工单数量</br></br>
+			</b>
+			<b>
+			积分：已完成工单数量
+			</b>
+		
+		</ul>
+		<div class="marg marginTop" style="margin-top:5px;">
+		<ul class="sgclamin" style="padding-top: 0;">
+	<li class="degree_time">
+				<span style="padding-top: 0;display:inline-block;width:80px;float:left;"><p>筛选时间段</p></span>
+				<div style="width:60%;float:left;">
+					<input type="text" name="baoshi_start_time" id="baoshi_start_time" readonly class="input" placeholder="开始日期" />
+					<input type="text" name="baoshi_end_time" id="baoshi_end_time" readonly class="input" placeholder="结束日期" />
+				</div>
+				
+			</li>
+			
+	</ul>
+	</div>
+	
+	<div class="bottomBtn">
+		<input type="button" value="确 定" id="tijiao" onclick="shaixuan()" />
+	</div>
+	</div>
+
+</body>
+</html>
+

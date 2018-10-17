@@ -1,0 +1,745 @@
+/* wmx80.taobao.com*/
+/**
+首页在用
+*公共样式***/
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+form,
+img,
+dl,
+dt,
+dd,
+table,
+th,
+td,
+blockquote,
+fieldset,
+div,
+strong,
+label,
+em {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+ul,
+ol,
+li {
+    list-style: none;
+}
+input,
+button {
+    margin: 0;
+    font-size: 12px;
+    vertical-align: middle;
+}
+body {
+    font: 12px microsoft yahei, arial, helvetica, sans-serif arial, helvetica, sans-serif;
+    margin: 0;
+    color: #6d6e71;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+a {
+    text-decoration: none;
+    outline: none;
+    color: #6d6e71;
+    -webkit-transition: all 400ms ease-out;
+    -mozilla-transition: all 400ms ease-out;
+    -ms-transition: all 400ms ease-out;
+    -o-transition: all 400ms ease-out;
+    transition: all 400ms ease-out;
+}
+.cl {
+    height: 0;
+    font-size: 1px;
+    clear: both;
+    line-height: 0;
+}
+.none {
+    display: none;
+}
+*:focus {
+    outline: none;
+}
+i,
+em,
+ins {
+    font-style: normal;
+    text-decoration: none;
+}
+nav,
+footer,
+section,
+header,
+article {
+    display: block;
+}
+.pr {
+    position: relative;
+}
+.marg {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 640px;
+    min-width: 320px;
+    background:#fff;
+   
+}
+.mt65 {
+    margin-top: 65px;
+}
+.pdtr {
+    padding: 10px
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.pr {
+    position: relative;
+}
+.pa {
+    position: absolute;
+}
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.clearfix:after {
+    clear: both;
+}
+.indbodybg {
+    background: #002e52
+}
+.banner {
+    position: relative;
+}
+.banner .img img {
+    display: block;
+    width: 100%
+}
+.banner h1 {
+    display: block;
+    background: url(../img/yun.png) no-repeat right;
+    background-size: 60px;
+    padding-right: 66px;
+    height: 36px;
+    line-height: 36px;
+    overflow: hidden;
+    position: absolute;
+    top: 33px;
+    left: 26px;
+    font-weight: normal;
+    font-size: 46px;
+    color: #fff
+}
+.banner ins {
+    display: block;
+    height: 24px;
+    position: absolute;
+    bottom: 14px;
+    right: 22px
+}
+.banner ins a {
+    display: block;
+    background: url(../img/userico.png) no-repeat left center;
+    background-size: 24px;
+    padding-left: 32px;
+    color: #fff;
+    font-size: 15px;
+    line-height: 20px;
+    height: 24px;
+}
+.banner span {
+    display: block;
+    position: absolute;
+    bottom: 14px;
+    left: 26px;
+    color: #fff;
+    line-height: 22px;
+    font-size: 14px;
+}
+.banner span i {
+    display: block
+}
+.indmain {
+    width:92%;
+    margin: 0 auto;
+}
+.indmain li {
+    width: 33.33%;
+    float: left;
+    text-align: center;
+    position: relative;
+    margin-top: 25px;
+
+}
+.indmain .yy{
+    width:76%;
+    height:90px;
+    border-radius: 50%;
+    position: absolute;
+    left:12%;
+    top:0;
+    box-shadow: 30px 30px 5px rgba(17,123,225,0.6);
+    z-index: -1;
+}
+.indmain li a {
+    display: block;
+}
+.indmain li img {
+    width: 48px;
+    height:48px;
+    margin: 0 auto;
+}
+.indmain li i {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    line-height: 40px;
+    margin-bottom: 4px;
+}
+.indmain li ins {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #ff9600;
+    top: 62px;
+    left: 62%;
+    position: absolute;
+}
+.footnav {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+}
+.footnav ul {
+    background: #fff;
+    display: table;
+    height:50px;
+    border-top:1px solid #e0e0e0;
+}
+.footnav li {
+    width: 33.333%;
+    float: left;
+    text-align: center;
+}
+.footnav li a {
+    display: block;
+    height:50px;
+}
+.footnav li img {
+    width: 24px;
+    height:24px;
+    margin-top: 6px;
+}
+.footnav li i {
+    display: block;
+    font-size: 12px;
+    color: #999999;
+    height: 18px;
+    line-height: 18px;
+}
+.footnav li .active i{
+    color: #fccb00;
+}
+.my-footnav {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+	
+}
+.my-footnav ul {
+    background: #fff;
+    height:50px;
+    border-top:1px solid #e0e0e0;
+	display:box;
+	display:-webkit-box;
+}
+.my-footnav li {
+    text-align: center;
+	-webkit-box-flex:1;
+	box-flex:1;
+}
+.my-footnav li a {
+    display: block;
+    height:50px;
+}
+.my-footnav li img {
+    width: 24px;
+    height:24px;
+    margin-top: 6px;
+}
+.my-footnav li i {
+    display: block;
+    font-size: 12px;
+    color: #999999;
+    height: 18px;
+    line-height: 18px;
+}
+.my-footnav li .active i{
+    color: #fccb00;
+}
+.gray_bg {
+    background: #000;
+    filter: Alpha(opacity=60);
+    opacity: 0.6;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 32;
+    top: 0;
+    left: 0;
+    display: none
+}
+.indtk {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: none;
+    z-index: 33
+}
+.indtkcont {
+    margin: 0 10px;
+    padding: 8px 16px;
+    background: rgba(225, 225, 225, 0.9)
+}
+.indtkcont h1 {
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    color: #006e92;
+    font-weight: normal;
+    padding-bottom: 6px
+}
+.indtkcont i {
+    display: block;
+    line-height: 25px;
+    font-size: 16px;
+    color: #373e41
+}
+.indtkcont span {
+    display: block;
+    height: 32px;
+    padding-top: 14px;
+    text-align: center
+}
+.indtkcont span a {
+    display: inline-block;
+    margin: 0 26px;
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    letter-spacing: 5px;
+    border-radius: 5px;
+    text-align: center
+}
+.indtkcont span a:first-child {
+    background: #fff;
+    color: #373e41
+}
+.indtkcont span a:last-child {
+    background: #006e92;
+    color: #fff
+}
+header {
+    position: relative;
+    height: 42px;
+    line-height: 42px;
+    background: #006e92
+}
+header h1 {
+    color: #fff;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    line-height: 42px;
+}
+header span {
+    display: block;
+    padding: 10px;
+    position: absolute;
+    top: 4px;
+    left: 10px;
+}
+header .arrow-left {
+    display: block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #fff;
+    border-width: 2px 0 0 2px;
+    -webkit-box-sizing: order-box;
+    box-sizing: border-box;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+header em {
+    display: block;
+    width: 21px;
+    height: 25px;
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    padding: 0 10px;
+    cursor: pointer
+}
+header em img {
+    width: 100%
+}
+.bsbodybg {
+    background: #e0e3e4
+}
+.bsgdmain {
+    background: #fff;
+    border-radius: 6px;
+    padding: 6px;
+}
+.bsgdmain dt span {
+    display: block;
+    padding: 15px 15px 0
+}
+.bsgdmain dt span em {
+    display: block;
+    width: 50%;
+    float: left;
+}
+.bsgdmain dt span em img {
+    display: block;
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 3px
+}
+.bsgdmain dt span em i {
+    display: block;
+    font-size: 15px;
+    line-height: 20px;
+    height: 20px;
+    text-align: center;
+    color: #505050
+}
+.bsgdmain dt p {
+    display: block;
+    padding-top: 8px;
+    height: 20px;
+    line-height: 20px;
+    color: #006e92;
+    text-align: center;
+    font-size: 12px;
+}
+.bsgdmain dd {
+    margin: 14px 10px;
+    height: auto !important;
+    overflow: hidden
+}
+.bsgdmain dd label {
+    font-size: 15px;
+    color: #505050;
+    display: block;
+    float: left;
+    width: 65px;
+    line-height: 31px;
+}
+.bsgdmain dd select {
+    height: 31px;
+    border: 1px solid #afc4cc;
+    border-radius: 3px;
+    color: #505050;
+    font-size: 15px;
+    width: 74%;
+    float: left
+}
+.bsgdmain dd i {
+    float: left
+}
+.bsgdmain dd img {
+    display: block;
+    width: 65px;
+    height: 65px;
+}
+.bsgdmain dd .webare {
+    width: 70%;
+    height: 80px;
+    padding: 5px 1%;
+    border: 1px solid #afc4cc;
+    border-radius: 5px;
+    float: left;
+    display: block
+}
+.bsgdmain dd em {
+    font-size: 15px;
+    color: #505050;
+    display: block;
+    float: left;
+    line-height: 31px;
+}
+.bsbtn {
+    padding-top: 16px;
+    text-align: center
+}
+.bsgdmain dd span {
+    display: block;
+    width: 68px;
+    height: 22px;
+    float: left;
+    border: 1px solid #5a5a5a;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin-left: 6px
+}
+.bsgdmain dd span ins {
+    display: block;
+    width: 68px;
+    height: 22px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: All .8s ease-in-out;
+    -webkit-transition: All .8s ease-in-out;
+    -moz-transition: All .8s ease-in-out;
+    -o-transition: All .8s ease-in-out;
+}
+.bsgdmain dd span img {
+    width: 68px;
+    height: 22px;
+    display: block
+}
+.bsgdmain dd span.on ins {
+    left: 34px;
+}
+.bsbtn .webatn {
+    width: 126px;
+    height: 30px;
+    line-height: 26px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-family: microsoft yahei, arial, helvetica;
+    background: #006e92;
+    cursor: pointer;
+    border: none;
+    margin: 0 12px;
+    border-radius: 4px
+}
+.gdlist {
+    margin: 14px 0;
+    background: #fff;
+}
+.gdlist .tabs li {
+    width: 25%;
+    height: 38px;
+    line-height: 38px;
+    float: left;
+    background: #006e92;
+    cursor: pointer;
+    text-align: center;
+    color: #ffff;
+}
+.gdlist .tabs li i {
+    display: block;
+    border-right: 1px solid #fff;
+    font-size: 16px;
+    height: 38px;
+    color: #fff
+}
+.gdlist .tabs li.active {
+    color: #006e92;
+    background: #fff
+}
+.gdlist .tabs li.active i {
+    color: #006e92;
+}
+.gdlist .tab_con {
+    padding: 10px 0 16px
+}
+.gdlist .tab_con dl {
+    border-bottom: 1px solid #b3b3b3;
+    padding: 10px 16px
+}
+.gdlist .tab_con dl:last-child {
+    border: none
+}
+.gdlist .tab_con dt {
+    width: 56px;
+    float: left;
+    color: #505050;
+    font-size: 16px
+}
+.gdlist .tab_con dd {
+    padding-left: 60px;
+    position: relative;
+    height: 30px;
+    font-size: 16px;
+    color: #505050
+}
+.gdlist .tab_con dd i {
+    color: #848484
+}
+.gdlist .tab_con dd em {
+    display: block;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    right: 12px;
+    font-size: 16px;
+}
+.gdlist .tab_con dd em.em1 {
+    color: #ff9600
+}
+.gdlist .tab_con dd em.em2 {
+    color: #92006e
+}
+.gdlist .tab_con dd em.em3 {
+    color: #006e92
+}
+.kcdi {
+    height: 60px;
+    width: 100%;
+}
+
+/*����2015-3-5 08:42:38��ҳ�޸�*/
+.banner_tongzhi{ position: absolute; top: 0; width: 100%; color: #FFFFFF;}
+.banner_tongzhi h2{ font-size: 22px; text-align: center; padding: 16px; font-weight: normal;}
+.banner_tongzhi p{ font-size: 16px; padding: 0 16px;}
+.banner_qiehuan{ position: absolute; bottom: 48px; width: 100%; text-align: center;}
+.banner_qiehuan a{ display: inline-block; height: 8px; width: 8px; border-radius: 8px;  background:rgba(255,255,255,0.50); margin: 8px 4px;}
+.banner_qiehuan a.this{ background:rgba(255,255,255,0.80);}
+.banner_tishi{ position: absolute; width: 100%; height: 48px; line-height: 48px; background: rgba(0,0,0,0.60); bottom: 0; font-size: 18px; color: #FFFFFF; text-align: center;}
+.banner_tishi strong{ color: #fcc900; font-size: 24px; padding: 0 8px; font-weight: normal;}
+.banner_tishi_cur{z-index: 1; width: 100%;  line-height: 30px;padding: 6px 0; top: 54px; font-size: 18px; color: #FFFFFF; text-align: center;}
+.banner_tishi_cur a{text-decoration: underline;color:#C3BC0D;/*color: #fff;*/ position: relative;}
+.updatePrompt{
+    position: absolute;
+    z-index: 9999;
+    width: 8px;
+    height: 8px;
+    background-color: #f43531;
+    border-radius: 50%;
+    top: 0;
+    right: -7px;
+    /*display: none;*/
+}
+.banner_tishi_tanchu,.banner_tishi_tanchu1 {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: #fff;
+    padding-bottom: 10px;
+    z-index: 999;
+    text-align: center;
+    display: none;
+}
+.banner_tishi_tanchu .tit,.banner_tishi_tanchu1 .tit {
+    display: block;
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid rgba(0, 102, 72, 1);
+}
+.banner_tishi_tanchu .tit strong,.banner_tishi_tanchu1 .tit strong {
+    display: table-cell;
+    vertical-align: middle;
+    width: 3000px;
+}
+.banner_tishi_tanchu .tit strong span,.banner_tishi_tanchu1 .tit strong span {
+    display: block;
+    padding-left: 20px;
+    line-height: 48px;
+    font-size: 18px;
+    color: rgba(0, 102, 72, 1);;
+    font-weight: normal;
+}
+.banner_tishi_tanchu .tit i,.banner_tishi_tanchu1 .tit i {
+    display: table-cell;
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+.black {
+    width: 100%;
+    height: 110%;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    z-index: 99;
+    background: #000;
+    opacity: 0.7;
+    zoom: 1;
+    display: none;
+}
+.banner_tishi_tanchu .tit i span,.banner_tishi_tanchu1 .tit i span {
+    line-height: 48px;
+    width: 76px;
+    font-size: 14px;
+    color: rgba(0, 102, 72, 1);
+}
+.banner_tishi_tanchu ul,.banner_tishi_tanchu1 ul{
+    width: 100%;
+    /*	height: 300px;*/
+    overflow-y:auto;
+}
+.banner_tishi_tanchu ul li,.banner_tishi_tanchu1 ul li {
+    height: 48px;
+    line-height: 48px;
+    padding: 0 15px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #333333;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+}
+.banner_tishi_tanchu ul li, .banner_tishi_tanchu1 ul li strong{font-weight: normal;}
+.banner_tishi_current{width: 100%;  line-height: 36px;padding: 6px 0; background: #0c5f7a; font-size: 18px; color: #FFFFFF; text-align: center;font-family: "Microsoft YaHei";}
+.banner_tishi_current a{color:#C3BC0D;font-family: "Microsoft YaHei";position: relative;}
+.banner_tishi_tanchu1 {
+    text-align: left;
+    
+}
+.bottonStyle {
+    background: none repeat scroll 0 0 rgba(0, 102, 72, 1);
+    border: 0 none;
+    color: #ffffff;
+    height: 50px;
+    outline: medium none;
+    width: 100%;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    border-radius: 4px;
+}
+.banner_tishi_tanchu1 li input {
+    width: 60px;
+    height: 32px;
+    float: right;
+    margin-top: 8px;
+}
+.liucheng_tanchu_tijiao {
+    padding: 10px 30px 10px 30px;
+}

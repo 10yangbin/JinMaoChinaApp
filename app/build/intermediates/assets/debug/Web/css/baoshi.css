@@ -1,0 +1,345 @@
+
+
+
+/* 报修界面样式*/
+
+body{padding:48px 0;}
+#zbg{width:100%;height:100%;position:fixed;left:50%;top:0;z-index:9999;background:#fff;transform:translateX(-50%);-webkit-transform:translateX(-50%);display: box;display:-webkit-box;box-orient:vertical;-webkit-box-orient:vertical;display:none;}
+#zbg .paper{max-width:640px;margin:0 auto;margin-top:48px;box-flex:1;-webkit-box-flex:1;overflow-y: auto;}
+.paper li{padding:5px 4%;line-height: 30px;border-bottom:1px solid #e0e0e0;display: box;display: -webkit-box;box-align:center;-webkit-box-align:center;}
+.paper li p{box-flex:1;-webkit-box-flex:1;}
+.paper li img{width:12px;margin-top:10px;}
+
+.black_overlay{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=80);
+}
+.sgclamin li{
+    padding:12px 16px;
+    border-bottom:1px solid #e0e0e0;
+}
+.baoshi_yezhu_biaoti{
+    display: table-cell;
+    padding: 0;
+    vertical-align: middle;
+    width: 120px;
+}
+.baoshi_yezhu_biaoti i{
+    width: 120px;
+    display: block;
+    font-size: 15px;
+    color: #333333;
+}
+.baoshi_yezhu_input{
+    display: table-cell;
+    vertical-align: middle;
+    width: 3200px;
+}
+.baoshi_yezhu_input input{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    border: 0 none;
+}
+.name-degree{
+    overflow: hidden;
+}
+.pay_list_c1 {
+    display: inline-block ! important;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    background-image: url(../img/inputradio.png);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    margin-right: 6px;
+    margin-left: 10px;
+    vertical-align: middle;
+    padding-top: 3px ! important;
+}
+.radioclass {
+    opacity: 0;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+}
+.on {
+    background-image: url(../img/input-radio.png);
+}
+.onColor{
+    color: #fccb00;
+}
+.sgclamin span{
+    display:block;
+    padding-top:10px;
+}
+.sgclamin span a{
+    margin-right:12px;
+    display: inline-block;
+}
+.sgclamin span img{
+    width:40px;
+    height:40px;
+}
+.sgclamin span .webare{
+    width:94%;
+    border:1px solid #e0e0e0;
+    height:80px;
+    line-height:20px;
+    padding:10px 3%;
+    font-family: "Microsoft YaHei";
+}
+.graybg{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:22;
+    background:#000;
+    opacity:0.7;
+    display:none;
+}
+.gzTypeShows{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    /*overflow: auto;
+    /*overflow-x: hidden
+    max-width: 640px;*/
+    background: #fff;
+    padding-bottom: 10px;
+    display: none;
+    z-index:999;
+}
+.headStyle{
+    color: #fff;
+    float:left;
+    font-size: 16px;
+    text-align:center;
+    width:70%;
+}
+.headtabs2{
+    display:table;
+    width: 100%;
+    background: #FFFFFF;
+    color:#303030;
+    font-size: 14px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.headtabs2 span{
+    display: table-cell;
+    color: #303030;
+    vertical-align: middle;
+    text-align: center;
+    height: 30px;
+    width:50%;
+}
+.headtabs2 .headtabs_this{
+    border-bottom: 1px solid #fccb00;
+    color: #4682B4;
+}
+.bottonStyle{
+    background: none repeat scroll 0 0 #fccb00;
+    border: 0 none;
+    color: #ffffff;
+    height: 50px;
+    outline: medium none;
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+}
+.liucheng_tanchu{
+    position:absolute;
+    top: 100px;
+    border:1px solid #ccc;
+    background-color: #fff;
+    display:none;
+    width:100%;
+    left:0;
+    padding-bottom:10px;
+    height:400px;
+}
+.liucheng_dibu_btn span{
+    width: 50%;
+    float: left;
+}
+.liucheng_dibu_btn .liucheng_dibu_btn_left{
+    display:block;
+}
+.liucheng_dibu_btn .liucheng_dibu_btn_right{
+    display:block;
+}
+.liucheng_dibu_btn input{
+    display: block;
+    width: 100%;
+    background: #00A2FF;
+    border: 0 none;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 4px;
+    font-family: "Microsoft YaHei";
+}
+.fl,.fr{
+    float:left;
+}
+
+
+.gzType_show li{
+	padding: 0px 5px ! important;
+/* 	height: 60px; */
+	line-height: 60px;
+}
+.gzType_show li:hover{
+	background-color: #E0E0E0;
+}
+.gzType_show li i{
+	display: inline-block;
+	width: 24px;
+	height: 42px;
+	float: right;
+	/*background: url(../img/arrow_r.png) no-repeat center;*/
+	margin-top: 9px;
+}
+.gzType_show li strong{
+	font-weight: normal ! important;
+	font-size: 14px;
+}
+.sgclamin{
+	padding:15px 0px 86px;
+}
+.gzType_show li:last-child{
+	border-bottom: 1px solid #e0e0e0;
+} 
+/*space style*/
+.gzTypeShows{
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    /*overflow: auto;
+    /*overflow-x: hidden
+    max-width: 640px;*/
+    background: #fff;
+    padding-bottom: 10px;
+	display: none;
+	z-index:999;
+}
+.gzTypeShows .scroll_container{
+	/*overflow: hidden ! important;*/
+	height: 80%;
+	overflow:auto ! important;
+}
+.gzTypeShows>span{
+	display: inline-block ! important;
+	width: 100%;
+	line-height: 40px;
+	padding-top: 50px ! important;
+	font-size: 16px;
+	padding-left: 12px; 
+	border-bottom: 1px solid #e0e0e0;
+    color: #fccb00;
+    box-sizing:border-box;
+    font-size: 12px;
+}
+
+.baoshi_gdlx{
+	position:fixed;
+	width:100%;
+	bottom: 0;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	background:#FFFFFF;
+	display:none;
+}
+.baoshi_gdlx .tit{
+	display:block;
+	height:52px;
+	border-bottom: 1px solid #fccb00;
+	position: relative;
+}
+.baoshi_gdlx .tit strong{
+	display: table-cell;
+    vertical-align: middle;
+    /* width: 3000px; */
+    padding-left: 15px;
+}
+.baoshi_gdlx .tit strong span{
+	display: block;
+	text-align: center;
+	line-height:48px;
+	font-size: 18px;
+	color: #fccb00;
+	font-weight: normal;
+}
+.baoshi_gdlx .tit i{
+	display:table-cell;
+	width:76px;
+	cursor:pointer;
+	text-align: center;
+	position: absolute;
+  	right: 0;
+  	top: 0;
+}
+.baoshi_gdlx .tit i span{
+	display: block;
+	line-height:48px; 
+	width: 76px;
+	font-size: 14px;
+	color: #00a3ff;
+}
+.paidan_danren{
+	overflow-y: auto ! important;
+	
+}
+.liucheng_paidan{
+	height: 100%; 
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.liucheng_paidan li{
+	/*height: 48px;*/
+	line-height: 48px;
+	background: #FFFFFF;
+	border-bottom: 1px solid #e0e0e0;
+	/* padding: 0 15px; */
+	clear: both;
+	font-size:12px;
+}
+.liucheng_paidan li span{
+	display: block;
+	float: right;
+	margin-right: 16px;
+}
+.liucheng_paidan li strong{
+	display: block;
+	padding-left: 15px;
+	float: left;
+}
+.liucheng_paidan li input{
+	font-size: 48px;
+	width: 24px;
+	height: 48px;
+	float: right;
+	margin-top: 0px;
+}
+.liucheng_paidan li i{
+	display: block;
+	padding-right: 15px;
+	float: right;
+}

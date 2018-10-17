@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\svg_back_arrow_white.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\svg_back_arrow_white.xml"
+    }
+]

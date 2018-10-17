@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+		<link rel="stylesheet" href="css/base.css" />
+        <link href="css/offline_business.css" rel="stylesheet" type="text/css" />
+		
+		<script type="text/javascript" src="js/iscroll.js"></script>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript">
+			 //工单查询
+			var undodata; //
+			var donedata; //所有工单
+			var pageCount = 30; //每页15条
+			var currentPage = 1; //当前页
+			var tab_id = 0; //当前页签类型
+			$(function() {
+              setTimeout(function(){
+				
+                //20151211显示更新状态end
+				$('.headtabs').children().each(function() {
+					var clickSpan = $(this);
+					clickSpan.click(function() {
+						$('.headtabs_this').removeClass('headtabs_this');
+						clickSpan.addClass('headtabs_this');
+						//初始化数据
+						tab_id = clickSpan.data('id'); //页签编号
+						currentPage=1;
+						$('#thelist').empty();
+						switch (tab_id) {
+							case 0: 
+								/*if (undodata) {
+									appendList(undodata);
+								} else {
+									appendList(getDataList(tab_id));
+								}*/
+								changeList(getDataList(tab_id));
+								break;
+							case 1: 
+								/*if (donedata) {
+									appendList(donedata);
+								} else {
+									appendList(getDataList(tab_id));
+								}*/
+								changeList(getDataList(tab_id));
+								break;
+			
+						}
+					});
+				});
+				appendList(getDataList(tab_id));
+                         },200);
+			});
+			
+			function backTrack() {
+				window.location.href = "index.html";
+
+			}
+
+			//安卓虚拟返回键   ios 去掉 
+			function backCallBack() {
+				backTrack();
+			}
+			
+			//更换列表数据
+			function changeList(data) {
+				$('#thelist').empty();
+				appendList(data);
+				myScroll.refresh();
+			}
+						
+			function getDataList(tab_id) {
+				var sql='';
+				if(tab_id=='0'){
+					sql = "select _id as id,create_time,operate_p,operate_a,operate_status from offlineoperate where operate_status !=1 order by id  asc Limit " + (currentPage - 1) * pageCount + "," + pageCount;
+				}else if(tab_id=='1'){
+					sql = "select _id as id,create_time,operate_p,operate_a,operate_status from offlineoperate where operate_status  = 1 order by id asc Limit " + (currentPage - 1) * pageCount + "," + pageCount;
+				}
+				//20150717，改造sql语句以适应多项目切换，并且前台不处理数据库打开操作，都交给后台
+				//最后的参数代表数据类型，1代表基础数据，2代表业务数据				
+				//window.csq_db.db_open('longfor.db', '', '');
+				//var data = window.csq_db.db_select(0, sql, '');
+				var data = window.csq_db.db_select(0,sql, '',2);
+				data = eval("(" + data + ");");
+				return data;
+			}
+			
+			function appendList(data) {
+				if(data.length>0){
+					var htmlStr='';
+					for (var i = 0; i < data.length; i++) {
+						var item = data[i];
+						var id = item.id;
+						var operate_status = item.operate_status+'';
+						var _type = item.operate_a;
+						var create_time = item.create_time;
+						var datetime = create_time.trim().split(' ');
+						var day = datetime[0];
+						var time = datetime[1].substr(0, 5);
+						var operate_p = item.operate_p;
+						var param = eval("(" + operate_p + ");");
+						var content = param.task_describe;
+						var task_id = '';
+						switch(_type){
+							//报事
+							case 'WO_BS':
+								content = param.task_describe;
+								content='[离线工单报事]，报事内容为：'+content;
+								task_id = '';
+								break;
+							//工单接收
+							case 'WO_JS':
+								content = '[离线接收工单]，开始处理工单！';
+								task_id=param.task_id;
+								break;
+							//工单备注
+							case 'WO_ZXTJ':
+								content = param.pro_desc;
+								content = '[离线备注工单],备注内容为：'+content;
+								task_id=param.task_id;
+								break;
+							//工单完成
+							case 'WO_WC':
+								content = param.finish_desc;
+								content = '[离线完成工单],完成描述为：'+content;
+								task_id=param.task_id;
+								break;							
+						}
+						//取出task_code和Inform_room
+						var room_code = '';
+						var task_code = '';
+						if(task_id != undefined && task_id !=''){
+							var _sql = "select * from taskmessage where TASK_ID='"+task_id+"'";
+							//20150717，改造sql语句以适应多项目切换，并且前台不处理数据库打开操作，都交给后台
+							//最后的参数代表数据类型，1代表基础数据，2代表业务数据							
+							//window.csq_db.db_open('longfor.db', '', '');
+							//var _data = window.csq_db.db_select(0, _sql, '');
+							var _data = window.csq_db.db_select(0, _sql, '',2);
+							_data = eval("(" + _data + ");");
+							if(_data.length>0){
+								task_code=_data[0].TASK_CODE;
+							}
+							//取出房间信息 
+							var fmcode = _data[0].FM_CODE == undefined?'':_data.FM_CODE;
+							var roomid = _data[0].INFORM_ROOM;
+							if(fmcode==''){
+								_sql1 = "select ROOM_CODE from csm_rm where upper(ROOM_ID)='"+roomid.toUpperCase()+"'";
+								//20150717，改造sql语句以适应多项目切换，并且前台不处理数据库打开操作，都交给后台
+								//最后的参数代表数据类型，1代表基础数据，2代表业务数据								
+								//window.csq_db.db_open('longfor.db', '', '');
+								//var _data1 = window.csq_db.db_select(0, _sql1, '');
+								var _data1 = window.csq_db.db_select(0,_sql1, '',1);
+								_data1 = eval("(" + _data1 + ");");
+								if(_data1.length>0){
+									room_code=_data1[0].ROOM_CODE;
+								}							
+							}				
+						}
+		
+						if(task_code!='' && room_code!=''){
+							htmlStr += "<li id ='" + id + "' data-id='" + id + "' data-status = '" + operate_status + "'>" +
+								"<span class='gd_time'>" + task_code + "<br />"+ room_code + "<br />"+ day + "<br />" + time + "</span>" +
+								"<span class='gd_name'>" + content + "</span>" +
+								"<span class='gd_status'><i>"+covertAction(_type)+"</i></br><i class='" + covertStatusClass(operate_status.toString()) + "'>" + covertStatus(operate_status.toString()) + "</i><br/> ";
+							}else if(task_code!=''){
+							htmlStr += "<li id ='" + id + "' data-id='" + id + "' data-status = '" + operate_status + "'>" +
+								"<span class='gd_time'>" + task_code + "<br />"+ day + "<br />" + time + "</span>" +
+								"<span class='gd_name'>" + content + "</span>" +
+								"<span class='gd_status'><i>"+covertAction(_type)+"</i></br><i class='" + covertStatusClass(operate_status.toString()) + "'>" + covertStatus(operate_status.toString()) + "</i><br/> ";
+							}else{
+								htmlStr += "<li id ='" + id + "' data-id='" + id + "' data-status = '" + operate_status + "'>" +
+									"<span class='gd_time'>" + day + "<br />" + time + "</span>" +
+									"<span class='gd_name'>" + content + "</span>" +
+									"<span class='gd_status'><i>"+covertAction(_type)+"</i></br><i class='" + covertStatusClass(operate_status.toString()) + "'>" + covertStatus(operate_status.toString()) + "</i><br/> ";
+							}
+							if(operate_status !=1){	
+								var param = {
+									"id" : id,
+									"create_time" : create_time
+								};
+								param = JSON.stringify(param) ;
+								htmlStr += "<button onclick='onItemClick(" + param + ")'>提    交</button></span></li>";
+						}
+					}
+					
+					$('#thelist').append(htmlStr);
+					myScroll.refresh();
+				}
+			}
+			
+			function onItemClick(param) {
+				var id=param.id;
+				//var create_time = param.create_time;
+				var _id = param.id;
+				var sql = "select create_time from offlineoperate where operate_status =0 and _id < " + _id;
+				//20150717，改造sql语句以适应多项目切换，并且前台不处理数据库打开操作，都交给后台
+				//最后的参数代表数据类型，1代表基础数据，2代表业务数据				
+				//window.csq_db.db_open('longfor.db', '', '');
+				//var data = window.csq_db.db_select(0, sql, '');
+				var data = window.csq_db.db_select(0,sql, '',2);
+				data = eval("(" + data + ");");
+				if(data.length > 0){
+					window.csq_hw.showToast("请按执行先后顺序操作");
+					return;
+				}
+				window.csq_hw.uploadOfflineDataById(id);
+				currentPage = 1;
+				changeList(getDataList(tab_id));
+				myScroll.refresh();
+			}
+			
+			function covertStatus(status) {
+				
+				switch (status) {
+					case '0':
+						return '待提交';
+					case '1':
+						return '提交成功';
+					case '2':
+						return '提交失败';
+					case '3':
+						return '提交失败';
+				}
+			}
+
+			function covertStatusClass(status) {
+				switch (status) {
+					case '0':
+						return 'gd_daiqiangdan';
+					case '1':
+						return 'gd_yiwancheng';
+					case '2':
+						return 'gd_chulizhong';
+					case '3':
+						return 'gd_chulizhong';
+				}
+			}
+			
+			function covertAction(action) {
+				switch (action) {
+					case 'WO_BS':
+						return '离线报事';
+					case 'WO_QD':
+						return '抢单';
+					case 'WO_PF':
+						return '派单';
+					case 'WO_TH':
+						return '退回';
+					case 'WO_JS':
+						return '离线接收';
+					case 'WO_ZXTJ':
+						return '离线提交';
+					case 'WO_WC':
+						return '离线完成';
+				}
+			}
+			
+			var myScroll,
+				pullDownEl, pullDownOffset,
+				pullUpEl, pullUpOffset,
+				generatedCount = 0;
+
+			function pullDownAction() {
+				currentPage = 1;
+				changeList(getDataList(tab_id));
+				myScroll.refresh();					
+			}
+			
+
+			function pullUpAction() {
+				currentPage++;
+				//appendList(getDataList(tab_id));
+				var _data= getDataList(tab_id);
+				if(_data.length>0){
+					appendList(_data);
+				}
+				else{
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '下面没有了...';
+					currentPage--;
+				}
+				pullUpEl.className = '';
+				myScroll.refresh();				
+			}
+
+			function loaded() {
+				pullDownEl = document.getElementById('pullDown');
+				pullDownOffset = pullDownEl.offsetHeight;
+				pullUpEl = document.getElementById('pullUp');
+				pullUpOffset = pullUpEl.offsetHeight;
+				myScroll = new iScroll('wrapper', {
+					useTransition: true,
+					topOffset: pullDownOffset,
+					onRefresh: function() {
+						if (pullDownEl.className.match('loading')) {
+							pullDownEl.className = '';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+						} else if (pullUpEl.className.match('loading')) {
+							pullUpEl.className = '';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载...';
+						}
+					},
+					onScrollMove: function() {
+						if (this.y > 5 && !pullDownEl.className.match('downflip')) {
+							pullDownEl.className = 'downflip';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '释放刷新...';
+							this.minScrollY = 0;
+						} else if (this.y < 5 && pullDownEl.className.match('downflip')) {
+							pullDownEl.className = '';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+							this.minScrollY = -pullDownOffset;
+						} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('upflip')) {
+							pullUpEl.className = 'upflip';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '释放刷新...';
+							this.maxScrollY = this.maxScrollY;
+						} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('upflip')) {
+							pullUpEl.className = '';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载...';
+							this.maxScrollY = pullUpOffset;
+						}
+					},
+					onScrollEnd: function() {
+						if (pullDownEl.className.match('downflip')) {
+							pullDownEl.className = 'loading';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中请稍候...';
+							pullDownAction(); // Execute custom function (ajax call?)
+						} else if (pullUpEl.className.match('upflip')) {
+							pullUpEl.className = 'loading';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中请稍候...';
+							pullUpAction(); // Execute custom function (ajax call?)
+						}
+					}
+				});				
+				setTimeout(function() {
+					document.getElementById('wrapper').style.left = '0';
+				}, 800);
+			}
+			document.addEventListener('touchmove', function(e) {
+				e.preventDefault();
+			}, false);
+			document.addEventListener('DOMContentLoaded', function() {
+				setTimeout(loaded, 200);
+			}, false);
+		
+		</script>
+
+
+		<style type="text/css" media="all">
+			body,
+			ul,
+			li {
+				padding: 0;
+				margin: 0;
+				border: 0;
+			}
+			body {
+				font-size: 12px;
+				-webkit-user-select: none;
+				-webkit-text-size-adjust: none;
+				font-family: helvetica;
+			}
+			
+			button{
+				width:60px;
+				height: 30px;
+				border: none;
+				box-shadow: none;
+				font-size: 14px;
+				font-family: "Microsoft YaHei";
+				line-height: 0px;
+				color: #fff;
+				background-color: #be8a39;
+				border-radius: 3px;
+			}
+
+			#wrapper {
+				position: absolute;
+				top: 45px;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				background: #F0F0F0;
+				overflow: auto;
+			}
+			#scroller {
+				position: absolute;
+				z-index: 1;
+				/*	-webkit-touch-callout:none;*/
+				
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				width: 100%;
+				padding: 0;
+			}
+			#scroller ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				text-align: left;
+				background: #FFFFFF;
+			}
+			#scroller li {
+				display: table;
+				width: 94%;
+				padding: 0 3%;
+				border-bottom: 1px solid #e0e0e0;
+				font-size: 14px;
+                height:98px;
+			}
+			/*#scroller li:hover {
+				background-color: #E0E0E0;
+			}*/
+			#scroller li span {
+                display: block;
+                float: left;
+			}
+			#scroller li u {
+				display: block;
+				text-decoration: none;
+				padding-top: 16px;
+				color: #666666;
+			}
+			.gd_time {
+				color: #666666;
+				width: 28%;
+				text-align: center;
+                padding-top: 32px;
+
+            }
+			.gd_name {
+				color: #333333;
+                width: 50%;
+                padding-top: 32px;
+                font-size: 16px;
+            }
+			.gd_status {
+				font-size: 14px;
+				padding: 0;
+				width: 22%;
+				text-align: right;
+			}
+            .gd_status .type{
+                line-height: 32px;
+            }
+            .gd_status .zt{
+                clolor:#be8a39;
+            }
+            .gd_status input{width:60px;height:32px;background: #be8a39;color: #fff;border-radius: 3px;-webkit-border-radius: 3px;float: right;margin-top: 8px;}
+            .gd_status input:hover{width:60px;height:32px;background: #be8a39;color: #fff;border-radius: 3px;-webkit-border-radius: 3px;}
+			.gd_daiqiangdan {
+				color: #be8a39;
+			}
+			.gd_daipaidan {
+				color: #00cc48;
+			}
+			.gd_chulizhong {
+				color: #be8a39;
+			}
+			.gd_chaoshi {
+				color: #b60000;
+			}
+			.gd_yiwancheng {
+				color: #009201;
+			}
+			.gd_yijieshu {
+				color: #999999;
+			}
+			.gd_daipingjia {
+				color: #ca65ed;
+			}
+			.gd_jinji {
+				background-color: #ffb8bd;
+			}
+			#myFrame {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			/**
+			 *
+			 * Pull down styles
+			 *
+			 */
+			
+			#pullDown,
+			#pullUp {
+				background: #fff;
+				height: 40px;
+				line-height: 40px;
+				padding: 5px 10px;
+				border-bottom: 1px solid #ccc;
+				font-size: 14px;
+				color: #999999;
+                text-align: center;
+			}
+			#pullDown .pullDownIcon,
+			#pullUp .pullUpIcon {
+				display: block;
+				float: left;
+				width: 40px;
+				height: 40px;
+				background: url(pull-icon@2x.png) 0 0 no-repeat;
+				-webkit-background-size: 40px 80px;
+				background-size: 40px 80px;
+				-webkit-transition-property: -webkit-transform;
+				-webkit-transition-duration: 250ms;
+			}
+			#pullDown .pullDownIcon {
+				-webkit-transform: rotate(0deg) translateZ(0);
+			}
+			#pullUp .pullUpIcon {
+				-webkit-transform: rotate(-180deg) translateZ(0);
+			}
+			#pullDown.flip .pullDownIcon {
+				-webkit-transform: rotate(-180deg) translateZ(0);
+			}
+			#pullUp.flip .pullUpIcon {
+				-webkit-transform: rotate(0deg) translateZ(0);
+			}
+			#pullDown.loading .pullDownIcon,
+			#pullUp.loading .pullUpIcon {
+				background-position: 0 100%;
+				-webkit-transform: rotate(0deg) translateZ(0);
+				-webkit-transition-duration: 0ms;
+				-webkit-animation-name: loading;
+				-webkit-animation-duration: 2s;
+				-webkit-animation-iteration-count: infinite;
+				-webkit-animation-timing-function: linear;
+
+			}
+			@-webkit-keyframes loading {
+				from {
+					-webkit-transform: rotate(0deg) translateZ(0);
+				}
+				to {
+					-webkit-transform: rotate(360deg) translateZ(0);
+				}
+			}
+			
+		</style>
+	</head>
+
+	<body >
+
+       	
+<header>
+    <img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+    <span onclick="backTrack();"></span>
+    <p class="title">离线工单</p>
+    <span class="right"></span>
+ </header>
+       
+	
+		<!-- <div class="black"></div>
+		
+		<div style="width:100%;height:6px;background:#e1e1e1;"></div> -->
+		
+		<div class="headtabs" style="font-size: 16px;">
+			<span class="headtabs_this" data-id="0">待提交</span><span  data-id="1">已提交</span>
+		</div>
+		
+		<div id="wrapper" style="margin-top: 50px;">
+			<div id="scroller">
+				<div id="pullDown">
+					<span class="pullDownIcon"></span>
+					<span class="pullDownLabel">下拉刷新...</span>
+				</div>
+				<ul id="thelist">
+                   <!--  <li data-id="1" data-status = '1'>
+
+                       <span class='gd_time'>
+                          2016-03-16
+<br/>15:04 </span>
+                         <span class='gd_isproduct_name'>[离线工单报事] ，报事内容为：线路老化</span>;
+                        <span class='gd_name'>[离线工单报事] ，报事内容为：线路老化</span>
+                       <span class='gd_status'>
+                           <i class='type'>离线报事</i><br/>
+                           <i class="zt">待提交</i>
+                           <input type="button" value="提交">
+                          <br>
+                           报事工单<br/>
+                           王毅<br/> 工程类
+                       </span>
+
+                    </li> -->
+				</ul>
+				<div id="pullUp">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载...</span>
+				</div>
+			</div>
+		</div>
+	
+	</body>
+
+</html>

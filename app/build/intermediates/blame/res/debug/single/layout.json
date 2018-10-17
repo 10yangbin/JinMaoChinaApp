@@ -1,0 +1,506 @@
+[
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_checkcode_input_box.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_checkcode_input_box.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\my_loading_dialog.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\my_loading_dialog.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_view_title_bar.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_view_title_bar.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_input_box_with_history.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_input_box_with_history.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_start.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\activity_start.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_header.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_navigation_item_header.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_navigation_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_no_password_login.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_no_password_login.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_activity_parent_default_content.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_activity_parent_default_content.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_register_one_step.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_register_one_step.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_qr_scan.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\activity_qr_scan.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\login_activity.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\login_activity.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_icon.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_fragment_pwd.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_fragment_pwd.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_mail_register.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_mail_register.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_input_box.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_input_box.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_title_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\choose_imageview.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\choose_imageview.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_fragment_register_confirm.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_fragment_register_confirm.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\nav_bar_layout.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\nav_bar_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_input_history_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_input_history_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_oauth.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_oauth.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\kinco_ali_sdk_openaccount_login2.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\kinco_ali_sdk_openaccount_login2.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_reset_password.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_reset_password.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_reset_oa_tao_password.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_reset_oa_tao_password.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_change_mobile.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_change_mobile.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_welcome.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\activity_welcome.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_basewebview.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_basewebview.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_show_image.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\activity_show_image.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_fragment_resetpwd.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_fragment_resetpwd.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar_include.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_mobile_country_selector.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_mobile_country_selector.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_menu_item_action_area.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_mail_reset_password.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_mail_reset_password.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_vertical_frame_edge.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_vertical_frame_edge.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_mobile_country_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_mobile_country_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\image_attach_grid_item.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\image_attach_grid_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_sms_code_input_box.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_sms_code_input_box.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_separator.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_fragment_mobile_register.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_fragment_mobile_register.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_login_web_view_widget.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_login_web_view_widget.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_reset_password_fill_password.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_reset_password_fill_password.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_toolbar.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_toolbar.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_register.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_register.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_layout_tab_text.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\notification.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dialog_title.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\dialog_title.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_device_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_device_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\webview.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\webview.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dialog_share.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\dialog_share.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_title.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\activity_title.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\write_pad.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\write_pad.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_image_fragment.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\view_image_fragment.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_popup_menu.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\layout_popup_menu.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\webview_activity.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\webview_activity.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_capture.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\activity_capture.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\mm_title_back_btn.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\mm_title_back_btn.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_title_bar.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_title_bar.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\aliuser_activity_frame_content.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\aliuser_activity_frame_content.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_site.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\item_site.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_pic_activity.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\select_pic_activity.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\link_toast.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\link_toast.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\drop_down_item.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\drop_down_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_web_view_activity.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_web_view_activity.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dialog_commom.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\dialog_commom.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_password_input_box.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_password_input_box.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_text_input_password_icon.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_text_input_password_icon.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_mobile_input_box.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_mobile_input_box.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_navigation_menu.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_device_manager.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_device_manager.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_register_fill_password.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_register_fill_password.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_float_view.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\view_float_view.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_next_step.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_next_step.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_horizontal_frame_edge.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_horizontal_frame_edge.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_fragment_mobile.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_fragment_mobile.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_navigation_item.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_image_activity.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\view_image_activity.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_qr_login.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_qr_login.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_sheet_dialog.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\layout\\design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_fragment_checkcode.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_fragment_checkcode.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_image.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\activity_image.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_imageview.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\select_imageview.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_activity_parent_material.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_activity_parent_material.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_change_site.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\layout\\view_change_site.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\ali_sdk_openaccount_login.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\layout\\ali_sdk_openaccount_login.xml"
+    }
+]

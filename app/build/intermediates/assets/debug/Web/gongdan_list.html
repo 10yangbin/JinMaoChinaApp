@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="css/base.css" />
+<link href="css/gongdan_list.css" rel="stylesheet" type="text/css" />
+
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/gongdan.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/permission.js"></script>
+
+
+<style type="text/css" media="all">
+
+/*顶部的标签切换*/
+
+ .headtabs{height:41px;margin-top:50px;display:box;display:-webkit-box;}
+ .headtabs span{display: block;-webkit-box-flex:1;box-flex:1;text-align: center;
+ font-size: 16px;border-bottom: 1px solid #e0e0e0;height:40px;line-height: 40px;}
+
+ .headtabs .headtabs_this{border-bottom: 1px solid #fccb00;color: #333333}
+  .headtabs span.headtabs_this{line-height:20px;}
+  
+</style>
+
+<body>
+<header>
+    <img class="arrow-left" src="img/arrow_l.png" onclick="backCallBack();">
+    <span onclick="backCallBack();"></span>
+    <p class="title"></p>
+    <span class="right"  style="font-size: 18px;" onclick="goToShaiXuan()">筛选</span>
+ </header>
+
+	<div class="headtabs" style="font-size: 16px;">
+		<span  id="all" data-id="0">全部工单
+		<!-- <br class='brr'><i class='fontStyle'></i> -->
+		</span>
+		<span class="headtabs_this" id='processed' data-id="1">待处理</span>
+		<br class='brr'><i class='fontStyle'></i>
+		<span id='answered' data-id="3">本人处理</span>
+		<span id='processing' data-id="2">处理中</span>
+		<span id='finished' data-id="4">已完成</span>
+	</div>
+	
+	
+	<div id="wrapper" style="margin-top: 46px;">
+		<div id="scroller">
+			<div id="pullDown">
+				<span class="pullDownIcon"></span> <span class="pullDownLabel">下拉刷新...</span>
+			</div>
+			<ul id="thelist">
+
+			</ul>
+			<div id="pullUp">
+				<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载...</span>
+			</div>
+		</div>
+	</div>	
+	
+</body>
+
+</head>
+
+<script type="text/javascript">
+	/*****************************guqiang*****************************IF_RESPONSE_TIMEOUT IF_OPERATION_TIMEOUT***/
+	//工单查询
+	var allData; //所有工单
+	var undoData; //待处理工单
+	var processingData; //处理中工单
+	var monitorData; //本人处理
+	var finishbill; //完成工单
+	
+	var pageCount = 15; //每页15条
+	var currentPage = 1; //当前页  待处理
+	var currentType = 1; //当前页签类型
+	
+	var index_sm_ids = getUrlParamValByKey("index_sm_ids");//工单ids(格式："id1,id2,id3...")，index页扫码功能，扫到相关工单跳转到本页面，并将工单ID以参数形式传进来。
+	var index_sm_ids_andsql = "";//index_sm_ids有数据的话，index_sm_ids_andsql才有值(值为andSQL:and task_id in('id1','id2'....))，否则相反;
+	var needShoew = false;
+	var scanCode = getUrlParamValByKey("ScanCode");
+	var task_type = getUrlParamValByKey("task_type");
+
+    var all = false;
+	var daichuli = false;
+	var benren = false;
+	var chulizhong = false;
+	var yiwancheng = false;
+	
+
+	//去筛选的界面
+	function goToShaiXuan() {
+		window.location.href = "shaixuan.html?task_type="+task_type;
+	}
+
+	if (index_sm_ids) {
+		var ids = index_sm_ids.split(",");
+		if (ids && ids.length > 0) {
+			index_sm_ids_andsql = " and task_id in(";
+			for (var i = 0; i < ids.length; i++) {
+				index_sm_ids_andsql += "'" + ids[i] + "',";
+			}
+			index_sm_ids_andsql = index_sm_ids_andsql.substring(0,
+					index_sm_ids_andsql.length - 1);
+			index_sm_ids_andsql += ") ";
+		}
+	}
+	//回退按钮回调
+	function backCallBack(url) {
+		window.location.href = "gongdan.html";
+	}
+	
+	
+
+	$(function() {
+		
+		//网页初始化
+		if(task_type=='A'){
+			$('.title').text('普通工单');
+		}else if (task_type=='P'){
+			$('.title').text('计划工单');
+		}
+		
+		//alert(getUserCustomerName());
+		
+		//根据FM后台权限配置， 进行界面展示 
+		if(hasPermission(CONST_PERM_GONGDAN_ALL)){
+			all = true;
+		}
+		if(hasPermission(CONST_PERM_GONGDAN_BENREN)){
+			benren = true;
+		}
+		if(hasPermission(CONST_PERM_GONGDAN_DAICHULI)){
+			daichuli = true;
+		}
+		if(hasPermission(CONST_PERM_GONGDAN_CHULIZHONG)){
+			chulizhong = true;
+		}
+		if(hasPermission(CONST_PERM_GONGDAN_YIWANCHENG)){
+			yiwancheng = true;
+		}
+		
+		//自动刷新工单数据 
+		window.csq_data.sendOffLineDataService();
+		
+
+		//标签的显示和隐藏,以及数据初始化
+		$('.headtabs').children().each(function() {
+			var clickSpan = $(this);
+			clickSpan.click(function() {
+				
+				//移除上次点击样式,给当前页签添加
+				$('.headtabs_this').removeClass('headtabs_this');
+				clickSpan.addClass('headtabs_this');
+				//初始化数据
+				var tab_id = clickSpan.data('id'); //页签编号
+				currentPage = 1;
+				currentType = tab_id;
+			
+				switch (tab_id) {
+				case 0: //全部工单
+					if (allData && allData.lenth > 0) {
+						changeList(allData);
+					} else {
+						changeList(getDataList(tab_id));
+					}
+					break;
+				case 1: //待抢单
+					if (undoData && undoData.lenth > 0) {
+						changeList(undoData);
+					} else {
+						changeList(getDataList(tab_id));
+					}
+					break;
+				case 2: //执行中
+					if (processingData && processingData.lenth > 0) {
+						changeList(processingData);
+					} else {
+						changeList(getDataList(tab_id));
+					}
+					break;
+				case 3: //本人处理
+					if (monitorData && monitorData.lenth > 0) {
+						changeList(monitorData);
+					} else {
+						changeList(getDataList(tab_id));
+					}
+					break;
+				case 4: //已完成
+					if (finishbill && finishbill.lenth > 0) {
+						changeList(finishbill);
+					} else {
+						changeList(getDataList(tab_id));
+					}
+					break;
+				}
+			});
+		});
+
+		setTimeout(function() {
+			spanHide();
+		}, 500);
+
+		//获取URL参数里标签页下标的值,
+		//工单数据的初始化
+		setTimeout(function() {
+			var tab_index = getUrlParamValByKey("index");
+		
+			if (tab_index) {
+				currentType = parseInt(tab_index);
+	
+			    if(currentType == 0 && !all && daichuli){
+			    	currentType = 1;
+			    }
+			    if(currentType ==2 && benren && !chulizhong ){
+			    	currentType = 3;
+			    }
+			    if(currentType == 1 && daichuli){
+			    	currentType = 1;
+			    }
+			   
+			}else {
+				if(all){
+					currentType = 0;
+				} else if (daichuli) {
+					currentType = 1;
+				}else if(chulizhong){
+					currentType = 2;
+				} else if(benren){
+					currentType = 3;
+				}else if(yiwancheng){
+					currentType = 4;
+				}
+			}
+		
+
+			var _type = parseInt(currentType);
+
+			switch (_type) {
+			case 0:
+				var _span = $('#all');
+				break;
+			case 1:
+				var _span = $('#processed');
+				break;
+			case 2:
+				var _span = $('#processing');
+				break;
+			case 3:
+				var _span = $('#answered');
+				break;
+			case 4:
+				var _span = $('#finished');
+				break;
+			}
+			
+			$('.headtabs_this').removeClass('headtabs_this');
+			_span.addClass('headtabs_this');
+
+			switch (_type) {
+			case 0: //全部工单
+				if (allData) {
+					changeList(allData);
+				} else {
+					changeList(getDataList(_type));
+				}
+				break;
+			case 1: //待抢单
+				if (undoData) {
+					changeList(undoData);
+				} else {
+					changeList(getDataList(_type));
+				}
+				break;
+			case 2: //执行中
+				if (processingData) {
+					changeList(processingData);
+				} else {
+					changeList(getDataList(_type));
+				}
+				break;
+			case 3: //待拍单
+				if (monitorData) {
+					changeList(monitorData);
+				} else {
+					changeList(getDataList(_type));
+				}
+				break;
+			case 4: //已完成
+				if (finishbill) {
+					changeList(finishbill);
+				} else {
+					changeList(getDataList(_type));
+				}
+				break;
+			}
+		}, 500);
+
+	});// $function结束
+
+	//根据后台配置,在不同角色下,tab标签的显示和隐藏
+	function spanHide() {
+
+		$('.headtabs').children().each(function() {
+			var hideSpan = $(this);
+			var tab_id = hideSpan.data('id'); //页签编号
+			if (tab_id == "0" && !all) {
+				hideSpan.hide();
+			}
+			if (tab_id == "1" && !daichuli) {
+				hideSpan.hide();
+			}
+			if (tab_id == "2" && !chulizhong) {
+				hideSpan.hide();
+			}
+			if (tab_id == "3" && !benren) {
+				hideSpan.hide();
+			}
+			if (tab_id == "4" && !yiwancheng) {
+				hideSpan.hide();
+			}
+		});
+	}
+
+	//获取工单数据,改变list
+	function changeList(data) {
+		//切换标签页或者数据更新完成 ,清空页面 ， 重新拼接数据 
+		$('#thelist').empty();
+		appendList(data);
+		myScroll.refresh();
+	}
+
+	//标签页数据总数  获取工单的时候查数量
+	function covertPanelTotal(tab_id) {
+		var site_id = getUserMsg('site_id'); //获取当前登录用户SITE_ID
+		var user_id = getUserMsg('user_id');
+		
+		var sql = "select count(task_id) as total from taskmessage where 1=1 ";
+		var whereSQL = "";
+		if ("0" == tab_id) { //超时工单
+			sql += " and TASKMESSAGE.site_id='" + site_id + "'  and  TASKMESSAGE.TASK_STATUS in ('Processed','TimeOut','Backed','Processing','Assigned','Completed','Finished','Closed','Answered') ";
+
+		} else if ("1" == tab_id) { //待处理
+			
+			var tuihui = hasPermission(CONST_PERM_GONGDAN_TH);
+			sql += "  and  (TASKMESSAGE.TASK_STATUS  in ('Processed','Backed','TimeOut') ";
+			
+			sql += " ) and TASKMESSAGE.site_id='" + site_id + "'  ";
+			
+		} else if ("2" == tab_id) { //执行中	
+			
+			sql = sql + " and  TASKMESSAGE.site_id='" + site_id + "' and TASKMESSAGE.TASK_STATUS in ('Processing','Assigned','Answered') ";
+			
+
+		} else if ("3" == tab_id) { //本人处理
+			sql = sql
+					+ "and  TASKMESSAGE.site_id='"
+					+ site_id
+					+ "' and TASKMESSAGE.TASK_STATUS in ('Processing','Assigned','Answered') and (TASKMESSAGE.duty_man='"
+					+ user_id + "' or TASKMESSAGE.task_assistor like'%"+ user_id + "%')";
+
+		} else if ("4" == tab_id) { //已完成
+			sql += " and TASKMESSAGE.TASK_STATUS in ('Completed','Finished','Closed')  and TASKMESSAGE.site_id='" + site_id + "' ";
+			
+		}
+       
+		sql += index_sm_ids_andsql;
+
+		//whereStr = "and task_id in (" + all_ids + ")";
+		
+		if(getUserType()==6||getUserType()==7){
+			sql += " and (TASKMESSAGE.INFORM_TYPE IN ('2','3','4'))";
+		}
+
+	    //每个人都可以看到自己的报事单子 
+        //sql += " and (TASKMESSAGE.duty_man='" + user_id + "'  or TASKMESSAGE.INFORM_MAN='" + user_id + "' )";
+  
+        if(task_type=='A'){
+        	sql += " and TASK_TYPE ='A' ";
+		}else if (task_type=='P'){
+			sql += " and TASK_TYPE in('P','X','E')";
+		}
+		
+	    
+
+		var total_data = window.csq_db.db_select(0, sql, '', 2);
+		var count_total = eval("(" + total_data + ");");
+
+		return count_total ? count_total[0].total : 0;
+	}
+
+	//按照页签类型查询列表数据,展示tab标签的工单总数,以及样式的显示和隐藏
+	
+	//  客户只能看到自己公司的  ， 1,2,3，总部，glp，物业经理可以看到全部的。 主管，物业员工只能看到分配给自己的。 
+	//  超时的工单， 退回的工单 
+	function getDataList(tab_id) {
+		var sql;
+		
+		var site_id = getUserMsg('site_id'); //获取当前登录用户SITE_ID
+
+		var user_id = getUserMsg('user_id');
+
+		sql = " select TASKMESSAGE.duty_man_name as duty_man_name,TASKMESSAGE.TASK_TYPE as tasktype,TASKMESSAGE.task_code as task_code,TASKMESSAGE.TASK_ID as id,TASKMESSAGE.INFORM_TIME as time, TASKMESSAGE.SITE_ID as site_id ,"
+				+ " TASKMESSAGE.FM_CODE as fm_code, TASKMESSAGE.TASK_STATUS as status,TASKMESSAGE.INFORM_MAN_NAME as name,TASKMESSAGE.TASK_DESCRIBE as title , TASKMESSAGE.INFORM_ROOM as inform_room"
+				+ ",TASKMESSAGE.PRIORITY as priority , TASKMESSAGE.INFORM_TYPE as infor_type ,TASKMESSAGE.IF_RESPONSE_TIMEOUT as resp_timeout,TASKMESSAGE.IF_OPERATION_TIMEOUT as oper_timeout from TASKMESSAGE where 1=1 ";
+		
+		if ("0" == tab_id) { //
+			sql+=  " and TASKMESSAGE.site_id='" + site_id + "' and  TASKMESSAGE.TASK_STATUS in ('Processed','TimeOut','Backed','Processing','Assigned','Completed','Finished','Closed','Answered') ";
+			
+		} else if ("1" == tab_id) { //待处理
+			
+		
+			var tuihui = hasPermission(CONST_PERM_GONGDAN_TH);
+			sql += "  and  (TASKMESSAGE.TASK_STATUS  in ('Processed','Backed','TimeOut') ";
+			
+			sql += " ) and TASKMESSAGE.site_id='" + site_id + "' ";
+			
+		
+		} else if ("2" == tab_id) { //执行中	
+
+			sql = sql + " and  TASKMESSAGE.site_id='" + site_id + "' and TASKMESSAGE.TASK_STATUS in ('Processing','Assigned','Answered') ";
+			
+
+		} else if ("3" == tab_id) { //本人处理
+			sql = sql
+					+ " and TASKMESSAGE.site_id='"
+					+ site_id
+					+ "' and TASKMESSAGE.TASK_STATUS in ('Processing','Assigned','Answered') and (TASKMESSAGE.duty_man='"
+					+ user_id + "' or TASKMESSAGE.task_assistor like'%"+ user_id + "%')";
+		} else if ("4" == tab_id) { //已完成	
+			
+			
+			sql += " and TASKMESSAGE.TASK_STATUS in ('Completed','Finished','Closed')  and TASKMESSAGE.site_id='" + site_id + "'";
+			/* if(!hasPermission(CONST_PERM_GONGDAN_ALL)){
+				sql += " and TASKMESSAGE.duty_man='" + user_id + "' "
+			} */
+		
+		}
+		sql += index_sm_ids_andsql;
+
+		//whereStr = "and task_id in (" + all_ids + ")";
+
+	    //每个人都可以看到自己的报事单子 
+	    
+		if(getUserType()==6||getUserType()==7){
+			sql += " and (TASKMESSAGE.INFORM_TYPE IN ('2','3','4'))";
+		}
+	    
+        //sql += " and (TASKMESSAGE.duty_man='" + user_id + "'  or TASKMESSAGE.INFORM_MAN='" + user_id + "' )";
+  
+        if(task_type=='A'){
+        	sql += " and TASK_TYPE ='A' ";
+		}else if (task_type=='P'){
+			sql += " and TASK_TYPE in('P','X','E')";
+		}
+
+        if ("4" == tab_id){
+        	sql = sql + " ORDER BY DMS_UPDATE_TIME  desc Limit "
+			+ (currentPage - 1) * pageCount + "," + pageCount;
+        }else{
+        	sql = sql + " ORDER BY INFORM_TIME  desc Limit "
+			+ (currentPage - 1) * pageCount + "," + pageCount;
+        }
+	
+		
+		var data = window.csq_db.db_select(0, sql, '', 2);
+
+		var dat = eval("(" + data + ");");
+		var total = covertPanelTotal(tab_id);
+		$('.headtabs span .fontStyle').remove();
+		$('br.brr').remove();
+		$('.headtabs_this').append(
+				"<br class='brr'><i class='fontStyle'>" + '(' + total + ')'
+						+ "</i>");
+		if (dat.length > 0) {
+			switch (tab_id) { //更新数据缓存
+			case 0:
+				allData = dat;
+				break;
+			case 1:
+				undoData = dat;
+				break;
+			case 2:
+				processingData = dat;
+				break;
+			case 3:
+				monitorData = dat;
+				break;
+			case 4:
+				finishbill = dat;
+				break;
+			}
+		}
+		return dat;
+
+	};
+
+
+	//工单list的数据拼接
+	function appendList(data) {
+		var item;
+		var time;
+		var name;
+		var status;
+		var statusStr;
+		var id;
+		var statusClass;
+		var datetime;
+		var tasktype;
+		var resp_time='';
+		var oper_time='';
+		var infor_type;
+		for (var i = 0; i < data.length; i++) {
+			item = data[i];
+			id = item.id;
+			if (!needShoew) {
+				needShoew = true;
+			}
+			tasktype = item.tasktype;
+			time = item.time;
+			status = item.status;
+			datetime = time.trim().split(' ');
+			var day = datetime[0];
+			time = datetime[1].substr(0, 5);
+			statusClass = covertStatusClass(status);
+			var _status = covertStatus(status);
+			var _tasktype = covertTaskType(tasktype);
+			name = item.title == undefined ? '该工单没有描述信息' : item.title;
+			priority = item.priority == undefined ? '' : item.priority;
+			task_code = item.task_code;
+			
+			duty_man_name = item.name == undefined ? '' : item.name;
+			
+
+			infor_type = item.infor_type == undefined ? '' : item.infor_type;
+
+			if(infor_type){
+				infor_type = covertTaskPriority(infor_type);
+			}
+			
+			var htmlStr = '';
+			htmlStr = "<li data-id='" + id + "' data-status = '" + status
+					+ "' onclick='onItemClick(this)'>";
+			htmlStr = htmlStr + "<span class='gd_time'>" + task_code + "<br />"
+					+ day + "<br />" + time + "<br />" + infor_type+"</span>";
+			//如果产品相关，则将字体颜色设置成红色
+		    //alert(item.resp_timeout+item.oper_timeout);
+			
+		    if(item.resp_timeout==1&&item.oper_timeout==0){//infor_type==1&&
+		    	resp_time='响应超时';
+		    	htmlStr = htmlStr + "<span class='gd_time_out' id='priority_desc'>"+resp_time+ "</span>";
+		    }else if(item.resp_timeout==1&&item.oper_timeout==1){//infor_type==1&&
+		    	oper_time='处理超时';
+		    	htmlStr = htmlStr + "<span class='gd_time_out' id='priority_desc'>"+ oper_time +"</span>";
+		    }else if(item.resp_timeout==0&&item.oper_timeout==1){//infor_type==1&&
+		    	oper_time='处理超时';
+		    	htmlStr = htmlStr + "<span class='gd_time_out' id='priority_desc'>"+ oper_time +"</span>";
+		    }
+		 	if (item.priority == '3') {
+		 		htmlStr = htmlStr + "<span class='gd_name' id='priority_desc'>" + name+ "</span>";
+			} else {
+				htmlStr = htmlStr + "<span class='gd_name' >" + name+ "</span>";
+			}
+
+			htmlStr = htmlStr
+					+ "<span class='gd_status'><i class='" + statusClass + "'>"
+					+ _status + "</i><br/>" + _tasktype + "<br/>"
+					+ duty_man_name + "</span></li>";
+			$('#thelist').append(htmlStr);
+
+		}
+	};
+
+	function onItemClick(obj) {
+		var $this = $(obj);
+		var status = $this.data('status');
+		var taskId = $this.data('id');
+		//window.csq_io.getFileById(taskId);
+		/* var dataImage =window.csq_db.db_select(0,"select * from TASKIMAGE where TYPE = 0 and TASK_ID='" + taskId + "'", '',2);
+		
+		//点击后去下载图片
+		var images = eval("(" + dataImage + ");");
+		var img = "";
+		if (images && images.length >= 1) {
+		    for (var j = 0; j < images.length; j++) {
+		        img = images[j].IMAGE;
+		       window.csq_image.downloadImageWithUrl(img);
+		        
+		    }
+		} */
+
+		//下载计划工单
+		/*  var dataTask =window.csq_db.db_select(0,"select * from TASKMESSAGE where TASK_ID='" + taskId + "'", '',2);
+		 
+		 var dataTaskInfo = eval("(" + dataTask + ");");
+		 if(dataTaskInfo.length>0){
+		     if(dataTaskInfo[0].TASK_TYPE=='P'||dataTaskInfo[0].TASK_TYPE=='C'){
+		        window.csq_data.downloadPlanTask(taskId);
+		     }
+		 } */
+
+		window.location.href = "liucheng.html?index=" + currentType
+				+ "&taskId=" + taskId + "&index_sm_ids=" + index_sm_ids + "&fromWhere=" + 1 + "&task_type=" +task_type;
+
+	}
+	/*************************************************************************************/
+	var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
+
+	function pullDownAction() {
+		window.csq_data.sendOffLineDataService();
+		//下拉刷新数据
+
+		// window.csq_data.newJobData();	
+		currentPage = 1;
+		changeList(getDataList(currentType));
+		myScroll.refresh();
+	}
+
+	function pullUpAction() {
+		//csq_lib.csq_data.sendOffLineDataService();
+		currentPage++;
+		var _data = getDataList(currentType);
+		if (_data.length > 0) {
+			appendList(_data);
+		} else {
+			pullUpEl.querySelector('.pullUpLabel').innerHTML = 'End';
+			currentPage--;
+		}
+		pullUpEl.className = '';
+		myScroll.refresh();
+	}
+	//更新完数据的回调方法
+	function LoadServerDataSuccess() {
+		currentPage = 1;
+		changeList(getDataList(currentType));
+		myScroll.refresh();
+	}
+
+	function loaded() {
+		pullDownEl = document.getElementById('pullDown');
+		pullDownOffset = pullDownEl.offsetHeight;
+		pullUpEl = document.getElementById('pullUp');
+		pullUpOffset = pullUpEl.offsetHeight;
+		// 建立对象  ？？ 
+		myScroll = new iScroll(
+				'wrapper',
+				{
+					useTransition : true,
+					topOffset : pullDownOffset,
+					
+					onRefresh : function() {
+						if (pullDownEl.className.match('loading')) {
+							pullDownEl.className = '';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+						} else if (pullUpEl.className.match('loading')) {
+							pullUpEl.className = '';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载...';
+						}
+					},
+					onScrollMove : function() {
+						if (this.y > 5 && !pullDownEl.className.match('flip')) {
+							pullDownEl.className = 'flip';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '释放刷新...';
+							this.minScrollY = 0;
+						} else if (this.y < 5
+								&& pullDownEl.className.match('flip')) {
+							pullDownEl.className = '';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+							this.minScrollY = -pullDownOffset;
+						} else if (this.y < (this.maxScrollY - 5)
+								&& !pullUpEl.className.match('flip')) {
+							pullUpEl.className = 'flip';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '释放刷新...';
+							this.maxScrollY = this.maxScrollY;
+						} else if (this.y > (this.maxScrollY + 5)
+								&& pullUpEl.className.match('flip')) {
+							pullUpEl.className = '';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载...';
+							this.maxScrollY = pullUpOffset;
+						}
+					},
+					onScrollEnd : function() {
+						if (pullDownEl.className.match('flip')) {
+							pullDownEl.className = 'loading';
+							pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中请稍候...';
+							pullDownAction(); // Execute custom function (ajax call?)
+						} else if (pullUpEl.className.match('flip')) {
+							pullUpEl.className = 'loading';
+							pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中请稍候...';
+							pullUpAction(); // Execute custom function (ajax call?)
+						}
+					}
+		
+		});
+		
+		setTimeout(function() {
+			document.getElementById('wrapper').style.left = '0';
+		}, 800);
+	}
+	
+	//？？ 
+	document.addEventListener('touchmove', function(e) {
+		e.preventDefault();
+	}, false);
+	//？？ 
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(loaded, 200);
+	}, false);
+	
+</script>
+
+</html>

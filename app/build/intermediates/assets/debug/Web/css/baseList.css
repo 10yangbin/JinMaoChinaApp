@@ -1,0 +1,13 @@
+
+/* global logistics properties  customer information list style*/
+
+body{padding-top:48px;}
+.info-list{border-top:4px solid #e5e5e5;}
+.info-list li{padding:8px 4% 15px 4%;border-bottom: 1px solid #e0e0e0;font-size: 14px;}
+.info-list li:after{content: "";display: block;height:0;clear:both;}
+.info-list li .date{color:#999999;text-align: right;line-height: 24px;}
+.info-list li .detail{display: box;display: -webkit-box;}
+.info-list li aside{width: 80px;box-flex:1;-webkit-box-flex:1;}
+.info-list li aside p{line-height: 28px;}
+.info-list li aside img{width:80px;height:80px;float:left;margin:0 8px 8px 0;}
+.info-list .tit{color:#999;line-height: 28px;display: block;margin-right:30px;}

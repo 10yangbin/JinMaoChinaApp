@@ -1,0 +1,509 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+<link href="css/listnav.css" rel="stylesheet" type="text/css">
+<!-- 日期样式 -->
+<link rel="stylesheet" href="DTPicker/css/normalize3.0.2.min.css" />
+<link rel="stylesheet" href="DTPicker/css/style.css?v=7" />
+<link href="DTPicker/css/mobiscroll.css" rel="stylesheet" />
+<link href="DTPicker/css/mobiscroll_date.css" rel="stylesheet" />
+
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+
+<script type="text/javascript" src="js/common.js"></script>
+<!-- 日期插件 -->
+<script src="DTPicker/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="DTPicker/js/mobiscroll.js"></script> 
+
+
+<title>筛选</title>
+</head>
+
+<body id="bodyId">
+	<!--史振伟UI 遮罩-->
+	<div id="fade" class="black_overlay"></div>
+	<header>
+	    <img class="arrow-left" src="img/arrow_l.png" onclick="backCallBack();">
+	    <span onclick="backCallBack();"></span>
+	    <p class="title">工单筛选</p>
+	    <span class="right"></span>
+    </header>
+
+
+	<div class="marg marginTop" style="margin-top: 48px;">
+		<ul class="sgclamin" style="padding-top: 0;">
+		
+
+			<li ><span style="padding-top: 0;"><b>紧急程度</b></span>
+				
+						<div class="form">
+							<form action="">
+								<div class="name-degree checkbox-input" id="priority">
+									<label>
+										<input type="checkbox"  value="3" name="degree"/>
+										<span>紧急</span>
+									</label>
+									<label>
+										<input type="checkbox"  value="1" name="degree"/>
+										<span>不紧急</span>
+									</label>
+								
+								</div>
+							</form>
+						</div>
+			</li>
+			
+			<li class="degree_time">
+				<span style="padding-top: 0;display:inline-block;width:80px;float:left;"><b>报事日期</b></span>
+				<div style="width:60%;float:left;">
+					<input type="text" name="baoshi_start_time" id="baoshi_start_time" readonly class="input" placeholder="请填报事开始日期" />
+					<input type="text" name="baoshi_end_time" id="baoshi_end_time" readonly class="input" placeholder="请填报事结束日期" />
+				</div>
+				
+			</li>
+		
+			<li><span style="padding-top: 0;"><b>工单状态</b></span>
+						<div class="form">
+							<form action="">
+								<div class="name-degree checkbox-input" id="task_status">
+			
+									<label>
+										<input type="checkbox" name="degree" value="Processed" />  
+										<span>待分派</span>
+									</label>
+									<label>
+										<input type="checkbox" name="degree" value="Assigned" />
+										<span>已分派</span>
+									</label>
+							
+									<label>
+										<input type="checkbox" name="degree" value="Completed"/>
+										<span>已完成</span>
+									</label>
+									<label>
+										<input type="checkbox" name="degree" value="Finished" />
+										<span>已完结</span>
+									</label>
+									<label>
+										<input type="checkbox" name="degree" value="TimeOut" />
+										<span>已超时</span>
+									</label>
+									<label>
+										<input type="checkbox" name="degree" value="Backed" />
+										<span>已退回</span>
+									</label>
+									
+								</div>
+							</form>
+						</div>
+					
+				</li>
+		</ul>
+	</div>
+	<div class="bottomBtn">
+		<input type="button" value="确 定" id="tijiao" onclick="shaixuan()" />
+	</div>
+</body>
+
+<script type="text/javascript">
+
+	var index_sm_ids = getUrlParamValByKey("index_sm_ids");
+	var g_tab = getUrlParamValByKey("index"); //全局变量Tab页
+	var task_type = new Array(); //工单类型  TASK_TYPE
+	var priority = new Array();  //紧急程度   PRIORITY
+	var operate_man;  //   DUTY_MAN_NAME
+	var man_id ;
+	var baoshi_start_time;  //INFORM_TIME
+	var baoshi_end_time;
+	var zhixing_time; //
+	var order_status = new Array(); // TASK_STATUS
+	var	duty_man = "";
+	var tabIndex=0;
+	
+	var Order_type = getUrlParamValByKey("task_type");//获取普通和计划工单页签类型
+	
+	 $(function() {
+		
+		
+		$(".pay_list_c1").on(
+				"click",
+				function() {
+					$(this).addClass("on").siblings(".pay_list_c1")
+							.removeClass("on");
+					$(this).next().addClass('onColor').siblings('label')
+							.removeClass('onColor');
+				});
+	    
+		/* if(Order_type=='P') {
+			$(".degree_time").hide();
+		} */
+		
+	 });
+	
+	
+	$(function () {
+		var currYear = (new Date()).getFullYear();	
+		var opt={};
+		opt.date = {preset : 'date'};
+		opt.datetime = {preset : 'datetime'};
+		opt.time = {preset : 'time'};
+		opt.default = {
+			theme: 'android-ics light', //皮肤样式
+			display: 'modal', //显示方式 
+			mode: 'scroller', //日期选择模式
+			dateFormat: 'yyyy-mm-dd',
+			lang: 'zh',
+			showNow: true,
+			nowText: "今天",
+			startYear: currYear - 50, //开始年份
+			endYear: currYear + 10 //结束年份
+		};
+		
+		//  修改 datetime 时间格式为  date
+		$("#baoshi_start_time").mobiscroll($.extend(opt['date'], opt['default']));
+		$("#baoshi_end_time").mobiscroll($.extend(opt['date'], opt['default']));
+		
+		//执行时间暂时不做处理 ,工单表中没有执行时间的数据和字段
+		//$("#zhixing_start_time").mobiscroll($.extend(opt['datetime'], opt['default']));
+		//$("#zhixing_end_time").mobiscroll($.extend(opt['datetime'], opt['default']));
+
+	});
+
+   
+   var tabAll = new Array("Processed","Assigned","Answered","Processing","Completed","Finished","Backed","TimeOut");
+   
+   var tabProcessing = new Array("Assigned","Answered","Processing");
+   
+   var tabend = new Array("Completed","Finished");
+   
+   //  不选择状态的tab跳转
+   function tabFilter(){
+	   
+	   if(order_status && order_status.length>0){ 
+        	
+        	if("Processed"==order_status[0]){//待处理
+        		tabIndex = 1 ;
+        		
+        	}else if(array_in(order_status[0],tabProcessing)){//处理中 
+        		tabIndex = 2 ;
+        		
+        	}else if(array_in(order_status[0],tabend)){
+        		tabIndex = 4 ;
+        	
+        	}else if("TimeOut"==order_status[0]){
+        		tabIndex = 0;
+        	}else if("Backed"==order_status[0]){
+        		tabIndex = 1;
+        	}
+        	
+        	
+		}
+ 
+   }
+	
+	//获取的筛选的条件 
+	
+	function shaixuan(){
+		
+		task_type =[];
+		$("#task_type").find("input[type=checkbox]").each(function (){ 
+			var temp = $(this).attr("checked");
+			if(temp == "checked"){
+				
+				task_type.push($(this).attr("value"));
+				
+				//alert("工单类型"+task_type);
+			}
+			
+		});
+		
+		priority =[];
+		
+		$("#priority").find("input[type=checkbox]").each(function (){ 
+			var temp = $(this).attr("checked");
+			if(temp == "checked"){
+				priority.push($(this).attr("value"));
+				
+				//alert("工单紧急程度"+priority);
+			}
+			
+		});
+		
+        operate_man = $("#duty_name").text();
+		
+	 	baoshi_start_time =$("#baoshi_start_time").val();
+		
+		baoshi_end_time =$("#baoshi_end_time").val();
+		
+		
+		order_status =[];
+		
+		$("#task_status").find("input[type=checkbox]").each(function (){ 
+			var temp = $(this).attr("checked");
+			if(temp == "checked"){
+				order_status.push($(this).attr("value"));
+				
+				//alert("工单状态"+order_status);
+			}
+			
+		});
+		
+		//alert("工单状态"+order_status);
+		
+		//alert("工单chang"+order_status.length);
+		//如果选择了状态去执行
+		if(order_status&&order_status.length>0){
+			tabFilter();
+		}else {
+				tabIndex=0;
+		}
+		
+		
+        var gdsql = "select TASK_ID as task_id from TASKMESSAGE where 1=1 ";
+        
+        var whereSQL="";
+        
+        if(task_type && task_type.length>0){
+        	
+        	task_type = task_type+"";
+        	
+        /* 	alert(typeof task_type);
+        	
+        	alert( task_type.indexOf(","))
+        	
+        	alert("-------"+task_type); */
+        	
+        	task_type  = task_type.replace(",","','");
+        	
+			whereSQL+=" and TASK_TYPE in ('"+task_type+"')";
+		
+		}
+        
+        if(priority && priority.length>0){
+        	
+        	priority = priority+"";
+        	
+        	priority =	priority.replace(",","','");
+        	
+			whereSQL+=" and PRIORITY in ('"+priority+"')";
+		}
+        
+        if(operate_man){      	
+			whereSQL+=" and DUTY_MAN ='"+man_id+"'";
+		 }
+        
+         if(baoshi_start_time && baoshi_end_time ){
+        	
+        	if(baoshi_start_time==baoshi_end_time){
+        		
+        		whereSQL+=" and  ( INFORM_TIME BETWEEN '"+baoshi_start_time+' 00:00'+"' and '"+baoshi_end_time+' 23:59'+"' ) ";
+        		
+        	}else{
+        		
+			  whereSQL+=" and  ( INFORM_TIME BETWEEN '"+baoshi_start_time+' 00:00'+"' and '"+baoshi_end_time+' 23:59'+"' ) ";
+        	} 
+		 }
+         
+         if(!baoshi_start_time && baoshi_end_time ){
+     		whereSQL+=" and  ( INFORM_TIME <'"+baoshi_end_time+' 23:59'+"' ) ";
+     	 }else if(baoshi_start_time && !baoshi_end_time){
+     		whereSQL+=" and  ( INFORM_TIME >'"+baoshi_start_time+' 00:00'+"' ) ";
+     	}
+         
+        if(order_status && order_status.length>0){
+
+        	order_status = order_status+"";
+        
+        	var status_filter="";
+        
+        	for(var i=0;i<order_status.length;i++){
+        		//order_status  = order_status.replace(",","','");
+        		//alert(order_status[i]);
+        		if(order_status[i]==','){
+        			status_filter  += order_status[i].replace(",","','");
+        		}else{
+        			status_filter += order_status[i];
+        		}
+        	}
+			whereSQL+=" and TASK_STATUS in ('"+status_filter+"') ";
+		}
+       
+        //   添加可以处理的判断
+       
+    /*     if(isCanWork){
+        	whereSQL+=" and TASK_ID in(" + all_ids + ") and DEPT_CODE='"+detpCode+"' ";
+        } */
+        
+        gdsql  += whereSQL;
+        
+		//alert(gdsql);
+		
+		var gddata_ids = window.csq_db.db_select(0,gdsql, null,2);
+		
+		//alert(gddata_ids);
+		
+		gddata_ids = eval("("+gddata_ids+");");
+		if(gddata_ids && gddata_ids.length>0){
+			var ids = [];
+			for(var i=0; i<gddata_ids.length; i++){
+				ids.push(gddata_ids[i].task_id);
+			}
+			
+			//alert("标签"+tabIndex);
+			//携带code,跳转到工单列表页面 ,隐藏gongdan_list中所有的或者角色对应的顶部Tab个数。
+			window.location.href = "gongdan_list.html?index_sm_ids="+ids.join(",")+"&index="+tabIndex + "&task_type=" +Order_type;
+		}else{
+			alert("没有查找到符合筛选条件的相关工单");
+		}
+		
+	}
+
+
+	function closeType() {
+		$(".graybg_pd").fadeOut();
+		$(".baoshi_gdlx").slideUp(500);
+		$("#fade").fadeOut();
+		$("#bodyId")[0].style.position = "static";
+	}
+
+	//安卓虚拟返回键   ios 去掉 
+	function backCallBack() {
+
+		if (g_tab != null && g_tab != -1 && g_tab >= 0 && g_tab <= 4) {
+			window.location.href = "gongdan_list.html?index=" + g_tab
+					+ "&index_sm_ids=" + index_sm_ids + "&task_type=" +Order_type;
+		} else {
+			window.location.href = "gongdan_list.html?index_sm_ids="
+					+ index_sm_ids + "&task_type=" +Order_type;
+		}
+	}
+	
+
+</script>
+
+<style>
+body{background: #fff;}
+
+
+.pay_list_c1 {
+	margin-left: 0px;
+	float:left;
+}
+.formStyle .form form label{
+float:left;
+}
+
+.dateTime {
+	display: inline-block ! important;
+	margin-left: 10px;
+	margin-right: 6px;
+	border: 1px solid #e0e0e0;
+	padding-top: 4px ! important;
+	padding: 4px;
+}
+.formStyle .form{
+left:80px;
+}
+/*工单状态样式*/
+.checkbox-input{
+width:80%;
+margin-left:80px;
+}
+
+.checkbox-input label{
+width:100px !important;
+float:left;
+line-height:30px;
+font-size:16px;
+}
+
+.checkbox-input label input[type="checkbox"]{
+appearance:none;
+-webkit-appearance:none;
+background:url("img/inputradio.png") no-repeat;
+background-size:100% 100%;
+float:left;
+width:18px;height:18px;
+margin:6px 0;
+}
+.checkbox-input label input[type="checkbox"]:checked{
+background:url("img/input-radio.png") no-repeat;
+background-size:100% 100%;
+}
+.checkbox-input label span{
+float:left;
+margin-left:10px;
+padding:0;
+}
+
+
+
+.sgclamin li:after{
+content:"";
+display:block;
+clear:both;
+}
+
+.input{
+margin-bottom:5px;
+padding:0 5px;
+}
+
+#duty_name{
+display:inline-block;
+float:left;
+padding-top:0;
+font-size:16px;
+}
+
+
+.sgclamin{
+	padding:15px 0px 86px;
+}
+.gzType_show li:last-child{
+	border-bottom: 1px solid #e0e0e0;
+} 
+.sgclamin li{
+	padding:12px 16px;
+	border-bottom:1px solid #e0e0e0;
+}
+.sgclamin li:last-child{
+	border-bottom:none;
+}
+.sgclamin b{
+	display:block;
+	font-size:15px;
+	color:#333;
+	font-weight:normal;
+} 
+.sgclamin span{
+	display:block;
+	padding-top:10px;
+}
+.sgclamin span a{
+	margin-right:12px;
+}
+.sgclamin span img{
+	width:48px;
+}
+.sgclamin span .webare{
+	width:94%;
+	border:1px solid #e0e0e0;
+	height:80px;
+	line-height:20px;
+	padding:10px 3%;
+	font-family: "Microsoft YaHei";
+}
+
+</style>
+
+
+</html>

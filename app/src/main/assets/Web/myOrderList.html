@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="css/base.css" />
+<link href="css/gongdan_list.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/gongdan.js"></script>
+<script type="text/javascript">
+
+
+    var needShoew = false;
+    
+	var site_id = getUserMsg('site_id'); //获取当前登录用户SITE_ID
+	var user_id = getUserMsg('user_id');
+	
+	var wode_tab = 6;
+	var total;
+
+	$(function() {
+		//initWithPerm();
+		
+		
+        window.csq_data.sendOffLineDataService();
+        setTimeout(function(){
+            getDataList(0);
+        
+            $('.headtabs').children().each(function() {
+                var clickSpan = $(this);
+              //  $('#thelist').empty();
+                clickSpan.click(function() {
+                    $('.headtabs_this').removeClass('headtabs_this');
+                    clickSpan.addClass('headtabs_this');
+                  
+            		/* $('.headtabs span .fontStyle').remove();
+            		$('br.brr').remove();
+            		$('.headtabs_this').append(
+            				"<br class='brr'><i class='fontStyle'>" + '(' + total + ')'
+            						+ "</i>"); */
+                    //初始化数据
+                    var tab_id = clickSpan.data('id'); //页签编号
+                    switch (tab_id) {
+                        case 0: //执行中
+                            getDataList(tab_id) 
+                            break;
+                        case 1: //已完成
+                        	getDataList(tab_id) 
+                            break;
+                    }
+                });
+            });
+            
+         //   appendList(undoData);
+        },200);
+	});
+	
+	//回退按钮回调
+	function backCallBack(url){
+		window.location.href = "wode_shezhi.html";
+	}	
+	function getDataList(tab_id) {
+		//alert("tab_id----"+tab_id);
+		
+        var sql;
+		if(tab_id=='1'){
+		sql= "SELECT TASKMESSAGE.duty_man_name as duty_man_name,TASKMESSAGE.TASK_TYPE as tasktype,TASKMESSAGE.task_code as task_code,TASKMESSAGE.TASK_ID as id,TASKMESSAGE.INFORM_TIME as time, TASKMESSAGE.SITE_ID as site_id ,"
+			+ " TASKMESSAGE.FM_CODE as fm_code, TASKMESSAGE.TASK_STATUS as status,TASKMESSAGE.INFORM_MAN_NAME as name,TASKMESSAGE.TASK_DESCRIBE as title , TASKMESSAGE.INFORM_ROOM as inform_room"
+			+ ",TASKMESSAGE.PRIORITY as priority , TASKMESSAGE.INFORM_TYPE as infor_type FROM TASKMESSAGE WHERE INFORM_MAN='"+user_id+"' and SITE_ID='"+site_id+"' and TASK_STATUS in ('Completed','Finished','Closed') ORDER BY INFORM_TIME desc";
+		}else{
+		sql= "select TASKMESSAGE.duty_man_name as duty_man_name,TASKMESSAGE.TASK_TYPE as tasktype,TASKMESSAGE.task_code as task_code,TASKMESSAGE.TASK_ID as id,TASKMESSAGE.INFORM_TIME as time, TASKMESSAGE.SITE_ID as site_id ,"
+			+ " TASKMESSAGE.FM_CODE as fm_code, TASKMESSAGE.TASK_STATUS as status,TASKMESSAGE.INFORM_MAN_NAME as name,TASKMESSAGE.TASK_DESCRIBE as title , TASKMESSAGE.INFORM_ROOM as inform_room"
+			+ ",TASKMESSAGE.PRIORITY as priority , TASKMESSAGE.INFORM_TYPE as infor_type from TASKMESSAGE WHERE INFORM_MAN='"+user_id+"' and SITE_ID='"+site_id+"' and TASK_STATUS in ('Processed','Processing','Assigned','Answered') ORDER BY INFORM_TIME desc ";
+		}
+		
+		
+		var data =window.csq_db.db_select(0,sql, '',2);
+        
+		//alert(data);
+		
+        var dat = eval("(" + data + ");");
+        
+        //total = dat.length;
+        
+        appendList(dat);
+      
+	};
+	
+	
+	//工单list的数据拼接
+	function appendList(data) {
+		$('#thelist').empty();
+		var item;
+		var time;
+		var name;
+		var status;
+		var statusStr;
+		var id;
+		var statusClass;
+		var datetime;
+		var tasktype;
+		var infor_type;
+		for (var i = 0; i < data.length; i++) {
+			item = data[i];
+			id = item.id;
+			if (!needShoew) {
+				needShoew = true;
+			}
+			tasktype = item.tasktype;
+			time = item.time;
+			status = item.status;
+			datetime = time.trim().split(' ');
+			var day = datetime[0];
+			time = datetime[1].substr(0, 5);
+			statusClass = covertStatusClass(status);
+			var _status = covertStatus(status);
+			var _tasktype = covertTaskType(tasktype);
+			name = item.title == undefined ? '该工单没有描述信息' : item.title;
+			task_code = item.task_code;
+			//获取roomcode
+			var inform_rm = item.inform_room == undefined ? ""
+					: item.inform_room;
+		
+			duty_man_name = item.name == undefined ? '' : item.name;
+
+			infor_type = item.infor_type == undefined ? '' : item.infor_type;
+
+			if(infor_type){
+				infor_type = covertTaskPriority(infor_type);
+			}
+			
+			var htmlStr = '';
+			htmlStr = "<li data-id='" + id + "' data-status = '" + status
+					+ "' onclick='onItemClick(this)'>";
+			htmlStr = htmlStr + "<span class='gd_time'>" + task_code + "<br />"
+					+ day + "<br />" + time + "<br />" + infor_type+"</span>";
+			//如果产品相关，则将字体颜色设置成红色
+		 	if (item.priority == '3') {
+				htmlStr = htmlStr + "<span class='gd_name' id='priority_desc'>" + name
+						+ "</span>";
+			} else {
+				htmlStr = htmlStr + "<span class='gd_name'>" + name + "</span>";
+			}
+			htmlStr = htmlStr
+					+ "<span class='gd_status'><i class='" + statusClass + "'>"
+					+ _status + "</i><br/>" + _tasktype + "<br/>"
+					+ duty_man_name + "</span></li>";
+			$('#thelist').append(htmlStr);
+
+		}
+	};
+
+	function onItemClick(obj) {
+		var $this = $(obj);
+		var status = $this.data('status');
+		var taskId = $this.data('id');
+		window.csq_io.getFileById(taskId);
+
+		window.location.href = "liucheng.html?&taskId=" + taskId + "&index=" + wode_tab;
+
+	}
+
+
+	var myScroll,
+		pullDownEl, pullDownOffset,
+		pullUpEl, pullUpOffset,
+		generatedCount = 0;
+	function loaded() {
+		pullDownEl = document.getElementById('pullDown');
+		pullDownOffset = pullDownEl.offsetHeight;
+		pullUpEl = document.getElementById('pullUp');
+		pullUpOffset = pullUpEl.offsetHeight;
+		myScroll = new iScroll('wrapper', {
+			useTransition: true,
+			topOffset: pullDownOffset,
+			onRefresh: function() {
+				if (pullDownEl.className.match('loading')) {
+					pullDownEl.className = '';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+				} else if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载...';
+				}
+			},
+			onScrollMove: function() {
+				if (this.y > 5 && !pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'flip';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '释放刷新...';
+					this.minScrollY = 0;
+				} else if (this.y < 5 && pullDownEl.className.match('flip')) {
+					pullDownEl.className = '';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+					this.minScrollY = -pullDownOffset;
+				} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '释放刷新...';
+					this.maxScrollY = this.maxScrollY;
+				} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载...';
+					this.maxScrollY = pullUpOffset;
+				}
+			},
+			onScrollEnd: function() {
+				if (pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'loading';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中请稍候...';
+					pullDownAction(); // Execute custom function (ajax call?)
+				} else if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中请稍候...';
+					pullUpAction(); // Execute custom function (ajax call?)
+				}
+			}
+		});
+		setTimeout(function() {
+			document.getElementById('wrapper').style.left = '0';
+		}, 800);
+	}
+	document.addEventListener('touchmove', function(e) {
+		e.preventDefault();
+	}, false);
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(loaded, 200);
+	}, false);
+	
+				function pullDownAction() {
+				
+				window.csq_data.sendOffLineDataService();	
+				myScroll.refresh();
+			}
+			
+
+			function pullUpAction() {
+
+				myScroll.refresh();
+			}
+
+
+</script>
+
+
+<style type="text/css" media="all">
+
+
+.headtabs {
+	height: 41px;
+}
+
+.headtabs span {
+	display: block;
+	float: left;
+	width: 50%;
+	text-align: center;
+	font-size: 16px;
+	border-bottom: 1px solid #e0e0e0;
+	height: 40px;
+	line-height: 40px;
+}
+
+
+.headtabs .headtabs_this {
+	border-bottom: 1px solid #fccb00;
+	color: #333333;
+	background: #fccb00;
+}
+</style>
+</head>
+<body>
+	<div class="headtabs" style="font-size: 16px;">
+		<span class="headtabs_this" data-id='0'>我的报事
+		<br class='brr'><i class='fontStyle'></i>
+		</span>
+		<span data-id='1'>已完成报事</span>
+	</div>
+	<div id="wrapper">
+		<div id="scroller">
+			<div id="pullDown">
+				<span class="pullDownIcon"></span> <span class="pullDownLabel">松手可以刷新哦...</span>
+			</div>
+			<ul id="thelist">
+
+			</ul>
+			<div id="pullUp">
+				<span class="pullUpIcon"></span><span class="pullUpLabel">End...</span>
+			</div>
+		</div>
+	</div>
+
+<div class="footnav">
+			<ul class="marg clearfix">
+				<li ><a href="index.html" > <img
+						src="img/nav_home1.png"><i>首页</i>
+				</a></li>
+				<li ><a href="garden_map.html"> <img
+						src="img/nav_yq1.png"><i>园区</i>
+				</a></li>
+				<li class="footnav_this"><a href="wode_shezhi.html" class="active"> <img src="img/nav_my.png" ><i>我的</i>
+				</a></li>
+			</ul>
+	</div>
+
+</body>
+</html>
+
+

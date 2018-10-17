@@ -1,0 +1,220 @@
+/* wmx80_css  */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, img, dl, dt, dd,
+	table, th, td, blockquote, fieldset, div, strong, label, em {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+ul, ol, li {
+	list-style: none;
+}
+
+input, button {
+	margin: 0;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+	color: #6d6e71;
+	-webkit-transition: all 400ms ease-out;
+	-mozilla-transition: all 400ms ease-out;
+	-ms-transition: all 400ms ease-out;
+	-o-transition: all 400ms ease-out;
+	transition: all 400ms ease-out;
+}
+
+img {
+	-webkit-transition: all 400ms ease-out;
+	-mozilla-transition: all 400ms ease-out;
+	-ms-transition: all 400ms ease-out;
+	-o-transition: all 400ms ease-out;
+	transition: all 400ms ease-out;
+}
+
+a:hover {
+	text-decoration: none;
+	-moz-transition: color .4s linear;
+	-webkit-transition: color .4s linear;
+	transition: color .35s linear;
+}
+
+.fixed-header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99;
+}
+
+.headStyle {
+	color: #fff;
+	float: left;
+	font-size: 16px;
+	text-align: center;
+	width: 60%;
+}
+
+
+input[type="button"] {
+	display: block;
+/* 	width: 48px;
+	height: 48px; */
+	background-color: #fccb00;
+	border: 0 none;
+	border-radius: 2px;
+	color: #FFFFFF;
+	font-family: "Microsoft YaHei";
+}
+
+input[type="button"]:hover {
+	background-color: #fccb00;
+	border: 0 none;
+	outline: none;
+}
+
+body {
+	width: 100%;
+	font: 12px microsoft yahei, arial, helvetica, sans-serif arial,
+		helvetica, sans-serif;
+	margin: 0;
+	color: #6d6e71;
+}
+
+body {
+	font-family: "Microsoft YaHei" ! important;
+	font-size: 14px;
+	background-color: #ebedef;
+}
+
+body, .star_block>p {
+	margin: 0;
+	padding: 0;
+	font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+/* 重置文本格式元素 */
+.star_content p span {
+	font-family: "Microsoft YaHei" ! important;
+	font-size: 14px;
+}
+
+.star_content a {
+	text-decoration: none;
+	cursor: pointer;
+	color: #333333;
+	font-size: 14px;
+}
+
+.star_content a:hover {
+	text-decoration: none;
+}
+
+.star_clearfix::after {
+	display: block;
+	content: '';
+	height: 0;
+	overflow: hidden;
+	clear: both;
+}
+/*星星样式*/
+.star_content {
+	padding: 86px 16px 30px;
+}
+
+.star_content {
+	text-align: center;
+	background-color: #f9fbff;
+	height: 230px;
+	box-sizing: border-box;
+}
+
+.star_block {
+	width: 160px;
+	margin: 0 auto;
+	padding-top: 10px;
+	padding-left: 0px;
+	line-height: 21px;
+}
+
+.star_block .star_score {
+	float: left;
+}
+
+.star_block p, .star_block .star_attitude {
+	padding-left: 20px;
+	line-height: 21px;
+	display: inline-block;
+}
+
+.star_block p span {
+	color: #C00;
+	font-size: 16px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.star_score {
+	background: url(../img/stark2.png);
+	width: 160px;
+	height: 21px;
+	position: relative;
+}
+
+.star_score a {
+	height: 21px;
+	display: block;
+	text-indent: -999em;
+	position: absolute;
+	left: 0;
+}
+
+.star_score a:hover {
+	background: url(../img/stars2.png);
+	left: 0;
+}
+
+.star_score a.clibg {
+	background: url(../img/stars2.png);
+	left: 0;
+}
+
+.module02 {
+	padding: 12px 16px;
+}
+
+textarea {
+	width: 94%;
+	border: 1px solid #e0e0e0;
+	height: 60px;
+	line-height: 20px;
+	padding: 10px 3%;
+	font-family: "Microsoft YaHei";
+	resize: none;
+}
+
+.module03 {
+	font-size: 14px;
+	line-height: 30px;
+	padding: 12px 16px;
+	padding-top: 0px;
+	margin-bottom:40px;
+}
+
+.module03-inner {
+	background-color: #FFFFFF;
+	padding: 4px 3%;
+	color: #000000;
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+}
+
+.valueCounts {
+	display: block;
+	margin-bottom: 6px;
+}
+
+.list {
+	border-bottom: 1px solid #ddd;
+}

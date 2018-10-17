@@ -1,0 +1,776 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/photo_operate_zhixing.js"></script>
+
+<script type="text/javascript" src="js/get_reason_detail_info.js"></script>
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/zhixing.css" rel="stylesheet" type="text/css">
+
+<link href="css/liucheng_pingfen.css" rel="stylesheet" type="text/css" />
+<link href="css/wl_bounced.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/startScore.js"></script>
+
+<link href="css/baoshi.css" rel="stylesheet" type="text/css">
+	
+	<style>
+		.zzbg{position:fixed;left:0;bottom:0;width:100%;background:#fff;z-index:999;display:none;}
+		.bottomBtn{position:static;}
+	</style>
+
+
+<title>工单执行</title>
+<script type="text/javascript">
+			 // 史振伟  
+			var g_tab = -1;
+			var hrefParam = null;
+			var image = ""; //保存本地拍照图片的路径，不同图片间问号分割
+			var inform_room = ""; //保存扫码的位置 信息    
+			var QRResult = ""; //二维码结 果
+			var gongdanId = getUrlParamValByKey("TASK_ID"); //$.getUrlParam('TASK_ID');
+			var causeDetailId = "";
+			var user =null;
+			var userId ='';
+			var userName ='';
+			var kszxTime = "";
+			var isStart = false;//扫码结果是否与工单匹配 注意FM_CODE
+			var isYyxl = false;//是否选择原因细类
+			var uiFlag = 0; //定义现在界面的状态，0--工单执行；1--原因类型;2--选择报事设备;3--暂停
+		
+			var isCanWork= false;//是否收费
+			
+			var  isNeedSign = false; 
+			
+			var money = 0 ;
+			
+			var TaskCode;
+			
+			var task_type = getUrlParamValByKey("task_type");
+			
+			var pingfen_num;
+			var pingfen_comment;
+			
+			var task_reason_main_id;
+			
+			//获取工单信息
+            var task_num;
+            var dms_ifland_wo;
+			
+			//alert(task_type+gongdanId);
+			
+
+			//回退按钮回调
+			function backCallBack(url){
+				//根据现在显示的界面确定要回退到哪一个界面上
+				//用以标识现在的界面，0--工单执行；1--原因类型;2--选择报事设备;3--暂停
+				switch (uiFlag){
+					case 0:
+						backTrack();
+						break;
+					case 1:
+						closeTypeOrDetp();
+						break;
+					case 2:
+						closeSearch();
+						break;
+					case 3:
+						cancelMemo();
+						break;
+				}			
+			}	
+			
+			//初始化加载相关信息
+			function initLoad() {
+				$("#pingfen_task_id").text(task.code);//title显示
+				$("#disposePersonId").text(task.duty_man_name);//处理人NAME
+				$("#startTimeId").text(getProcessingTimeByTaskId());//开始时间
+				$("#completedTimeId").text(getCompletedTimeByTaskId());//完成时间
+			}
+
+			$(function() {
+			
+				 setTimeout(function(){
+					 scoreFun($("#startone"));
+						initLoad();
+		         },500);
+				 
+				    //物料的关闭
+				    $(".wl_bounced .close").click(function(){
+				    	$(".wl_bounced").fadeOut();
+				        $("#fade").fadeOut();
+				        $("#wuliao_list").html("");
+
+				    });
+				
+			});
+						
+	
+			// 是否可以处理工单的开关触发。 
+			function eventchose(id) {
+				if ($(id).attr('class') == "baoshi_kaiguan") {
+					
+					$(id).attr('class', "baoshi_kaiguan_on");
+					isCanWork=true;
+					//$("#er_code").show();
+					
+				}else {
+					$(id).attr('class', "baoshi_kaiguan");
+					isCanWork=false;
+				} 
+				
+			}
+			
+		
+			function getTaskMessage() {
+					var gdztSql = "select * from TASKMESSAGE where task_id = '"+gongdanId+"' ";
+					var gddataJson = window.csq_db.db_select(0,gdztSql, '',2);
+					var gdData = eval("(" + gddataJson + ")");
+					TaskCode = gdData[0].TASK_CODE;
+					task_num = gdData[0].INFORM_TYPE;
+					money = gdData[0].MONEY;
+					task_reason_main_id = gdData[0].REASON_MAIN_ID;
+					dms_ifland_wo = gdData[0].DMS_IFLAND_WO;
+					userName = gdData[0].DUTY_MAN_NAME;
+					//alert(dms_ifland_wo);
+					if(dms_ifland_wo==1){
+						$(".tab_beizhu").text("跟进");
+					}
+					if (task_reason_main_id == undefined||task_num ==3) { 
+						$(".baoshi_yezhu").hide();
+					}
+					if (task_reason_main_id == undefined||task_num ==3) { 
+						$(".baoshi_yezhu").hide();
+					}
+					//alert("money"+money);
+					//alert("money1"+gdData[0].IF_MONEY);
+				}
+			
+	
+				
+			//取消暂停 
+			function cancelMemo(){
+				uiFlag = 0;
+				$("#tijiaoQRKID").fadeOut("slow"); //淡入淡出效果 隐藏div
+				$("#fade").fadeOut();
+				$("#tijiaoMS")[0].style.border = "0px none";		
+			}	
+			
+			//提交暂停
+			function commitMemo(){
+				//工单ID 、流程单ID、 开始时间从上面全局变量拿
+				var tjContent = $("#tijiaoMS").val();
+				if(tjContent){
+					var Param = {
+						'task_id': gongdanId,
+						'pro_desc': tjContent,
+					    "is_product": "",
+						"reason_main_detail_id": causeDetailId,
+						"duty_man": userId,
+						"dms_ifland_wo":dms_ifland_wo,
+						"duty_man_name": userName
+					};
+					var A = "WO_ZXTJ";
+					var ret = window.csq_exe.exec(A, JSON.stringify(Param), null,false);
+					var retObj = eval("(" + ret + ");");
+                  
+					if (retObj) {
+						window.csq_hw.showToast("提交成功");
+						window.location.href = "liucheng.html?taskid=" + gongdanId + "&task_type=" +task_type;
+						
+					}else{
+						window.csq_hw.showToast("提交失败，请稍后重试");
+                        return;
+					}
+					
+					$("#tijiaoQRKID").fadeOut("slow"); //淡入淡出效果 隐藏div
+					$("#fade").fadeOut();
+					$("#tijiaoMS")[0].style.border = "0px none";
+				}else{
+					$("#tijiaoMS")[0].style.border = "1px solid";
+					$("#tijiaoMS")[0].style.borderColor = "red";
+					$("#tijiaoMS").focus();
+				}
+				uiFlag = 0;
+			}
+				
+			//提交 弹出提交确认框。
+			function beizhuShow() {
+				    
+				    $("#tijiaoQRKID").slideDown();
+					$("#fade").fadeIn();
+					$("#bodyId")[0].style.position = "fixed";
+					uiFlag = 3;
+					
+			}
+			
+			//完成
+			function finishTask() {
+				//获取原因系类，没实现
+				var caseDetail = causeDetailId;
+				var picPath = files;
+				//重新处理一下image把其中的-1值去掉
+				m_image = processImage(files);
+				var gdmaioshu = $("#taskDescriptId").val();
+				
+				//alert(isNeedSign);
+				if(task_num ==3 && !isNeedSign){
+					window.csq_hw.showToast("需要客户签字");
+					return;				
+				}
+				
+				if(gdmaioshu.trim()==''){
+					window.csq_hw.showToast("无完成描述信息，请填写后再完成！");
+					return;				
+				}
+				
+			
+
+					var param = {
+						'finish_desc': gdmaioshu, //完成内容描述
+						'task_id': gongdanId,
+						'cus_eval_text': pingfen_comment, //评价内容描述
+						'cus_eval_star': pingfen_num, //评星
+						'borrow': wuliaoList, //   物料  多个 JSON.stringify(wuliaoList)
+						'reason_main_detail_id':caseDetail,
+						'price': money
+					};
+		
+
+				var A = "WO_WC";
+				
+				if(signaturePhoto && signaturePhoto.length>0){
+					if(m_image && m_image.length>0){
+						m_image = m_image+","+signaturePhoto;
+					}
+					else{
+						m_image = signaturePhoto;
+						
+					}
+				}
+				
+				var ret = window.csq_exe.exec(A, JSON.stringify(param), m_image, false);
+				 if (ret) {
+					 window.csq_hw.showToast("更新报事工单，请稍候");
+						//window.csq_data.sendOffLineDataService();
+						//记录原选的Tab页并返回
+						if(g_tab!=null && g_tab!=-1 && g_tab>=0 && g_tab<=4){
+							window.location.href="liucheng.html?taskid=" + gongdanId + "&index="+g_tab + "&task_type=" +task_type;
+						}
+						else{
+							window.location.href = "liucheng.html?taskid=" + gongdanId + "&task_type=" +task_type;
+						}
+						
+						wuliaoList = [] ; //清空物料数据
+  					 
+				}  else{	
+					 window.csq_hw.showToast("提交失败，请稍后重试！");
+						return;
+				}
+			}
+			
+		
+			
+	
+			//史振伟UI 返回    执行页面返回流程页面
+			function backTrack(){
+				saveTemp();
+				redirectLiucheng();
+			}
+			
+			//流程按钮 点击流程按钮跳转到流程页
+			function redirectLiucheng(){
+				//记录原选的Tab页并返回
+				if(g_tab!=null && g_tab!=-1 && g_tab>=0 && g_tab<=4){
+					window.location.href="liucheng.html?taskid=" + gongdanId + "&index="+g_tab + "&task_type=" +task_type;
+				}
+				else{
+					window.location.href = "liucheng.html?taskid=" + gongdanId + "&task_type=" +task_type;
+				}			
+				
+			}
+			
+			function OnLineHelp(){
+				window.location.href = "helplist.html?probtype=" + task_reason_main_id +"&taskid=" +gongdanId;
+			}
+			 
+			$(function() {
+				
+				$("#closeSheBeiId").click(function() {
+					$("#search").hide();
+					//史振伟UI 遮罩
+					$("#fade").fadeOut();
+					$("#bodyId")[0].style.position="static";
+				});
+				
+				getTaskMessage();
+				
+                loadTemp();
+                
+				if(task_num!=3){
+					$("#customer_sign").hide(); 
+				}else{
+					$("#customer_sign").show();
+				}
+				$(".money").hide();
+				$("#wuliaoid").hide();
+				if(task_num==3){
+					$("#wuliaoid").show();
+					 //打正式包注掉收费
+					//$(".money").show();
+					
+					$(".right").text('自处理报事');
+					$(".pazhaoMsClass").show();
+					//$(".money").hide();
+					$(".right").click(function() {
+						saveTemp();
+						window.location.href = "baoshi_manager.html?task_num=" + task_num + "&TASK_ID=" +gongdanId;
+					});
+				}
+			 if(money>0){
+					   $(".money").show();
+					   $("#worktime_money").text(money+" 元");
+				   }else{
+						$(".money").hide();
+				
+		       }
+				
+				$(".close").click(function() { 
+					$(".zzbg").hide();
+					$("#fade").fadeOut();
+					$("#bodyId")[0].style.position="static";
+				});
+              
+			});
+			function  closeSearch(){
+				uiFlag = 0;
+				$("#search").fadeOut();
+				$("#fade").fadeOut();//遮罩消失
+				$("#bodyId")[0].style.position="static";//滚动条恢复
+			}
+			
+			
+			function signatureSlideUp() {
+				window.csq_hw.writeSign(TaskCode,money,33,44);
+			}
+			
+			  var signaturePhoto;
+			function signatureCallback(signaturePath, selection) {
+
+			 	signaturePhoto = signaturePath;
+				var imagePath = signaturePath + '?time=' + (new Date()).valueOf();
+				var select = selection; 
+			
+				var tag = "<img src='" + signaturePath + "'  style='height:30%; width:60% ;  display:block;' ";//margin:0 auto;
+				tag = tag + ' ontouchstart="gtouchstart()" ontouchmove="gtouchmove()" ontouchend="gtouchend()" onclick=showPic("' + signaturePath+ '"); />';
+				$("#picture_hand").html(tag);
+				
+				isNeedSign = true;
+				
+				if(isCanWork){
+				 $(".scan_pup").show();
+				}else{
+				 $(".pinjia_pup").show();
+				}
+				
+	
+			}
+			
+			function submitStar(){
+				 pingfen_comment = $("#pingfen_comment").val();  
+				 pingfen_num =     getScore(); 
+				 $(".zzbg").hide();
+			}
+			
+			function submitScan(){
+				 pingfen_comment = $("#pingfen_comment").val();  
+				 pingfen_num =     getScore(); 
+				 $(".scan_pup").hide();
+				 $(".pinjia_pup").show();
+			}
+			
+			var wuliao ;  //用于保存每条物料的数据
+			var wuliaoList =new Array();  //用于保存物料的数组对象
+			var useNums = new Array();
+			
+			//物料按钮的弹窗事件
+			 function selectWuliao() {
+			
+				 $(".wl_bounced").fadeIn();
+			    // $("#fade").fadeIn();
+				
+			    $("#wuliao_list").empty();
+			 
+			 var user_name = window.csq_hw.getCurrentUserCode();
+			
+			 	
+			 var borrowSql = " select * from borrow b where b.USER_NAME='"
+			 			+ user_name + "' and b.DATA_STATUS = 1 and b.NUMBERS > 0 ";
+			 	
+			 	var borrowJson = window.csq_db.db_select(0, borrowSql, '', 2);
+			 	//alert(borrowJson);
+			 	//alert(useNums);
+			 	
+			 	var borrowData = eval("(" + borrowJson + ")");
+			 	
+			  var borrowTag  ="";
+			 	
+			 	if (borrowData.length > 0) {
+			 		for (var i = 0; i < borrowData.length; i++) {
+			 			var partId = borrowData[i].PART_ID;
+			 			var partName = borrowData[i].DESCRIPTION;
+			 			var partNum =  borrowData[i].NUMBERS;
+			 			var Id = borrowData[i].ID;
+			 			
+			 	        var  nums = (!useNums[i])?0:useNums[i]; //保存使用数量,用于数据恢复
+			 	       
+			 	       // alert("使用数量"+nums);
+			 	        
+			 			 borrowTag = '<li><span class="wl_name">'+partName+'</span><span class="usable_num">'+partNum+'</span><span class="use_num"><section class="jiajian"><i class="jian">-</i><input data-id='+Id+' data-partid='+partId+' type="number" value="'+nums+'"/> <i class="jia">+</i></section></span></li>' ;
+			 			$("#wuliao_list").append(borrowTag);
+			 			
+			 		}
+			 		//alert("清空1"+useNums);
+			 		useNums =[];	 //使用完数据,清空
+			 		//alert("清空"+useNums);
+			 		
+			 	} else {
+			 		var borrowTag = '<li style="margin-left:20px;margin-right:20px;"><span class="num_name">您没有可选择的物料......</span></li>';
+			 		$("#wuliao_list").append(borrowTag);
+			 	} 
+			 		
+			 		//减号点击
+				     $(".jiajian .jian").click(function(){
+				         var numNow=$(this).parent(".jiajian").find("input").val();
+				         numNow--;
+				         if(numNow<=0){
+				             numNow=0;
+				         }
+				         $(this).parent(".jiajian").find("input").val(numNow);
+				     });
+			 		
+			 		
+			 		 //加号点击
+				     $(".jiajian .jia").click(function(){
+				         var numNow=$(this).parent(".jiajian").find("input").val();
+				         var numUse=parseInt($(this).parents("li").find(".usable_num").text());
+				         numNow++;
+				         if(numNow>numUse){
+				             numNow=numUse;
+				         }
+				         $(this).parent(".jiajian").find("input").val(numNow);
+				     });
+			 		 
+				       wuliaoList = [] ;//如果重新选择物料 ,清空数据
+					   $(".sub").click(function(){
+							//wuliaoList = [] ;//如果重新选择物料 ,清空数据
+					    	$("#wuliao_list").find("input[type=number]").each(function (){ 
+								var temp = $(this).attr("value");
+								if(temp>0){
+									//alert("num"+$(this).data("value"));
+									
+									wuliao ={"id":$(this).data('id'),"numbers":$(this).attr("value"),"part_id":$(this).data('partid')};
+									
+									wuliaoList.push(wuliao);
+									
+									//alert(JSON.stringify(wuliao));
+								 
+									useNums.push(temp); //保存使用和未使用的数量
+								}else{
+									useNums.push(temp); //保存使用和未使用的数量
+								}
+							});
+					    	
+					    	//alert(JSON.stringify(wuliaoList));
+					    	 $(".wl_bounced").fadeOut();
+						        $("#fade").fadeOut();
+						      $("#wuliao_list").html("");
+					       
+					  });
+
+			     $(".jiajian input").blur(function(){
+			         var numUse=parseInt($(this).parents("li").find(".usable_num").text());
+			         if($(this).val()<=0){
+			             $(this).val(0);
+			         }else if($(this).val()>numUse){
+			             $(this).val(numUse);
+			         }
+
+			     });
+			    
+			    //物料的确定提交, 完成之后清空物料数据
+  
+			    //物料的关闭
+			    $(".wl_bounced .close").click(function(){
+			    	$(".wl_bounced").fadeOut();
+			        $("#fade").fadeOut();
+			        $("#wuliao_list").html("");
+
+			    });
+			}
+		
+
+	
+
+		</script>
+
+<script type="text/javascript">
+            $(function(){
+        
+            	
+              $("#zzbg").css("height",$(window).height());
+              
+              
+              $("#zzbg img").click(function(){
+                                   $("#zzbg").css("display","none");
+                                   });
+             
+               //$(".money input[type='number']").keyup(function(){
+                  //var money1=parseFloat( $("#money_need input").val());
+                 // var money2=parseFloat( $("#money_need2 input").val());
+                  //money = money1+money2;
+                 // $("#scan_money").text("支付金额 :"+　　　money);
+                 // $("#money_need3 input").val(money1+money2);
+                  //money = money1;
+             // }); 
+            
+              
+              });
+   
+              
+            </script>
+
+<style>
+#zzbg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 999;
+	display: none;
+}
+
+#zzbg img {
+	width: 80%;
+	position: absolute;
+	left: 10%;
+	top: 50%;
+}
+
+.liucheng_tanchu_tijiao {
+	margin-top: 10px;
+}
+
+.liucheng_tanchu {
+	padding-bottom: 10px;
+}
+</style>
+
+<style type="text/css">
+/*史振伟UI 弹框字体样式*/
+.fontStyle {
+	color: #006e92;
+	font-size: 16px;
+	border-bottom: 1px solid #e0e0e0
+}
+</style>
+</head>
+
+<body id="bodyId">
+	<!--史振伟UI 遮罩-->
+	<div id="fade" class="black_overlay"></div>
+	
+	 <header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		 <span onclick="backTrack();"></span>
+		<p class="title">工单执行</p>
+		<span class="right" style="font-size: 16px;"></span>
+	</header>
+
+
+
+	<!--弹出_暂停-->
+	<div class="liucheng_tanchu" id="tijiaoQRKID"
+		style="display: none; z-index: 9001; opacity: 1;">
+		<div class="tit">
+			<strong><span class="tab_beizhu">暂停</span></strong><i onclick="cancelMemo();"
+				class="close"><span>关闭</span></i>
+		</div>
+		<div class="liucheng_tanchu_shuru">
+			<textarea id='tijiaoMS' placeholder="请输入信息…"></textarea>
+		</div>
+		<div class="liucheng_tanchu_tijiao">
+			<button style="width: 50%;" onclick="commitMemo();" class="bottonStyle button_left">确认</button>
+			<button style="width: 50%;" onclick="cancelMemo();" class="bottonStyle button_right">取消</button>
+		</div>
+	</div>
+
+	<div class="gondanzhixing" >
+		<ul class="list">
+		
+		   <li class="baoshi_yezhu repair_unit" id="car_type" onclick="bsTypeShowDetailThridShow();">
+				<div class="baoshi_yezhu_biaoti">
+					<i style="font-size: 16px;">故障分类</i>
+				</div>
+                <div class="baoshi_yezhu_input">
+                   <span class="unit_name" id="bstypedisplay"></span>
+                </div>
+			</li>	
+			
+		<!-- 	<li class="baoshi_kaiguan money" id="isCanWork" style="margin-top: 50px; border-bottom: none; display:block;" onclick="eventchose('#isCanWork')">
+			现金/扫码
+			</li> -->
+		
+           
+		 <!-- 	<li class="pazhaoMsClass money" id="money_need2"  style="border-bottom: none; display:block;" >物料费用
+              <input type="number" name= "money2" style="margin-left: 40px;padding:8px;" value="0" />
+			</li>
+			<li class="pazhaoMsClass money" id="money_need3"  style="border-bottom: none; display:block;" >合计费用
+              <input type="number" name= "money3" style="margin-left: 40px;padding:8px;" value="0" onkeydown="keydown()"/>
+			</li> -->
+
+			<!-----------------------史振伟------------------------------->
+			<li class="pazhaoMsClass" style="overflow: hidden;">拍照
+				<div class="list_button">
+					
+					<span id="Photo"> <a href="javascript:;"
+						onclick="toPhoto();"><img src="img/btn_add.png"></a></span>
+					<div class="cl"></div>
+				</div>
+			</li>
+
+			<li class="pazhaoMsClass" style="border-bottom: none;">完成描述 <textarea
+					placeholder="请输入完成描述…" id="taskDescriptId"></textarea>
+				<div class="cl"></div>
+			</li>
+			<li class="pazhaoMsClass money" id="money_need"  style=" border-bottom: none; display:block;" >工时费用
+              <span  id="worktime_money" style="margin-left: 40px;padding:8px;" ></span>
+			</li>
+			
+			 <li class="pazhaoMsClass" id="customer_sign" style=" margin-bottom:100px;">客户签名
+             <span style=" margin-right: 12px; float: right;" onclick="signatureSlideUp();"> 请客户签字
+              <img src="img/arrow_r.png"  width="12" height="21" />
+             </span>
+             
+              <a id="picture_hand" ><!-- <img src="img/km_ercode.png"  style="height:30%; width:60% ;  margin:0 auto; display:block;" /> --></a>
+			
+			 <!--  <a style="margin-top:5px;display:none;" id="er_code"><img  src="img/demo.png" width="80" height="80"/></a> -->
+			</li>
+			
+				
+			<!-- <li style="text-align:center;margin-top:5px;display:none;" id="er_code">
+      		<img src="img/km_ercode.png" width="80" height="80"/>
+            </li> -->
+
+		
+		</ul>
+	</div>
+	
+
+	
+	<div class="foot_menu" id="foot_menu_m_PR" >
+	<a href="javascript:void(0);" onclick="OnLineHelp();">帮助</a>
+	<a href="javascript:void(0);" id="liuchengtijiaoId" onclick="beizhuShow();" class="tab_beizhu">暂停</a>
+	<!-- <a href="javascript:void(0);" id="save2cache" onclick="saveTemp();">缓存</a>  -->
+	<a href="javascript:void(0);" id="wuliaoid" onclick="selectWuliao()">物料</a>
+	<a href="javascript:void(0);" id="wanchengId" onclick="finishTask();">完成</a>  
+	</div>
+	
+	<div class="zzbg liucheng_tanchu pinjia_pup">
+		    
+		 <div class="tit">
+			<strong><span>客户评价</span></strong><i
+				class="close"><span>关闭</span></i>
+		</div>   
+		<div class="star_content" style="">
+			<p>
+				<span style="color: #fccb00; font-size: 18px;">请客户进行评价</span>
+			</p>
+			<div id="startone" class="star_block star_clearfix">
+				<!-- <p><span class="star_fenshu"></span></p> -->
+				<span class="valueCounts" id="star_fenshu_id"
+					style="font-size: 16px; color: rgb(215, 26, 69);">0分</span>
+				<div class="star_score"></div>
+
+				<div class="star_attitude"></div>
+			</div>
+		</div>
+
+		<div class="module02">
+			<textarea name="pingfen_comment" id="pingfen_comment"
+				placeholder="请输入评价内容"></textarea>
+		</div>
+
+		<div class="bottomBtn">
+			<input type="button" value="完成评价" onclick="submitStar();">
+		</div>
+	</div>
+	
+	    <!--弹出_物料-->
+    <div class="wl_bounced"  style="display: none; z-index:9001; opacity: 1;">
+        <div class="tit">
+            <span>物料</span>
+            <i onclick="cancelMemo();" class="close">关闭</i>
+        </div>
+        <div class="wl_con">
+            <ul id="wuliao_list">
+                <li class="wl_tit">
+                    <span class="wl_name">物料名称</span>
+                    <span class="usable_num">可用数量</span>
+                    <span class="use_num">使用数量</span>
+                </li>
+               <!--  <li>
+                    <span class="wl_name">超级变压器-RZ10001</span>
+                    <span class="usable_num">5</span>
+                    <span class="use_num">
+                        <section class="jiajian">
+                            <i class="jian">-</i>
+                            <input type="text" value="0">
+                            <i class="jia">+</i>
+                        </section>
+                    </span>
+                </li> -->
+
+            </ul>
+        </div>
+        <div class="sub">
+            <button style="vertical-align: middle">确认</button>
+        </div>
+    </div>
+    
+    <!--弹出_原因类型-->
+	<div class="baoshi_gdlx" id="bstypeselect"
+		style="display: none; z-index: 9001; opacity: 1;">
+		
+		<div class="tit">
+			<strong><span>选择原因细类</span></strong><i id="close_01" class="close">
+			<span style="color: #fccb00;" onclick="closeTypeOrDetp()">关闭</span></i>
+		</div>
+
+		<div class="liucheng_paidan" style="height: 320px;">
+			<ul id="bs_type_list_id" class="paidan_danren"
+				style="padding-bottom: 0px;">
+				<!--弹出_工单类型-->
+				<!-- <li><strong>土建及装修</strong><i><input name="gdtype" type="radio" value='GZ1001'/></i>
+					</li> -->
+			</ul>
+		</div>
+		
+	</div>
+
+</body>
+
+</html>

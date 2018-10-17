@@ -1,0 +1,86 @@
+[
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_out.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\anim\\design_fab_out.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\logo_anim.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\anim\\logo_anim.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\dialog_enter_anim.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\anim\\dialog_enter_anim.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\cycle_7.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\anim\\cycle_7.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\design_fab_in.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-25.1.0.aar\\9033653a821e495bf5d3c222f593c981\\res\\anim\\design_fab_in.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.0.aar\\8664e6d3dbf60c57626e2185c3cd2149\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\dialog_exit_anim.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\anim\\dialog_exit_anim.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\anim\\shake.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\anim\\shake.xml"
+    }
+]

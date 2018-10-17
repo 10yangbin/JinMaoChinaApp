@@ -1,0 +1,91 @@
+.wl_bounced {
+    position: fixed;
+    bottom: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    display: none;
+    width: 100%;
+    left: 0;
+}
+.wl_bounced .tit {
+    display: block;
+    height: 48px;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+    background-color: #fff;
+    color: #fccb00;
+    padding: 0 15px;
+}
+.wl_bounced .tit span{
+    display: block;
+    line-height: 48px;
+    font-size: 18px;
+    font-weight: normal;
+}
+.wl_bounced  .tit .close {
+    line-height: 48px;
+    font-size: 14px;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 0;
+}
+.wl_con ul{
+    width:100%;
+    max-height:200px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.wl_con li{line-height: 40px;border-bottom:1px solid #e0e0e0;margin: 0 15px;
+}
+.wl_con li:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.wl_con li span{
+    display: block;
+    box-sizing: border-box;
+    float:left;
+    text-align: center;
+    position:relative;
+    overflow: hidden;
+}
+.wl_con li .wl_name{width:40%;}
+.wl_con li .usable_num{width:20%;}
+.wl_con li .use_num{width:40%;}
+.wl_con .use_num{
+    position:relative;
+    height:41px;
+}
+.wl_con .jiajian{
+    width: 82px;
+    border: 1px solid #e0e0e0;
+    line-height: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+}
+.wl_con .jia,.wl_con .jian{
+    width: 24px;
+    float: left;
+}
+.wl_con .jiajian input{
+    width:30px;
+    border: none;
+    border-left:1px solid #e0e0e0;
+    border-right:1px solid #e0e0e0;
+    float: left;
+    background: none;
+    height:30px;
+    outline: none;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.wl_bounced .sub{width:100%;height:40px;text-align: center;margin:10px 0;}
+.wl_bounced .sub button{width:50%;height:40px;background: #fccb00;color:#fff;border:none;outline:none;font-size: 16px;}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/ali_user_register_confirm_mobile_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/ali_sdk_openaccount_text_not_register"/>
+
+    <TextView
+        android:id="@+id/ali_user_confirm_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/ali_sdk_openaccount_text_whether_to_register"
+        android:layout_below="@id/ali_user_register_confirm_mobile_textview"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/ali_user_register_confirm_protocol"
+        android:layout_below="@id/ali_user_confirm_textview"
+        android:text="@string/ali_sdk_openaccount_text_protocol"
+        android:paddingTop="40dp"/>
+    <Button
+        android:id="@+id/ali_user_register_confirm_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ali_sdk_openaccount_text_confirm_register"
+        android:layout_below="@id/ali_user_register_confirm_protocol"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/ali_sdk_openaccount_bg_main_button"
+        android:textColor="@color/ali_sdk_openaccount_button_text"
+        />
+
+    <Button
+        android:id="@+id/ali_user_register_confirm_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ali_user_register_confirm_next"
+        android:text="@string/ali_sdk_openaccount_text_exit_register"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/ali_sdk_openaccount_bg_main_button_white"
+        android:textColor="@color/ali_sdk_openaccount_text_input"
+        android:layout_marginTop="20dp"
+        />
+</RelativeLayout>

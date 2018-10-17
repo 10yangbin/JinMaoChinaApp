@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>工单评分</title>
+<link href="css/liucheng_pingfen.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/startScore.js"></script>
+<link rel="stylesheet" href="css/base.css" />
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript">
+	var liucheng_index = getUrlParamValByKey("index");//流程页的跳转参数index,回跳带回去
+	var index_sm_ids = getUrlParamValByKey("index_sm_ids");//流程页的跳转参数index_sm_ids，回跳带回去
+	var taskId = getUrlParamValByKey("taskId");//流程页的跳转参数index_sm_ids，回跳带回去
+	var task = getTaskMessage();//获取工单信息
+	var task_type = getUrlParamValByKey("task_type");
+	var evalType = getUrlParamValByKey("evalType"); //评价类别   1 主管，管家评价  2 客户评价
+
+	//alert(evalType);
+	//获取该工单记录
+	function getTaskMessage() {
+		if (!taskId) {
+			taskId = getUrlParamValByKey(taskId);
+		}
+		if (taskId) {
+			var data = window.csq_db.db_select(0,"select DUTY_MAN_NAME as duty_man_name,TASK_CODE as code from TASKMESSAGE where TASK_ID='"+ taskId + "'", '', 2);
+			var data = eval("(" + data + ")");
+			if (data && data.length > 0) {
+				return data[0];
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	//获取该工单的开始处理时间
+	function getProcessingTimeByTaskId() {
+		if (!taskId) {
+			taskId = getUrlParamValByKey(taskId);
+		}
+		if (taskId) {
+			var sql = " select PROCESS_TIME as time from TASK_PROCESS where TASK_ID ='"
+					+ taskId
+					+ "' and TASK_STATUS in ('Processing','Assigned','Answered') order by PROCESS_TIME limit 0,1 ";
+			var data = window.csq_db.db_select(0, sql, '', 2);
+			var data = eval("(" + data + ")");
+			if (data && data.length > 0) {
+				return data[0].time;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
+	//获取该工单的完成时间
+	function getCompletedTimeByTaskId() {
+		if (!taskId) {
+			taskId = getUrlParamValByKey(taskId);
+		}
+		if (taskId) {
+			var sql = " select PROCESS_TIME as time from TASK_PROCESS where TASK_ID ='"
+					+ taskId
+					+ "' and TASK_STATUS = 'Completed' order by PROCESS_TIME limit 0,1 ";
+			var data = window.csq_db.db_select(0, sql, '', 2);
+			var data = eval("(" + data + ")");
+			if (data && data.length > 0) {
+				return data[0].time;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	//返回到流程页
+	function backLiuchengPage() {
+		//这一步跳转如果报错，就去流程页查看参数有没有做非空判断。 
+		window.location.href = "liucheng.html?index=" + liucheng_index
+				+ "&index_sm_ids=" + index_sm_ids + "&taskId=" + taskId + "&task_type=" +task_type;
+	}
+	//完成评价操作
+	function completeEstimate() {
+		var pingfen_comment = $("#pingfen_comment").val();  
+		var pingfen_num =   getScore();      
+
+		if (!pingfen_num) {
+			window.csq_hw.showToast("请填写评分");
+			return;
+		}
+
+		// 如果评价内容为空 ， 并且是主管，管家评价
+		if (!pingfen_comment&&evalType==1) {
+			window.csq_hw.showToast("请填写评价描述");
+			return;
+		}
+		
+		if(pingfen_comment.length>17){
+			window.csq_hw.showToast("描述内容超过17个字的最大限度,请重新填写。");
+			return;
+		}
+
+		var Param = { 
+			'task_id' : taskId,
+			'evalType' : evalType,
+			'customer_evaluate' : pingfen_comment, //内容
+			"customer_idea" : pingfen_num
+		//评分
+
+		};
+		var A = "/assess/star";
+		var ret = window.csq_exe.exec(A, JSON.stringify(Param), null, false);
+		var retObj = eval("(" + ret + ");");
+		
+		if (retObj) {
+			window.csq_hw.showToast("评价成功 ! ^_^ ");
+			
+			//这一步跳转如果报错，就去流程页查看参数有没有做非空判断。 
+			window.location.href = "liucheng.html?index=" + liucheng_index
+					+ "&index_sm_ids=" + index_sm_ids + "&taskId=" + taskId + "&task_type=" +task_type;
+		
+		}else {
+			window.csq_hw.showToast("评价失败，请稍后重试");
+			return;
+		}
+		
+		
+	}
+	
+	
+	//初始化加载相关信息
+	function initLoad() {
+		if(evalType==2){
+			$("#pingfen_task_id").text('客户评价');
+		}else {
+		    $("#pingfen_task_id").text(task.code);//title显示
+		}
+		$("#disposePersonId").text(task.duty_man_name);//处理人NAME
+		$("#startTimeId").text(getProcessingTimeByTaskId());//开始时间
+		$("#completedTimeId").text(getCompletedTimeByTaskId());//完成时间
+	}
+
+	$(function() {
+	
+		 setTimeout(function(){
+			 scoreFun($("#startone"));
+			 getTaskMessage();
+			 getProcessingTimeByTaskId();
+			 getCompletedTimeByTaskId();
+				initLoad();
+         },500);
+		
+	});
+</script>
+</head>
+
+<body>
+	
+	
+	<header>
+    <img class="arrow-left" src="img/arrow_l.png" onclick="backLiuchengPage();">
+    <span onclick="backLiuchengPage();"></span>
+    <p class="title" id="pingfen_task_id"></p>
+    <span class="right"></span>
+   </header>
+       
+
+	<div class="star_content" style="">
+		<p>
+			<span style="color: #be8a39; font-size: 18px;">工单评分</span>
+		</p>
+		<div id="startone" class="star_block star_clearfix">
+			<!-- <p><span class="star_fenshu"></span></p> -->
+			<span class="valueCounts" id="star_fenshu_id"
+				style="font-size: 16px; color: rgb(215, 26, 69);">0分</span>
+			<div class="star_score"></div>
+
+			<div class="star_attitude"></div>
+		</div>
+	</div>
+
+	<div class="module02">
+		<textarea name="pingfen_comment" id="pingfen_comment"
+			placeholder="请输入评价内容"></textarea>
+	</div>
+	<div class="module02 module03">
+		<div class="module03-inner">
+			<div class="list">
+				处理人：<span id="disposePersonId"></span>
+			</div>
+			<div class="list">
+				开始时间：<span id="startTimeId"></span>
+			</div>
+			<div>
+				完成时间：<span id="completedTimeId"></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="bottomBtn">
+		<input type="button" value="完成评价" onclick="completeEstimate();">
+	</div>
+</body>
+</html>

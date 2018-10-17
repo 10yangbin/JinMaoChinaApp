@@ -1,0 +1,2719 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="format-detection" content="email=no" />
+        <meta name="format-detection" content="address=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <title>工单</title>
+        <link type="text/css" rel="stylesheet" href="../css/gongdan_jihua.css">
+        <script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
+        <script type="text/javascript" src="../js/gongdan.js"></script>
+        <script type="text/javascript" src="../js/sqlite.js"></script>
+        <link href="../css/wl_bounced.css" rel="stylesheet" type="text/css">
+        <script src="../js/newpmorder.js"></script>
+        <style>
+            
+			.wHeader {
+                clear: both;
+                display: table;
+                background: #be8a39;
+                height: 44px;
+                width: 100%;
+                position:fixed;
+                left:0;
+                top:0;
+                z-index: 999;
+            }
+
+            .wHeader a {
+                display: table-cell;
+                width: 44px;
+                text-align: center;
+                vertical-align: middle;
+            }
+            .wHeader h1 {
+                display: table-cell;
+                text-align: center;
+                font-size: 16px;
+                color: #FFFFFF;
+                line-height: 44px;
+                margin: 0;
+                padding: 0;
+            }
+            .wHeader .wHeaderDuiChen {
+                display: table-cell;
+                width: 44px;
+            }
+            .workList .location {
+                color: #828282;
+            }
+            .con table tr:nth-of-type(even) td{
+                border-bottom: 1px solid #be8a39;
+            }
+        </style>
+        <script type="text/javascript">
+                        isSearch = true;
+
+            //deviceCode
+            function searchCode() {
+            var saoCode = $("#search_input").val();
+            $("header").find("input").attr("value", saoCode);
+            deviceCode = saoCode;
+
+            var arrows = $(".arrow");
+            var code1;
+            var index = 0;
+            var isError = true;
+           for (var i = 0; i < arrows.length; i++) {
+            code1 = $(arrows[i]).data("code");
+            if (code1.indexOf(deviceCode)>=0) {
+            selectedArrow = arrows[i];
+            index = i;
+            deviceCode = code1;
+            isError = false;
+            } else if (code1 === lastCode) {
+            lastArrow = arrows[i];
+            }
+            }
+            if (isError) {
+            window.csq_hw.showToast("输入的查询码有误,重新输入！");
+            return;
+            } else {
+//-------------------------强制路线------------------
+var woType = $("#woType").text();
+	if(!woType){
+		woType = 2;
+	}
+if( woType && woType == 1){
+				var route = $(selectedArrow).data("route");
+				if(route >= 1){
+					var beforeArrow = $("div[data-route=\""+(route-1)+"\"]");
+					if(!checkStatus(beforeArrow)){
+						window.csq_hw.showToast("该工单要求您顺序执行，请您检查后重试");
+						return;
+					}
+				}
+			}
+	//---------------强制路线 end -----------------------------------------------
+
+			currentCode=deviceCode;
+            var flag = $(selectedArrow).parents("li").find(".con").css("display");
+                
+            if (flag == "none") {
+            $(".con").slideUp();
+            $(selectedArrow).parents("li").find(".con").slideDown();
+            } else {
+            $(selectedArrow).parents("li").find(".con").slideUp();
+            }
+            $(selectedArrow).children("scan-input").attr("value",true);
+            //alert($(selectedArrow).children(".scan-input").attr("value"));
+            setTimeout(function(){
+            var top = $(selectedArrow).parent();
+            var singleHeight = top.outerHeight();
+            //计算高度
+            var height =  (index-1)*singleHeight +140+(index+1)*8;
+            $(document).scrollTop(height);
+            },200);
+            }
+
+            if (lastArrow && deviceCode && deviceCode != lastCode) {
+            checkStatus(lastArrow);
+            lastCode = deviceCode;
+            }
+			lazyload();
+            }
+
+		
+            $(function(){
+	            loadAll();
+            });
+        </script>
+
+    </head>
+    <body>
+		<!--弹出_物料-->
+        <div class="wl_bounced">
+            <div class="tit">
+                <span style="color:#be8a39;">物料</span>
+                <i class="close" style="color:#be8a39;">关闭</i>
+            </div>
+            <div class="wl_con">
+                <ul id="wuliao_list">
+                    <li class="wl_tit">
+                        <span class="wl_name">物料名称</span>
+                        <span class="usable_num">可用数量</span>
+                        <span class="use_num">使用数量</span>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="sub" style="color:#be8a39;">
+                <button style="background:#be8a39;">确认</button>
+            </div>
+        </div>
+        <!--弹出物料结束-->
+
+        <div class="wHeader">
+            <a href="javascript:void(0)" onclick="backTrack();" data-role='none'  ><img src="../images/arrow_l.png" width="12" height="21"/></a>
+
+            <h1 id="woId" class="">P20161110000002</h1><!-- ui-hidden-accessible -->
+			<h1 id="woType" class="">2</h1><!-- ui-hidden-accessible -->
+            <div class="wHeaderDuiChen"></div>
+        </div>
+        <header >
+            <div  class="search">
+                <input type="text" id ="search_input" value="">
+            </div>
+			<div class="cha">
+                <img src="../images/sgclico1.png" id="cha-001" onclick="scanToSelect();">
+            </div>
+           <!--  <div class="cha">
+                <img src="../images/cha.png" id="cha-001" onclick="searchCode();">
+            </div> -->
+
+        </header>
+		
+		
+        <form id="callAjaxForm">
+
+            <ul class="workList">
+      <!-- /用于判断是否是第一个生成 -->
+					       <!-- /第一个生成条件 -->
+					                   <!-- /第一个生成条件 -->
+						<li>
+                    <div class="top">
+                        <div class="workName" id="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001">
+                             <h2>1.012121SY00003121SBSHGSXTLS001.</h2>
+                            <p class="location">
+                                                                                                             其中步骤共63步
+                            </p>
+                        </div>
+                        <div class="status">
+                            <span class="no">未完成</span>
+                            <input type="text" class="device-status"   name="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001-status" code="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001" style="display:none;" value="false"/>
+                            <span class="change" onclick="toErZhuangChangeApply()">整改单</span>
+                        </div>
+
+                        <div class="arrow" data-code="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001" data-route="1">
+                            <img src="../images/arrow1.jpg">
+                            </div>
+                    </div>
+                    <div class="con">
+                        <table cellpadding="0" cellspacing="0" border="0" >
+                            <tbody>
+					
+					
+					
+					
+					
+					       <!-- /非第一个生成条件 -->
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+										
+										
+					
+					     <!-- /7扫码 -->
+						
+						<tr>
+                            <td><span class="circle">1</span>扫描楼层二维码</td>
+                        </tr>
+                        <tr>
+                             <td>
+                                 <img src="../images/icon_saoma.png" class="scan-icon" id ='scan-29751'>
+								<input type="text" class="scan-input" id="29751-scan"  name="29751-scan" code="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001"  readonly placeholder="请扫码验证"/>
+                             </td>
+                        </tr>
+					
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td>
+                                    <span class="circle">2</span>
+                                    <span class="tit">电梯厅墙面是否干净、无灰尘 </span>
+                                </td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29752"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29752" value="否" onclick="to_change(this)">否
+ </label>
+                                         </p>
+									</td>
+                                  </tr>
+
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">3</span>电梯厅地面是否无灰尘、光亮、无污渍</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input  type="radio" name="29753"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input data-error="true" data-desc="电梯厅地面是否无灰尘、光亮、无污渍" type="radio" name="29753" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">4</span>电梯门是否干净、无灰尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29754"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29754" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">5</span>电梯厅装饰物是否干净、无灰尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29755"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29755" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">6</span>电梯厅照明是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29756"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29756" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">7</span>电梯外呼按键是否擦拭、使用正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29757"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29757" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">8</span>电梯厅天花是否完整洁净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29758"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29758" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">9</span>电梯厅楼层牌是否干净、端正</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29759"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29759" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">10</span>电梯厅监控探头有无损坏</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29760"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29760" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">11</span>电梯厅烟感喷淋有无损坏</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29761"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29761" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">12</span>电梯厅内垃圾桶是否洁净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29762"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29762" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">13</span>通道地面是否无灰尘、光亮、无污渍</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29763"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29763" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">14</span>通道墙面是否无灰尘、无损坏</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29764"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29764" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">15</span>通道消防设施是否无灰尘、洁净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29765"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29765" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">16</span>通道楼层装饰品是否干净、无灰尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29766"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29766" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">17</span>通道照明是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29767"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29767" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">18</span>通道玻璃是否清澈、无灰尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29768"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29768" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">19</span>卫生间地面是否无灰尘、光亮、无污渍</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29769"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29769" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">20</span>卫生间墙面是否干净、无灰尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29770"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29770" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">21</span>卫生间洗手液是否补充</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29771"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29771" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">22</span>卫生间洗手液下方是否滴洒</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29772"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29772" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">23</span>卫生间手纸是否补充</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29773"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29773" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">24</span>卫生间面盆是否洁净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29774"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29774" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">25</span>卫生间面盆水漏有无附着物</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29775"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29775" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">26</span>卫生间台面是否洁净、无水渍</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29776"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29776" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">27</span>卫生间镜面是否无污渍、无水渍</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29777"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29777" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">28</span>卫生间便池是否洁净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29778"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29778" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">29</span>卫生间有无烟头</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29779"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29779" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">30</span>卫生间便池间门锁是否正常、墙壁内外侧门是否干净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29780"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29780" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">31</span>卫生间马桶是否洁净、无污渍、冲水是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29781"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29781" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">32</span>卫生间垃圾桶里垃圾是否清理</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29782"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29782" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">33</span>卫生间是否无异味</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29783"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29783" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">34</span>卫生间照明是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29784"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29784" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">35</span>卫生间厕所标识是否端正洁净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29785"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29785" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">36</span>卫生间厕所门、门把手是否干净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29786"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29786" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">37</span>卫生间门框、地坎是否干净、无死角</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29787"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29787" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">38</span>卫生间通风排风设备运转是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29788"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29788" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">39</span>卫生间水龙头是否干净、出水是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29789"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29789" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">40</span>卫生间小便池自动冲水是否正常、地面是否有尿液</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29790"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29790" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">41</span>卫生间便池间门锁是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29791"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29791" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">42</span>卫生间厕所清洁间物品是否摆放整齐、分类是否明确、工具分类是否合理、清洁药剂是否齐全</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29792"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29792" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">43</span>卫生间清洁记录表是否规范填写</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29793"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29793" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">44</span>消防楼梯间消火栓箱体是否干净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29794"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29794" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">45</span>消防楼梯间消火栓标识是否完整</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29795"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29795" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">46</span>消防楼梯安全指示标识是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29796"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29796" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">47</span>消防楼梯防火门是否正常开启</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29797"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29797" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">48</span>消防步梯是否干净</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29798"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29798" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">49</span>消防楼梯间有无烟头</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29799"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29799" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">50</span>消防楼梯管道是否干净无灰尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29800"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29800" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">51</span>消防步梯扶手是否干净无灰尘</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29801"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29801" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">52</span>消防楼梯间声控灯是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29802"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29802" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+					       <!-- /非第一个生成条件 -->
+					                   <!-- /非第一个生成条件 -->
+							
+							</tbody>
+							</table>
+						</div>
+					</li>
+					<li>
+                    <div class="top">
+                        <div class="workName" id="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001">
+                            <h2>2.012121SY00003121SBSHGSXTLS001.</h2>
+                            <p class="location">
+                                                                                                             其中步骤共63步
+                            </p>
+                        </div>
+                        <div class="status">
+                            <span class="no">未完成</span>
+                            <input type="text" class="device-status"   name="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001-status" code="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001" style="display:none;" value="false"/>
+                        </div>
+
+                        <div class="arrow" data-code="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001">
+                            <img src="../images/arrow1.jpg">
+                            </div>
+                    </div>
+                    <div class="con">
+                        <table cellpadding="0" cellspacing="0" border="0" >
+                            <tbody>		
+							
+							
+					
+					
+					
+					
+					
+					
+					
+					
+										
+					   <!-- /4拍照 -->								
+								<tr>
+                                    <td><span class="circle">1</span>在本次作业区域门前自拍</td>
+                                <tr>
+                                    <td>
+                                        <ul class="imgList" id="Photo_29803">
+                                            <li>
+                                                <img src="../images/camera.jpg" id="photo-29803">
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+					
+										
+					
+										
+										
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+										
+										
+					
+					     <!-- /7扫码 -->
+						
+						<tr>
+                            <td><span class="circle">2</span>扫描生活水泵二维码</td>
+                        </tr>
+                        <tr>
+                             <td>
+                                 <img src="../images/icon_saoma.png" class="scan-icon" id ='scan-29804'>
+								<input type="text" class="scan-input" id="29804-scan"  name="29804-scan" code="0YZ86001100000181BJYJY012121SY00003121SBSHGSXTLS001"  readonly placeholder="请扫码验证"/>
+                             </td>
+                        </tr>
+					
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+					   <!-- /4拍照 -->								
+								<tr>
+                                    <td><span class="circle">3</span>拍摄生活供水系统变频柜显示器当前参数</td>
+                                <tr>
+                                    <td>
+                                        <ul class="imgList" id="Photo_29805">
+                                            <li>
+                                                <img src="../images/camera.jpg" id="photo-29805">
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+					
+										
+					
+										
+										
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">4</span>检查生活水泵运转是否正常（无异响、无卡阻、无渗水）</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29806"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29806" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">5</span>检查生活水泵运行温度是否正常（小于50℃）</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29807"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29807" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">6</span>检查生活供水管网是否无渗漏</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29808"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29808" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">7</span>检查进水压力表（不小于4MP）指示是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29809"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29809" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">8</span>检查电压表（不小于380V）指示是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29810"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29810" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">9</span>检查生活水泵轴承润滑油位、油封是否正常</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29811"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29811" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">10</span>检查生活水泵水密封圈是否无漏水</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29812"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29812" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+										
+					
+					
+					
+					
+										
+					
+					
+					
+					
+					
+					
+					
+										
+										
+										
+					
+										
+					  <!-- /2判断 -->						
+								<tr>
+								<td><span class="circle">11</span>检查生活水泵盘根是否无损坏</td>
+							    </tr>
+                                 <tr>
+                                     <td class="radio-input">
+                                         <p>
+                                             <label ><input type="radio" name="29813"  value="是" onclick="to_change(this)">是</label>
+                                             <label>  <input type="radio" name="29813" value="否" onclick="to_change(this)">否</label>
+                                         </p>
+									</td>
+                                  </tr>
+								
+					
+										
+					
+										
+					
+					
+										
+					
+								</tbody>
+							</table>
+						</div>
+					</li>
+					
+					
+					
+				<ul class="footer">
+
+                <li onclick="saveCache();">
+                    <a id="huancun"  data-icon="alert">暂存</a>
+                </li>
+				<li onclick="PlanSelectWuLiao();">
+					<a id="wuliao"  data-icon="check">物料</a>
+				</li>
+				<li onclick="planBaoShi();">
+					<a id="baoshi"  data-icon="check">报事</a>
+				</li>
+                <li onclick="sendToServer();">
+                    <a id="submit"  data-icon="check">提交</a>
+                </li>
+				</ul>
+            </ul>
+        </form>
+    </body>
+    </body>
+</html>

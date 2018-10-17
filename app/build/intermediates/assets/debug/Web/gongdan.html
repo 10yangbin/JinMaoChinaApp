@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="yes" name="apple-touch-fullscreen" />
+<meta content="telephone=no" name="format-detection" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/common.js"></script>
+
+<script type="text/javascript">
+
+	//史振伟UI 返回方法
+	function backTrack() {
+		window.location.href = "index.html";
+
+	}
+	
+	function taskA() {
+		window.location.href = "gongdan_list.html?task_type="+'A'+ "&index=" +1;
+
+	}
+	
+	function taskP() {
+		window.location.href = "gongdan_list.html?task_type="+'P'+ "&index=" +1;
+
+	}
+
+	//安卓虚拟返回键   ios 去掉 
+	function backCallBack() {
+		backTrack();
+	}
+	
+	$(function() {
+	
+	});
+	
+</script>
+
+
+</head>
+
+<body>
+
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">工单管理</p>
+		<span class="right"></span>
+	</header>
+
+
+
+	<!--列表图片更改 张赛赛-->
+	<section class="functionList">
+		<ul id="functionList">
+
+			 <li onclick="taskA();">
+				<a > 
+					<img src="img/erzhuang_decoration.png">
+					<p>报修工单</p>
+				</a>
+			</li>
+			<li onclick="taskP();">
+				<a > 
+					<img src="img/erzhuang_decoration.png">
+					<p>计划工单</p>
+				</a>
+			</li>
+			
+			
+		</ul>
+	</section>
+
+</body>
+</html>

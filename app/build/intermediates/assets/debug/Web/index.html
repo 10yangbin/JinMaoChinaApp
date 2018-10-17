@@ -1,0 +1,379 @@
+<!doctype html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="yes" name="apple-touch-fullscreen" />
+<meta content="telephone=no" name="format-detection" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/swiper.min.css" rel="stylesheet" type="text/css" />
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/permission.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+ <link type="text/css" rel="stylesheet" href="css/bounced.css">
+ <script src="js/bounced.js"></script>
+
+<body class="indbodybg" id="bodyId" style="width: 100%;">
+	<!--史振伟UI 遮罩-->
+	<div id="fade" class="black_overlay"></div>
+
+	<div class="bg">
+	
+		<!--头部和通知 张赛赛-->
+		<div style="height: 54px; line-height: 54px" class="fixed-header">
+			<div class="headStyle">
+                <div class="tip">
+                    <img src="img/icon_info.png">
+                </div>
+				<img src="img/index-location.png">
+                <span style="font-size: 18px;max-width:70%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" id="banner_tishi_cur"></span>
+			</div>
+		</div>
+		
+		<!--轮播图-->
+        <div class="swiper-container" >
+            <div class="swiper-wrapper">
+              <!--  <div class="swiper-slide"><a href="http://www.glprop.com.cn/"><img src="img/4.jpg"> </a> </div>
+                <div class="swiper-slide"><a href="http://www.glprop.com.cn/"><img src="img/5.jpg"> </a> </div>
+                <div class="swiper-slide"><a href="http://www.glprop.com.cn/"><img src="img/6.jpg"> </a> </div>  -->
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+       
+       <!--通知公告-->
+		<div class="notice-list" id="notice_infor">
+			<div class="notice-detail" >
+				<!-- <a href='notice_detail.html'><p>关于机动车停车卡办理以及使用办法的通知</p></a> -->
+			</div>
+		</div>
+
+
+		<div class="black"></div>
+		<div class="banner_tishi_tanchu1" id="dataBase_tanchu ">
+			<div class="tit">
+				<strong><span>请选择同步数据类型</span></strong> <i id="close_01" class="close"><span>关闭</span></i>
+			</div>
+			<ul>
+				<li ><strong>一键同步基础数据</strong><i><input
+						onclick="allData()" type="button" class="bottonStyle" value="同步"></i></li>
+				<li ><strong>用户基础数据</strong><i><input
+						onclick="userData()" type="button" class="bottonStyle" value="同步"></i></li>
+				<li ><strong>项目基础数据</strong><i><input
+						onclick="projectData()" type="button" class="bottonStyle"
+						value="同步"></i></li>
+				<li ><strong>房间基础数据</strong><i><input
+						onclick="roomsData()" type="button" class="bottonStyle" value="同步"></i></li>
+				<li ><strong>设施设备数据</strong><i><input
+						onclick="deviceData()" type="button" class="bottonStyle"
+						value="同步"></i></li>
+			
+			</ul>
+			<div class="liucheng_tanchu_tijiao">
+				<button type="button" class="bottonStyle">退出</button>
+			</div>
+		</div>
+		
+		<!--列表图片更改 张赛赛-->
+		<section class="nav">
+			<ul id='function_item' class="indmain clearfix">
+           <!--  <li class=''><a href='icon_.html'><img src='img/icon_baoxiu.png'><i>报修管理</i></a></li>
+            <li class=''><a href='gongdan_list.html'><img src='img/icon_order.png'><i>工单管理</i></a></li>
+			<li class='' onclick= "updateDataService();"><a href='#'><img src='img/icon_basedata.png'><i>基础数据同步</i></a></li>
+			<li class=''><a onclick= "updateTaskService();"><img src='img/icon_history.png'><i>历史工单同步</i></a></li>
+			<li class=''><a href='offline_business.html'><img src='img/icon_offline.png'><i>离线工单</i></a></li>
+			<li ><a href='wode_shezhi.html'> <img src='img/icon_sign.png'><i id='signText'>签到签退</i></a></li> -->
+			</ul>
+		</section>
+		
+		<!--底部导航条图片更改 张赛赛-->
+		<div class="footnav">
+			<ul class="marg clearfix">
+				  <li class="footnav_this"><a class="active"> <img
+						src="img/nav_home.png"><i>首页</i>
+				</a></li>
+				<li id="" ><a href="garden_map.html"> <img
+						src="img/nav_yq1.png"><i>项目</i>
+				</a></li>
+				<li id="logout"><a href="wode_shezhi.html"> <img src="img/nav_my1.png"><i>我的</i>
+				</a></li>
+			</ul>
+		</div>
+		
+		<div class="gray_bg"></div>
+		
+	<section class="bounced" id="refuse_bounced">
+		<section class="box">
+			<h3>请输入同步天数</h3>
+			<section class="con">
+				<p class="reject">
+					<input type="number" id="day_num"/>
+				</p>
+			</section>
+			<p class="btn">
+				<a class="cancel" id="cancle">取消</a>
+				<a id="submit_location_info">确定</a>
+			</p>
+		</section>
+	</section>
+
+	</div>
+</head>
+</body>	
+
+<script type="text/javascript">
+	var userId = '';
+	var myTask;
+	var chaxun_trail;//用来记录【查询】事件弹窗的DIV的步骤痕迹
+	var preHierarchyId;//用来保存查询弹窗的上一步HierarchyId
+	var attributeTagHtml = ""; //查询界面的属性展示
+	var fmcode = ""; //扫码返回值
+	var updateFlag;
+
+	var homepage ;
+	var notice ;
+	
+	//获取通知数据
+	function getNoticeDataList() {
+		var sql = "SELECT * FROM APP_NOTICE where site_id ='" + getUserMsg('site_id') + "' ORDER BY DMS_UPDATE_TIME DESC LIMIT 0,1";
+		var data =window.csq_db.db_select(0,sql, '',2);
+		//alert(data);
+		 notice = eval("(" + data + ");");
+		if(notice.length>0){
+			for (var i = 0; i < notice.length; i++) {
+				var item,id,title;
+				var htmlStr = '';
+				item = notice[i];
+				id = item.dms_notice_id;
+				title = item.dms_notice_theme;
+				htmlStr = htmlStr + "<P data-id='" + id	+ "' onclick='onItemClick(this)'><a>"+ title + "</a></P>";
+			}
+				$('.notice-detail').append(htmlStr);
+		}
+
+	}
+	
+	
+	function onItemClick(obj) {
+		var $this = $(obj);
+		var change_rn_id = $this.data('id');
+		window.location.href="notice_detail.html?notice_id="+change_rn_id + "&from=" +1;
+	}
+	
+
+	//获取通知数据
+	function getHomePageDataList() {
+		var sql = "SELECT * FROM APP_HOMEPAGE ORDER BY DMS_UPDATE_TIME DESC LIMIT 0,3";
+		var data =window.csq_db.db_select(0,sql, '',2);
+		//alert(data);
+		 homepage = eval("(" + data + ");");
+		if(homepage.length>0){
+			//appendHomePgeList(homepage);
+			var htmlStr = '';
+			for (var i = 0; i < homepage.length; i++) {
+				var item,id,url;
+				
+				item = homepage[i];
+				id = item.id;
+				url =!item.data_url?'':item.data_url;
+				window.csq_io.getBanerrImage_FileBySiteID(item.attach_file);
+				path = window.csq_io.getNativePicPath(item.attach_file);
+				//alert(path);
+			    htmlStr = htmlStr + "<div  onclick='onHomePageItemClick(this)' data-id='" + url + "'class=swiper-slide><a href="+url+"><img src='" + path + "'> </a></div>";
+				
+			}
+				//alert(htmlStr);
+				$('.swiper-wrapper').append(htmlStr);
+				 //轮播图
+		        var swiper = new Swiper('.swiper-container',{
+		            autoplay: 5000,
+		            loop:true,
+		            pagination: '.swiper-pagination',
+		            autoplayDisableOnInteraction:false
+		        });
+		}
+
+	}
+	
+	function onHomePageItemClick(obj) {
+		var $this = $(obj);
+		var url = $this.data('id');
+		if(url.length>9){
+		window.location.href=url;
+		}
+		
+	}
+
+	//同步数据的弹出
+	function updateDataService() {
+		$("#fade").fadeIn();
+		$(".banner_tishi_tanchu1").slideDown(500);
+	}
+	
+	//同步数据的弹出关闭
+	$("#close_01,.liucheng_tanchu_tijiao").click(function(event) {
+		$("#banner_tishi_tanchu,.black").hide();
+		$(".banner_tishi_tanchu1").slideUp(500);
+		$("#fade").fadeOut();
+		$("#bodyId")[0].style.position = "static";
+	});
+	
+	
+	//顶部通知的点击 
+	$(".tip").click(function() {
+		window.location.href = "notice.html";
+     });
+
+
+	//20151127基础数据同步拆分
+	function allData() {
+		if (confirm("是否真的要一键同步基础数据？")) {
+			window.csq_data.updateDataService("");
+		}
+	}
+
+	//20151127基础数据同步拆分
+	function userData() {
+		if (confirm("是否真的要同步用户基础数据？")) {
+			window.csq_data.updateDataService("user");
+		}
+	}
+
+	function projectData() {
+		if (confirm("是否真的要同步项目基础数据？")) {
+			window.csq_data.updateDataService("project");
+		}
+	}
+
+	function roomsData() {
+		if (confirm("是否真的要同步房间基础数据？")) {
+			window.csq_data.updateDataService("rooms");
+		}
+	}
+
+	function deviceData() {
+		if (confirm("是否真的要同步设施设备基础数据？")) {
+			window.csq_data.updateDataService("device");
+		}
+	}
+
+	//同步历史工单
+	function updateTaskService() {
+		//if(confirm("同步确认|同步历史工单会需要等待比较长的时间，是否真的要同步？|同步|不同步"))
+		/* if (confirm("同步历史工单会需要等待比较长的时间，是否真的要同步？")) {
+			window.csq_data.sendHistoryOffLineDataService();
+		} */
+			$("#refuse_bounced").show();
+
+	}
+	
+	/*根据权限去动态生成首页的功能按钮
+	 */
+	function initHomeFuncItemsWithPermi() {
+		var html = "";
+     		
+		if (hasPermission(CONST_PERM_BAOSHI)) {
+			html += "<li ><a href='baoshi_manager.html'><img src='img/icon_baoxiu.png'><i>报修管理</i></a></li>";
+		}
+		if (hasPermission(CONST_PERM_GONGDAN_INDEX)) {
+			html += "<li><a href='gongdan.html'><img src='img/icon_order.png'><i>工单管理</i></a></li>";
+		}
+	
+		if (hasPermission(CONST_PERM_BASEDATA)) {
+			html += "<li ><a onclick= updateDataService(); > <img src='img/icon_basedata.png'><i>基础数据同步</i></a></li>";
+		}
+		if (hasPermission(CONST_PERM_HISTORY)) {
+			html += "<li ><a  onclick= updateTaskService();> <img src='img/icon_history.png'><i>历史数据同步</i></a></li>";
+		}
+		if (hasPermission(CONST_PERM_LIXIAN)) {
+			html += "<li ><a href='offline_business.html' > <img src='img/icon_offline.png'><i>离线工单</i></a></li>";
+		}
+		html += "<li ><a href='wode_shezhi.html'> <img src='img/icon_sign.png'><i id='signText'>签到签退</i></a></li>";
+		
+		$("#function_item").html(html);
+	}
+
+
+	//首页开始渲染界面
+	$(function() {
+		
+		
+
+		$("#cancle").click(function() {
+			$("#refuse_bounced").hide();
+		});
+		
+	 	$("#submit_location_info").click(function() {
+	 		location_text = $("#day_num").val(); 
+	 		
+			if(!location_text){
+				window.csq_hw.showToast("输入不能为空");
+			}else{
+				var nums= location_text;
+				if(parseInt(nums)>parseInt(100)){
+					window.csq_hw.showToast("输入天数不能大于100 天 !");
+					return;
+				}
+				var pre_d = Math.round(new Date().getTime()/1000)-nums*24*3600;
+		        //console.log(pre_d); 
+		        var unixTimestamp = new Date(pre_d * 1000); //然后
+		        Date.prototype.toLocaleString = function() {
+		            return this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + this.getDate() + " " + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds();
+		      };
+		        var commonTime = unixTimestamp.toLocaleString();
+		        //alert(commonTime);
+				window.csq_data.sendHistoryOffLineDataService(commonTime);
+			}
+			$("#refuse_bounced").hide();
+			$("#baoshi_yezhu").empty();
+			
+			$("#zbg").hide();
+			$("#bodyId")[0].style.position="static";//滚动条恢复
+		}); 
+		 
+		 initHomeFuncItemsWithPermi();
+		//window.csq_data.getErZhuangService("notice");
+		  window.csq_data.getErZhuangService("homepage");
+	
+		  setTimeout(function() {
+				getHomePageDataList();
+				getNoticeDataList();
+				
+		 }, 1500);
+	 
+
+		//涉及到与OC交互得时候，必须用setTimeout,或者用js异步框架改造一下
+		 setTimeout(function() {
+
+			userId = window.csq_hw.getUserId();
+			var username = window.csq_hw.getCurrentUserName();
+
+			//获取当前项目信息
+			var _sitename = window.csq_hw.getCurrentSiteName();
+			// $("#banner_tishi_cur a").text(_sitename);
+			$("#banner_tishi_cur").text(_sitename);
+			//点击当前项目弹出层
+			$("#banner_tishi_cur").click(function(event) {
+				window.csq_hw.showSelectSiteDialog();
+			});
+			//20151211显示更新状态begin
+			updateFlag = window.csq_hw.getCurrentSiteUpdate();
+			//alert(updateFlag);
+			  if (true == updateFlag) {
+				$("#banner_tishi_cur").after('<span class="updatePrompt"></span>');
+			}
+		
+		}, 500);
+	
+	});
+	
+</script>
+</html>

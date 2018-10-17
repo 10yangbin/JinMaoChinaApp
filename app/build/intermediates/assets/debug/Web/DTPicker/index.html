@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" href="css/normalize3.0.2.min.css" />
+<link rel="stylesheet" href="css/style.css?v=7" />
+<link href="css/mobiscroll.css" rel="stylesheet" />
+<link href="css/mobiscroll_date.css" rel="stylesheet" />
+<title>兼容PC和移动设备的日期选择jquery插件</title>
+</head>
+
+<body>
+<style>
+ul#bcty365_nav{padding-left:50px; margin-bottom:10px; border-bottom:2px solid #ccc; overflow:hidden; _zoom:1;}
+ul#bcty365_nav li{float:left; display:inline; margin:10px;}
+ul#bcty365_nav li a{display:block;color:#000000; font-size:16px;}
+ul#bcty365_nav li a,#wimoban_p,#wimoban_p a{ font-family:"微软雅黑";}
+ul#bcty365_nav li a:hover,#wimoban_p a:hover{color:red;}
+</style>	
+
+	<ul id="bcty365_nav">
+     <li><a target="top,_self" title="首页" href="http://www.bcty365.com/">首页</a></li>
+    <li><a target="top,_self"  title="网站开发" href="http://www.bcty365.com/list-9-1.html">网站开发</a></li>
+   <li><a target="top,_self" title="CMS教程" href="http://www.bcty365.com/list-100-1.html">CMS教程</a></li>
+    <li><a target="top,_self" title="数据库" href="http://www.bcty365.com/list-34-1.html">数据库</a></li>
+    <li><a target="top,_self" title="js特效代码" href="http://www.bcty365.com/list-12-1.html">js特效代码</a></li>
+    <li><a target="top,_self" title="网页特效" href="http://www.bcty365.com/list-61-1.html">网页特效</a></li>
+    <li><a target="top,_self" title="jQuery插件" href="http://www.bcty365.com/list-86-1.html">jQuery插件</a></li>
+    <li><a target="top,_self" title="站长学院" href="http://www.bcty365.com/list-96-1.html">站长学院</a></li>
+<li><script type="text/javascript" src="http://www.bcty365.com/statics/js/ad/show_400x25.js"></script></li></ul>
+
+  <section id="form">
+    <form action="">
+
+      <label>出生日期：</label>
+      <input type="text" name="USER_AGE" id="USER_AGE" readonly class="input" placeholder="请填写你的出生日期" />
+      <div class="clear h10"></div>
+      <input type="submit" id="tj" class="submit" value="提交" />
+    </form>
+  </section>
+<script src="js/jquery.min.js"></script> 
+<script src="js/mobiscroll_date.js" charset="gb2312"></script> 
+<script src="js/mobiscroll.js"></script> 
+<script type="text/javascript">
+$(function () {
+	var currYear = (new Date()).getFullYear();	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.default = {
+		theme: 'android-ics light', //皮肤样式
+		display: 'modal', //显示方式 
+		mode: 'scroller', //日期选择模式
+		dateFormat: 'yyyy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear - 50, //开始年份
+		endYear: currYear + 10 //结束年份
+	};
+
+	$("#USER_AGE").mobiscroll($.extend(opt['datetime'], opt['default']));
+
+});
+</script>
+<center>
+  <div style=" clear:both; width:700px; margin:0 auto; text-align:center; padding-top:10px;">
+    <p >代码整理：<a href="http://www.bcty365.com" title="B5教程网"  style="color:#FF0000" alt="B5教程网">B5教程网</a></p>
+    <p>＊尊重他人劳动成果，转载请自觉注明出处！注：此代码仅供学习交流，请勿用于商业用途。</p>
+    <p></p>
+</div>
+</center>
+</body>
+</html>

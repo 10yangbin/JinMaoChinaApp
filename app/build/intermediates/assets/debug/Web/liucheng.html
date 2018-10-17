@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="x-rim-auto-match" content="none">
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/slidernav1.css" media="screen, projection" />
+<link rel="stylesheet" type="text/css" href="css/listnav.css" media="screen, projection" />
+
+<link href="css/liucheng.css" rel="stylesheet" type="text/css">
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/baoxiu.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/tanchu.js"></script>
+<script type="text/javascript" src="js/stars.js"></script>
+
+<!--ListNav是一个用于创建按字母顺序分类导航的jQuery插件。-->
+<script type="text/javascript" src="js/jQuery.Hz2Py-min.js"></script>
+<script type="text/javascript" src="js/pinyin.js"></script>
+<script src="js/jquery.charfirst.pinyin.js"></script>
+
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/afm_user.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+<script type="text/javascript" src="js/permission.js"></script>
+<script type="text/javascript" src="js/gongdan.js"></script>
+
+<script type="text/javascript" src="js/cancal_task.js"></script>
+
+<body id="bodyId">
+	
+	<div id="fade" class="black_overlay"></div>
+	
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">流程</p>
+		<span class="right"></span>
+	</header>
+	
+	
+	
+	<div class="liucheng" style="margin-top: 64px;">
+		<div class="liucheng_yi">
+			<div class="circle"></div>
+			<div class="liucheng_nei">
+				<div class="liucheng_neinei">
+					<div id="task_type" class="liucheng_xiang"></div>
+					<div id="task_time" class="liucheng_time"></div>
+					<div id="task_descript" class="gongdan_xinxi"></div>
+					<div id="plan_code" class="gongdan_xinxi" style="display: none;"></div>
+					<div id="plan_desc" class="gongdan_xinxi" style="display: none;"></div>
+					<div id="crm_code" class="gongdan_xinxi" style="display: none;"></div>
+					<div id="showImage" class="gongdan_pic">
+						<span id="_image"> </span><div style="clear:both; float:none; width:0; height:0; line-height:0; font-size:0;"></div>
+					</div>
+					<div class="gongdan_xinxi">
+						<ul>
+							<li id="infopath" style="word-break: break-all;"></li>
+							<li id="infoman" style="word-break: break-all;"></li>
+							<li id="phoneCodeInfo" style="word-break: break-all;color: #FF0000;"></li>
+							<li id="baoshi_type" style="word-break: break-all;"></li>
+							<li id="baoshi_type_detail" style="word-break: break-all;color: #FF0000;"></li>
+							<li id="daike_zijian" style="word-break: break-all;"></li>
+							<li class='dv_unit' id="dv_contact" style="word-break: break-all;"></li>
+							<li class='dv_unit' id="dv_tel" style="word-break: break-all;color: #FF0000;"></li>
+						    <li class='dv_unit' id="dv_name" style="word-break: break-all;color: #FF0000;"></li>
+							<li id="urgencyDegree" style="word-break: break-all;"></li>
+						
+						</ul>
+						<div id="infophone" onclick="professorContacts()">
+							<a class="gongdan_xinxi_dianhua"><img
+								src="img/liucheng_tel.png"> </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="ass_ans_back" class="liucheng_yi">
+			<div class="circle"></div>
+			<div class="liucheng_nei">
+				<div class="liucheng_neinei">
+					<div class="liucheng_xiang">工单生成</div>
+					<div id="cmit_man" class="liucheng_ren"></div>
+					<div id="generateTaskTime" class="liucheng_time"></div>
+				</div>
+			</div>
+			<!-- <div  class="gongdan_pic"><span id="process_image">
+				<img src="img/liucheng_tel.png">
+				<img src="img/liucheng_tel.png">
+				<img src="img/liucheng_tel.png">
+				<img src="img/liucheng_tel.png">
+				<img src="img/liucheng_tel.png">
+				<div style="clear:both; float:none; width:0; height:0; line-height:0; font-size:0;"></div>
+			</span></div> -->
+		</div>
+	</div>
+	
+	<div id="noProcessDivId" class="liucheng liucheng-no"></div>
+
+	<div class="foot_menu" id="foot_menu_m_PR" style="display: none;">
+		<a href="javascript:backToList();">返回列表</a> <a
+			href="javascript:taskBackShow();" id="duty_back">任务退回</a>
+	</div>
+</body>
+
+
+</head>
+
+<title>工单流程</title>
+<script type="text/javascript">
+
+	var taskId = ""; //全局变量 工单ID
+	var g_tab = -1; //全局变量Tab页
+	var userId = ''; //全局变量 用户ID
+	
+	//var baseScanUrl="http://101.200.34.128:8090/download/";
+	var baseScanUrl="http://211.94.93.146:8090/download/";
+	
+	/* 流程界面所需要的全部工单主表数据*/
+	var task;
+	
+	var duoRen = 0;
+	//派单责任人
+	var duty_man = "";
+	//派单协助人
+	var other_man = "";
+	
+	var isSingle = true;
+	
+	//工单类型  ， 计划，盘点，A
+	var tasktype = '';
+	
+	var pTaskUrl = '';
+	
+	var uiFlag = 0; //0--流程页;1--退回信息页;2--派单
+	
+	var phoneNumber = '';
+	
+	//报事类型  自检，代客
+	var type_num = '';
+	
+	var taskstatus = "";
+	
+
+	//获取筛选界面的ids 
+	var index_sm_ids = getUrlParamValByKey("index_sm_ids");
+	
+	//区别盘点和工单列表的返回
+	var fromWhere =  getUrlParamValByKey("fromWhere");
+	
+	var task_type = getUrlParamValByKey("task_type");
+	
+	var pay_type;
+	
+	//完成的图片和签名 		
+	var imageFinishTag = "";
+	var Finishimages;
+	
+	var isLiuZhuan = false;
+	var isFromNotice = getUrlParamValByKey("isFromNotice");
+
+	//【评价】操作   增加客户和主管评价的类别  
+	function commentStar(evalType) {
+		window.location.href = "liucheng_pingfen.html?index=" + g_tab
+				+ "&index_sm_ids=" + index_sm_ids + "&taskId=" + taskId + "&task_type=" +task_type + "&evalType=" +evalType;
+	}
+
+	//安卓虚拟返回键   ios 去掉 
+	function backCallBack() {
+		backTrack();
+	}
+	
+	 function LoadServerDataSuccess() {
+		 //alert(isFromNotice);
+	     if(isFromNotice){
+		  window.location.reload();
+	     }
+	}
+
+	//----------------2015-09-24增加催办和回复功能
+	function close_01() {
+		$("#liucheng_tanchu_paidan").fadeOut();
+		$(".liucheng_tanchu").hide();
+		$("#fade").fadeOut();//遮罩消失
+		//$(".liucheng_dibu_btn").fadeOut();
+		$("#bodyId")[0].style.position = "static";//滚动条恢复
+		uiFlag = 0;
+	}
+
+	//返回到工单页
+	function backToList() {
+		//记录原选的Tab页并返回
+	    //alert(g_tab);
+		if (g_tab != null && g_tab != -1 && g_tab >= 0 && g_tab <= 4) {
+			window.location.href = "gongdan_list.html?index=" + g_tab
+					+ "&index_sm_ids=" + index_sm_ids + "&task_type=" +task_type;
+	   
+		   }else if(fromWhere==2||task[0].TASK_TYPE == "C"){
+		      window.location.href = "plan_list.html";
+		    
+		   }else if(g_tab==6){
+				window.location.href = "myOrderList.html";
+			
+		   }else{
+		      window.location.href = "gongdan_list.html?index=" + g_tab + "&task_type=" +task_type;
+		   }
+	}
+
+	function getSelectedPerson() {
+		duty_man = "";
+		other_man = "";
+		if (isSingle) {
+			duty_man = $("input[name='xiezhu']:checked").data('id');
+		} else {
+			var checkboxs = $("input[type=checkbox]:checked").each(function() {
+				if ($(this).attr('data-zeren') == 'true') {
+					duty_man = $(this).attr('data-id');
+				} else {
+					if (other_man == "") {
+						other_man = $(this).attr('data-id');
+					} else {
+						other_man += ";" + $(this).attr('data-id');
+					}
+				}
+			});
+		}
+
+	}
+
+	// 流程状态
+	var taskStauts = new Array("Processed", "Assigned", "Answered", "Backed",
+			"Processing", "Finished", "TimeOut");
+
+	function activityShow(stauts) {
+		//		    	window.csq_hw.showToast("流程状态（数字）："+stauts);
+		// 显示的流程
+		for (var i = 0; i <= stauts; i++) {
+			stautsByShowOrHide(i, true, "liucheng_yi");
+		}
+		// 隐藏的流程 
+		if ((stauts + 1) != taskStauts.length) {
+			for (var i = stauts + 1; i < taskStauts.length; i++) {
+				stautsByShowOrHide(i, false, "liucheng_wei", stauts + 1);
+			}
+		}
+	}
+
+	function stautsByShowOrHide(stauts, flag, className, currentStauts) {
+		if (stauts == 0) { // 抢单
+			if (!flag) {
+				$("#robBtn").hide();
+			}
+		} else if (stauts == 3) { // 处理完成
+			if (flag) {
+				$("#clBtn").hide();
+			}
+		} else if (stauts == 4) { // 评价工单
+			$("#cusEval").html(task[0].CUSTOMER_EVALUATE);
+		} else if (stauts == 5) { // 完成工单
+			if (flag) {
+				//20150717，改造sql语句以适应多项目切换，并且前台不处理数据库打开操作，都交给后台
+				//最后的参数代表数据类型，1代表基础数据，2代表业务数据						
+				//window.csq_db.db_open("longfor.db", "", "");
+				//var sql_finish = "select * from task_process tp , afm_users afm where tp.PROCESS_MAN=afm.user_id and task_id='" + taskId + "' and tp.TASK_STATUS='Completed'";
+				var sql_finish = "select * from task_process tp  where tp.TASK_ID='"
+						+ taskId + "' and tp.TASK_STATUS='Completed'";
+				//var proData = window.csq_db.db_select(0, sql_finish, '');
+				var proData = window.csq_db.db_select(0, sql_finish, '', 2);
+				var dat = eval("(" + proData + ")");
+
+				if (dat.length <= 0) {
+					return;
+				}
+				var _alias = getUserAlias(dat[0].PROCESS_MAN);
+				$("#finishtask").html(_alias);
+				// 处理时间
+				$("#finishtime").html(dat[0].PROCESS_TIME);
+
+			} else {
+				$("#finishtask").html();
+				$("#finishtime").html();
+			}
+		}
+	}
+
+	//执行工单
+	function execTask() {
+		
+		
+		var Param = {
+				"duty_man_name" :task[0].DUTY_MAN_NAME,
+				'task_id': taskId
+			};
+			var A = "/process/startOrder";
+			var ret = window.csq_exe.exec(A, JSON.stringify(Param), null,false);
+		
+			var retObj = eval("(" + ret + ");");
+          
+		if (retObj) {
+				
+			if (tasktype == "P"||"C" == tasktype||"E" == tasktype||"X" == tasktype) {
+				var taskurl = window.csq_io.getNativeHtmlPath(pTaskUrl);
+
+				var _ret = window.csq_io.file_isExistsByAbsolutePath(taskurl);
+
+				//判断是否存在该网页，网页不存在给予用户提示
+				if (_ret) {
+					window.location.href = taskurl;
+				} else {
+					window.csq_hw.showToast("计划工单详情异常，请刷新工单数据后重试！");
+				}
+			} else {
+				if (g_tab != null && g_tab != -1) {
+					//继续传导列表页的tab
+					window.location.href = "gongdanzhixing.html?TASK_ID=" + taskId
+							+ "&index=" + g_tab + "&task_type=" +task_type;
+				} else {
+					window.location.href = "gongdanzhixing.html?TASK_ID=" + taskId + "&task_type=" +task_type;
+				}
+			}
+				
+			}else{
+				window.csq_hw.showToast("网络异常，请稍后重试");
+                return;
+			}
+	
+	}
+	
+	//专家通信录 
+	function professorContacts() {
+		
+		 $(".title").text("专家通讯录");
+		
+	    var A = "/cf/selectEX_ALList";
+		var param = {
+			"task_type":task[0].TASK_TYPE,
+			"task_id":taskId
+		};
+		var bool = window.csq_exe.doexec("/cf/selectEX_ALList", JSON.stringify(param));
+		var retObj = eval("(" + bool + ");");
+		
+		//alert(retObj.msg);
+		//整合数据
+		var userList = eval("(" + retObj.msg + ");");
+		
+		if( userList.length<1){
+			
+		   window.csq_hw.showToast("专业人员列表为空!");
+		   return;
+		}
+		
+		var paiHtml01 = "";
+		for (var i = 0; i < userList.length; i++) {
+			paiHtml01 += '<li onclick=dialPhone("' + userList[i].phone+ '");><strong class="num_name">'
+					+ userList[i].name
+					+ '</strong><strong class="num_name">'
+					+ userList[i].label
+					+ '</strong><strong  class="num_name">('
+					+ userList[i].phone
+					+ ')</strong><i><input type="radio" onclick=dialPhone("' + userList[i].phone+ '"); value="1" name="xiezhu"/></i></li>';
+		}
+		$(".liucheng_dibu_btn").hide();
+		// window.csq_hw.showToast(userData);
+		$("#paidan_danren").html(paiHtml01);
+
+		//初始化单人和多人的派单界面
+		initials();
+		
+		$(".graybg_pd").fadeIn();
+		$("#fade").fadeIn();
+		$("#bodyId")[0].style.position = "fixed";//滚动条恢复
+		$("#liucheng_tanchu_paidan").show();
+		uiFlag = 2;
+		$('#paidan_danren').listnav();
+		$('#paidan_duoren').listnav();
+
+
+}
+	//派单show div  
+
+
+	function paiDan(type) {
+			//"if_infor_post" 0 派单， 1 流转
+			if(type==1){
+				isLiuZhuan = true;
+			}else{
+				isLiuZhuan = false;
+			}
+		    var A = "/cf/selectCfList";
+			var param = {
+				"if_infor_post":type,	
+				"task_type":task[0].TASK_TYPE,
+				"task_id":taskId
+			};
+			var bool = window.csq_exe.doexec("/cf/selectCfList", JSON.stringify(param));
+			var retObj = eval("(" + bool + ");");
+			
+			//alert(retObj.msg);
+			//整合数据
+			var userList = eval("(" + retObj.msg + ");");
+			
+			if( userList.length<1){
+				
+			   window.csq_hw.showToast("人员为空！");
+			   return;
+			}
+			
+			var paiHtml01 = "";
+			var paiHtml02 = "";
+			for (var i = 0; i < userList.length; i++) {
+				paiHtml01 += '<li><strong class="num_name">'
+						+ userList[i].user_name
+						+ '</strong><strong class="num_name">('
+						+ userList[i].role_title
+						+ ')</strong><i><input value="1" name="xiezhu" type="radio"  data-id="' + userList[i].user_id + '"/></i></li>';
+				paiHtml02 += '<li><strong class="num_name">'
+						+ userList[i].user_name
+						+ '</strong><strong class="num_name">('
+						+ userList[i].role_title
+						+ ')</strong><input value="2" name="xiezhuDuo" type="checkbox" data-id="' + userList[i].user_id + '" data-zeren="false"/><span></span></li>';
+			}
+			//$(".liucheng_dibu_btn").fadeIn();
+			// window.csq_hw.showToast(userData);
+			$("#paidan_danren").html(paiHtml01);
+			$("#paidan_duoren").html(paiHtml02);
+
+			//初始化单人和多人的派单界面
+			initials();
+			initials01();
+			initDutyman_ohterman();
+		
+			$(".graybg_pd").fadeIn();
+			$("#fade").fadeIn();
+			$("#bodyId")[0].style.position = "fixed";//滚动条恢复
+			$("#liucheng_tanchu_paidan").show();
+			uiFlag = 2;
+			$('#paidan_danren').listnav();
+			$('#paidan_duoren').listnav();
+
+
+	}
+	
+	//抢单
+	function rogTask() {
+
+		//如果本人的处理中的工单数大于3    window.csq_hw.showToast("未完成工单数3个以上,请完成后在抢");
+		//alert(isRogTask());
+
+	 	/* if (isRogTask() == false) {
+			//alert(0);
+			alert("您未完成工单已达到3个,不可以抢单");
+			//alert(1);
+			return;
+		}  */
+		 var sql001 = "select USER_NAME from afm_users where USER_ID='"
+				+ userId + "'";
+
+		var userNameData = window.csq_db.db_select(0, sql001, null, 1);
+		//alert(userNameData);
+		var userName = eval("(" + userNameData + ")");
+		if (userName.length <= 0) {
+			//window.csq_hw.showToast("本地未找到用户信息，请同步基础后再重试");
+			alert("本地未找到用户信息，请同步基础后再重试");
+			return;
+		} 
+		
+		var duty_man_name = userName[0].USER_NAME;
+		//alert(duty_man_name);
+		var siteId = task[0].SITE_ID;
+		var task_type = task[0].TASK_TYPE;
+		var A = "WO_QD";
+		/* var P = {
+			"task_id" : taskId,
+			"duty_man" : userId,
+			"duty_man_name" : duty_man_name //有问题 
+		}; */
+		var P = {
+				"task_id" : taskId,
+				"duty_man" : userId
+		};	
+
+		var isTrue = window.csq_exe.exec(A, JSON.stringify(P), true);
+		if (isTrue) {
+			window.csq_hw.showToast("抢单成功");
+			//	window.csq_data.sendOffLineDataService();
+			window.csq_hw.showToast("工单状态同步中，请稍后");
+			window.location.reload(true);
+		} else {
+			window.csq_hw.showToast("抢单失败，请刷新工单列表后再重试！");
+			// window.csq_data.sendOffLineDataService();
+			//window.csq_hw.showToast("工单状态同步中，请稍后");
+			return;
+		}
+
+	}
+	
+	
+	// 派单
+	function paiDanAction() {
+        
+		getSelectedPerson();
+
+		if (!duty_man) {
+			window.csq_hw.showToast("请选择责任人");
+			return;
+		}
+		if (!other_man && !isSingle) {
+			window.csq_hw.showToast("请选择协助人");
+			return;
+		}
+		window.csq_hw.showToast("正在请求...");
+		
+		var dms_ifland_wo = 0;
+		if(isLiuZhuan){
+			dms_ifland_wo = 1;
+		}else{
+			dms_ifland_wo = 0;
+		}
+
+		// 0 派单 1 流转 dms_ifland_wo
+		var A = "WO_PF";
+		var P = {
+			"dms_ifland_wo":dms_ifland_wo,
+			"status" : task[0].TASK_STATUS,
+			"task_id" : taskId,
+			"user_id" : userId,
+			"duty_man" : duty_man,
+			"task_assistor" : other_man
+		//协助人
+		};
+		var isTrue = window.csq_exe.exec(A, JSON.stringify(P), null, true);
+		var retObj = eval("(" + isTrue + ");");
+
+		if (retObj) {
+			window.csq_hw.showToast("成功");
+			window.csq_hw.showToast("工单状态同步中，请稍后");
+			backToList();
+		} else {
+			window.csq_hw.showToast("失败");
+			return;
+		}
+	}
+	
+	function scanPupWindow() {
+		$(".unit").show();
+	}
+
+	function taskBackShow() {
+		$(".graybg_pd").fadeIn();
+		$("#task_back_show").slideDown();
+		$("#fade").fadeIn();
+		$("#bodyId")[0].style.position = "fixed";
+		uiFlag = 1;
+	}
+
+	function taskBack() {
+		var dutyManName = task[0].DUTY_MAN_NAME;
+		var backcontent = $("#backcontent").val();
+
+		if (backcontent.trim() == '') {
+			window.csq_hw.showToast("请输入退回原因！");
+			uiFlag = 0;
+			return;
+		}
+		goBack();
+
+		var A = "WO_TH";
+		var P = {
+			"task_id" : taskId,
+			"duty_man" : task[0].DUTY_MAN + "",
+			"duty_man_name" : dutyManName,
+			"content" : backcontent
+		};
+		//20150708修改在线提交
+		//var ret = window.csq_exe.exec(A, JSON.stringify(P), false);
+		var ret = window.csq_exe.exec(A, JSON.stringify(P), null, true);
+		var retObj = eval("(" + ret + ");");
+		if (retObj) {
+			window.csq_hw.showToast("工单退回成功");
+			window.csq_hw.showToast("工单状态同步中，请稍后");
+			backToList();
+		} else {
+			window.csq_hw.showToast("工单退回失败，请稍候再试");
+			return;
+		}
+
+	}
+	
+	function submitScan() {
+		
+		if (pay_type==undefined) {
+			window.csq_hw.showToast("请选择支付类型");
+			return;
+	    }else{
+	
+   		if (!confirm("是否确认支付成功!")) {
+    			   return;
+    	 }else{
+    		 var A = "/process/money";
+    			var P = {
+    				"pay_type":pay_type,
+    				"task_id":taskId
+    			};
+    			var ret = window.csq_exe.exec(A, JSON.stringify(P), null, true);
+    			var retObj = eval("(" + ret + ");");
+    			if (retObj) {
+    				window.csq_hw.showToast("支付成功!");
+    				backToList();
+    			} else {
+    				window.csq_hw.showToast("支付失败!");
+    				return;
+    			}
+    			 $("#er_code").html("");
+    	   }
+	    }
+	}
+	
+
+	function goBack() {
+		uiFlag = 0;
+		$("#fade").fadeOut();
+		$("#task_back_show").hide();
+		$("#bodyId")[0].style.position = "static";
+	}
+	
+  
+
+	//获取用户姓名
+	function getUserAlias(processman) {
+				
+		var sql = "select USER_NAME from afm_users where upper(USER_ID)='"
+				+ processman.toUpperCase() + "'";
+
+		var data = window.csq_db.db_select(0, sql, '', 1);
+	
+		data = eval("(" + data + ")");
+		var useralias = '';
+		if (data.length > 0) {
+			useralias = data[0].user_name;
+		}
+		return useralias;
+	}
+	
+	  function isCangiveUpTask() {
+	    	if(task[0].INFORM_MAN==getUserMsg('user_id')){
+	    		return true;
+	    	}else{
+	    		return false;
+	    	}
+	    }
+	  
+	  function ShowImageAction(){
+		  var imageTag = "";
+			var dataImage = window.csq_db.db_select(0,
+					"select * from TASKIMAGE where TYPE = 0 and TASK_ID='"
+							+ taskId + "'", null, 2);
+			//alert(dataImage);
+			var images = eval("(" + dataImage + ");");
+			var img = "";
+			var path = "";
+			if (images && images.length >= 1) {
+				for (var j = 0; j < images.length; j++) {
+					img = images[j].IMAGE;
+					if (img && img != "") {
+						path = window.csq_io.getNativePicPath(img);
+						imageTag += '<img src="' + path
+								+ '" onclick=showPic("' + path
+								+ '"); />';
+					}
+				}
+			} else {
+				$("#showImage").hide();
+			}
+
+			//图片
+			$("#_image").html(imageTag);
+		
+			
+	       //完成的图片和签名 		
+		    imageFinishTag = "";
+			var dataFinishImage = window.csq_db.db_select(0,
+					"select * from TASKIMAGE where TYPE in(2,3) and TASK_ID='"
+							+ taskId + "'", null, 2);
+			
+			//alert("dataFinishImage"+dataFinishImage);
+			 Finishimages = eval("(" + dataFinishImage + ");");
+			var Finishimg = "";
+			var Finishpath = "";
+			if (Finishimages && Finishimages.length >= 1) {
+				for (var j = 0; j < Finishimages.length; j++) {
+					Finishimg = Finishimages[j].IMAGE;
+					if (Finishimg && Finishimg != "") {
+						Finishpath = window.csq_io.getNativePicPath(Finishimg);
+						//alert(Finishpath);
+						imageFinishTag += '<img src="' + Finishpath
+								+ '" onclick=showPic("' + Finishpath
+								+ '"); />';
+			
+					}
+				}
+			} else {
+				$("#process_image").hide();
+			}
+
+			//图片  
+			
+	  }
+	  
+	  function payMoneyAction() {
+		//$(".unit").show();
+		   //报事类型的展示
+	       $("#car_type").click(function(){
+	               $("#type_pop").show();
+	               new IScroll(".unit .unit-list",{preventDefault:false});
+	               $("body").css("position","fixed");
+	    	 });   
+	    	
+	     
+	    	//报事类型 item 的点击   非自检的可以点击
+	   	   $(".car_item li").click(function(){
+	   	   $(".unit").hide();
+	         $("body").css("position","static");
+	   	     $("#car").text($(this).text());
+	   	      pay_type = $(this).attr("id");
+
+	   		  var imageScanTag = "";
+	   	      var ScanPath="";
+	   	      if(pay_type==1){
+	   	    	ScanPath= window.csq_hw.getPayUrl()+window.csq_hw.getcurrUserSiteID()+"/ZFB.png?time=" + (new Date()).getTime()+"";
+	   	    	imageScanTag += '<img src="' + ScanPath+ '" width="100" height="100"/>';
+	   	      }else if(pay_type==2){
+	   	    	//ScanPath="http://211.94.93.146:8090/download/BJ-YZJMY/WX.png";
+	   	    	ScanPath=window.csq_hw.getPayUrl()+window.csq_hw.getcurrUserSiteID()+"/WX.png?time=" + (new Date()).getTime()+"";
+	   	    	imageScanTag += '<img src="' + ScanPath+ '" width="100" height="100"/>';
+	   	      }
+	   	      //alert(ScanPath);
+	   	      //alert(pay_type);
+	   	      $("#er_code").html(imageScanTag);
+	   	     // alert($("#er_code").html());
+	   		 $(".scan_pup").show();
+	   	  
+	   	   });
+	    }
+	  
+	  //工单基本信息展示
+	  function OrderDetailShow(){
+			var bl_name = '';
+			var roomname = '';
+			var sitedesc = ''; //房间名称 ，设备实施惯用名描述
+			var addressAlase = ''; //设备设施的位置惯用名
+			var roomcode = '';
+			var fm_code = task[0].FM_CODE;
+			var location_text_desc = task[0].INFORM_DESCRIBE;//其他定位描述
+			tasktype = task[0].TASK_TYPE;
+			pTaskUrl = task[0].TASK_ID;
+			var roomtype = 0;
+
+			var informroom = task[0].INFORM_ROOM;
+			
+		//  计划工单不能退回        //光谷的计划工单也可以退   如果为计划工单， 隐藏报事人一下的信息 
+			if (task[0].TASK_TYPE == "P" || task[0].TASK_TYPE == "C") {
+
+				$("#infoman").hide();
+				$("#baoshi_type").hide();
+				$("#baoshi_type_detail").hide();
+				$("#daike_zijian").hide();
+				$("#phoneCodeInfo").hide();
+				$("#urgencyDegree").hide();
+				$("#infophone").hide();
+				$(".dv_unit").hide();
+				$("#showImage").hide();
+				
+				if(task[0].TASK_TYPE == "C"){
+				$("#duty_back").hide();
+				}
+				
+			
+			}
+		
+			
+			//---退回工单 			   
+			taskstatus = task[0].TASK_STATUS;
+		
+			if (taskstatus == 'Assigned' || taskstatus == 'Processing') {
+				if (task[0].DUTY_MAN == window.csq_hw.getUserId()) {
+					$("#foot_menu_m_PR").show();
+				}
+			
+			}
+
+		  /* 	if (canTuiHui) {
+				$("#duty_back").show();
+			} else {
+				$("#duty_back").hide();
+			} */
+			
+		
+			if (!fm_code) {
+				
+			 if (!informroom) {
+				 roomtype=2;
+			  }else {
+				  var sql = "select * from rm where rm_id='" + informroom
+					+ "' COLLATE NOCASE";
+		
+				var csmdat = window.csq_db.db_select(0, sql, null, 1);
+				
+				var csm = eval("(" + csmdat + ")");
+				if (csm.length > 0) {
+					bl_name = !csm[0].bl_name ? '' : csm[0].bl_name;
+					sitedesc = !csm[0].rm_name ? '' : csm[0].rm_name;
+
+				} else {
+					roomcode = '房间信息未找到';
+					sitedesc = '请更新项目基础数据';
+				}
+		
+			  }
+			
+			} else {
+				roomtype = 1;
+				var strType = fm_code.substr(0, 2);
+				var sql;
+
+				// 根据FM_CODE 或者EQ_ID 去查询设备设施的基础数据或者房间的基础信息 
+				var sql01 = "select CSI_ID as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_EQ, CONVENT_ADDRESS from eq where EQ_CODE='"
+						+ fm_code + "'";
+
+				var sql02 = "select CSI_ID as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_EQ, CONVENT_ADDRESS from eq where EQ_ID='"
+						+ fm_code + "'";
+
+				sql = ("P" == tasktype || "R" == tasktype) ? sql02
+						: sql01;
+
+				var eq = window.csq_db.db_select(0, sql, '', 1);
+
+				eq = eval("(" + eq + ");");
+				//20151109 加上容错处理，如果fm_code未找到，只显示fm_code
+				if (eq.length > 0) {
+					roomcode = !eq[0].roomcode ? '无' : eq[0].roomcode;
+					roomname = !eq[0].roomname ? '无' : eq[0].roomname;
+					var convent_eq = !eq[0].CONVENT_EQ ? '无'
+							: eq[0].CONVENT_EQ;
+					var convent_address = !eq[0].CONVENT_ADDRESS ? '无'
+							: eq[0].CONVENT_ADDRESS;
+
+					 var csi_id = !eq[0].id ? '' : eq[0].id;
+
+					/* sitedesc = "SB" == csi_id.substring(0, 2) ? convent_eq
+							: convent_address; */
+					addressAlase = convent_address;		
+					sitedesc = convent_eq ;
+							
+					var device_eq_des_word = "SB" == csi_id.substring(
+							0, 2) ? "设备" : "设施"; 
+
+				} else {
+					roomcode = fm_code;
+					roomname = "";
+					sitedesc = "";
+
+					if (device_eq_des_word == undefined) {
+						device_eq_des_word = "无设备/设施数据 ";
+					}
+					//alert("无设备/设施数据,请同步");
+				}
+			}
+
+	
+
+			$("#task_type").html(
+					covertTaskType(task[0].TASK_TYPE) + "-"
+							+ task[0].TASK_CODE);
+			//提交人
+			$("#task_man").html(
+					task[0].INFORM_MAN_NAME == "~" ? ''
+							: task[0].INFORM_MAN_NAME);
+
+			//开始时间 
+			$("#task_time").html(formatDataWithoutMillisecond(task[0].INFORM_TIME));
+			//描述 task_descript
+			$("#task_descript").html(
+					"<font class='task_name' style='word-break:break-all;'>描述:"
+							+ task[0].TASK_DESCRIBE + "</font>");
+			// var image = task[0].IMAGE==null?"":task[0].IMAGE;
+
+			if (task[0].RELATIONCODE) {
+
+				$("#plan_code").show();
+				$("#plan_desc").show();
+
+				var plan_desc = window.csq_db.db_select(0,
+						"select TASK_DESCRIBE from TASKMESSAGE where TASK_CODE='"
+								+ task[0].RELATIONCODE + "'", null, 2);
+				var task_plan_desc = eval("(" + plan_desc + ");");
+
+				$("#plan_code").html(
+						"<font class='task_name'>计划工单编号:</font>"
+								+ task[0].RELATIONCODE);
+				$("#plan_desc").html(
+						"<font class='task_name'>计划工单描述 :</font>"
+								+ task_plan_desc[0].TASK_DESCRIBE);
+			}
+			
+			if (task[0].CRM_CODE) {
+
+				$("#crm_code").show();
+				$("#crm_code").html(
+						"<font class='task_name'>CRM工单编号 : </font>"+ task[0].CRM_CODE);
+			}
+
+		
+
+			//var t_html = $("#_image").html();
+			//$("#_image").html(imageTag+ t_html);
+			// 地址 
+			var ht = '';
+			if (roomtype == 0) {
+				ht = "<font class='task_name'>房屋信息 ：</font>" + sitedesc;
+			}else if (roomtype == 2) {
+				var others_infor=task[0].INFORM_DESCRIBE ? task[0].INFORM_DESCRIBE:'';
+				//ht = "<font class='task_name'>其他定位：</font>" + others_infor+ "<br/>";addressAlase
+	       } else {
+				ht = "<font class='task_name'>" + device_eq_des_word
+						+ "编号：</font>" + roomcode
+						+ "<br/> <font class='task_name'>"
+						+ device_eq_des_word + "名称:</font>" + roomname
+						+ "<br/> <font class='task_name'>"
+						+ device_eq_des_word + "惯用名:</font>" + sitedesc
+						+ "<br/> <font class='task_name'>"
+						+ device_eq_des_word + "位置惯用名:</font>" + addressAlase
+						+ "<br/> ";
+			}
+			$("#infopath").html(ht);
+
+			//报事人
+			var hm = task[0].INFORM_MAN_NAME ? task[0].INFORM_MAN_NAME
+					: '';
+			$("#infoman").html(
+					"<font style='font-size: 14px;line-height:36px;color: #333333;'>报事人：</font>"
+							+ hm);
+
+			// 电话   
+			phoneNumber = task[0].INFORM_MOBILE ? task[0].INFORM_MOBILE
+					: '';
+			//报事人电话
+			$("#phoneCodeInfo").html(
+					"<font class='task_name'>联系电话：</font>"
+							+ phoneNumber);
+			
+			$("#phoneCodeInfo").click(function(e){
+				dialPhone(phoneNumber);
+	        });
+
+			var type_des;
+			// type_num = task[0].INFORM_TYPE? task[0].INFORM_TYPE : '无';
+
+			if (type_num == 1) {
+				type_des = "公区报事"
+			} else if (type_num == 2) {
+				type_des = "公区代客"
+			} else if (type_num == 3) {
+				type_des = "入室维修"
+			}else if (type_num == 4) {
+				type_des = "计划"
+			}
+			$("#daike_zijian").html(
+					"<font class='task_name'>报事类型: </font>"
+							+ type_des);
+		
+			if (task[0].STRING_PLAN_TIME == undefined) {
+				task[0].STRING_PLAN_TIME = "无";
+			}
+			if (task[0].CONTACTS == undefined) {
+				task[0].CONTACTS = "无";
+			}
+			if (task[0].TELEPHONE == undefined) {
+				task[0].TELEPHONE = "无";
+			}
+		
+			//alert(task[0].REASON_MAIN_ID);	
+		if (task[0].REASON_MAIN_ID != undefined) { 
+			//alert(task[0].REASON_MAIN_ID);
+			var sqlReason = "select  REASON_DETAIL as reason_desc from REASON_CAUSE where REASON_MAIN_ID='"+ task[0].REASON_MAIN_ID + "'";
+			var reason = window.csq_db.db_select(0, sqlReason, '', 1);
+			//alert(reason);
+			reason = eval("(" + reason + ");");
+			//alert(reason.length);
+			if(reason.length>0){
+				var cause_desc = reason[0].reason_desc;
+				$("#baoshi_type").html("<font class='task_name'>故障类型: </font>"+ cause_desc);
+			}
+		}	         
+		//alert(task[0].REASON_MAIN_DETAIL_ID);
+		if (task[0].REASON_MAIN_DETAIL_ID != undefined) { 
+			//alert(task[0].REASON_MAIN_ID);
+			var sqlReason = "select  REASON_DETAIL as reason_desc from REASON_CAUSE where REASON_MAIN_ID='"+ task[0].REASON_MAIN_DETAIL_ID + "'";
+			var reason = window.csq_db.db_select(0, sqlReason, '', 1);
+			//alert(reason);
+			reason = eval("(" + reason + ");");
+			//alert(reason.length);
+			if(reason.length>0){
+				var cause_desc = reason[0].reason_desc;
+				$("#baoshi_type_detail").html("<font class='task_name'>故障细类: </font>"+ cause_desc);
+			}
+		}	
+		
+			
+			if(type_num==2||type_num==3){
+			    $("#dv_name").html("<font class='task_name'> 预约时间  : </font>"+formatDataWithoutMillisecond(task[0].STRING_PLAN_TIME));
+				$("#dv_contact").html("<font class='task_name'> 客户联系人 :</font>" +task[0].CONTACTS);
+				$("#dv_tel").html("<font class='task_name'> 客户电话 :</font>"+task[0].TELEPHONE);
+				$("#dv_tel").click(function(e){
+					dialPhone(task[0].TELEPHONE);
+		        });
+			}else{
+				$("#dv_unit").hide();
+			}
+
+			var urgenciDegree = ""
+		
+			if (1 == task[0].PRIORITY) {
+				urgenciDegree = "不紧急";
+			} else if (2 == task[0].PRIORITY) {
+				urgenciDegree = "中";
+			} else if (3 == task[0].PRIORITY) {
+				urgenciDegree = "紧急";
+			}
+			urgenciDegree = "<font class='task_name'>紧急程度：</font>"
+					+ urgenciDegree;
+			$("#urgencyDegree").html(urgenciDegree);
+			// 工单生成人
+			$("#cmit_man").html(task[0].INFORM_MAN_NAME);
+
+			// 工单生成时间
+			$("#generateTaskTime").html(formatDataWithoutMillisecond(task[0].INFORM_TIME));
+	  }
+
+	$(function() {
+		
+	   
+		payMoneyAction();
+		
+		setTimeout(
+				function() {
+					userId = window.csq_hw.getUserId();
+				
+					var canPaiDan = hasPermission(CONST_PERM_GONGDAN_PD);
+					var canQiangDan =false;//= hasPermission(CONST_PERM_QIANGDAN);
+					//工单废弃
+					var canAbound = hasPermission(CONST_PERM_GONGDAN_FQ);
+					var canPingJia = hasPermission(CONST_PERM_GONGDAN_PJ);
+					var canTuiHui = hasPermission(CONST_PERM_GONGDAN_TH);
+
+				    //alert(canPaiDan);
+					if (!canPaiDan) {
+						$("#paiBtn").hide();
+					}
+					if (!canAbound) {
+						$("#abound").hide();
+					}
+
+					//计划工单woid转task_id 
+					if ("P" == getUrlParamValByKey('plan')|| "R" == getUrlParamValByKey('plan')) {
+
+						//alert("是否获取计划类型P");
+						var woid = getUrlParamValByKey('taskId');
+
+						var task_Id = window.csq_db.db_select(0,
+								"select task_id from TASKMESSAGE where TASK_CODE='"
+										+ woid + "'", '', 2);
+
+						var Datataskid = eval("(" + task_Id + ")");
+
+						taskId = Datataskid[0].TASK_ID;
+
+					} else {
+						taskId = getUrlParamValByKey('taskId');
+					}
+					g_tab = getUrlParamValByKey('index');
+					
+					//alert(taskId);
+					window.csq_io.getFileById(taskId);
+
+					//执行SQL   根据task_id  获取单个工单的所有数据 
+
+					var data = window.csq_db.db_select(0,
+							"select * from TASKMESSAGE where TASK_ID='"
+									+ taskId + "'", '', 2);
+
+					//整合数据
+					
+					//alert("taskmessage-----"+data);
+					
+					task = eval("(" + data + ")");
+					
+					type_num = task[0].INFORM_TYPE ? task[0].INFORM_TYPE: '无';
+					
+					OrderDetailShow();
+					
+					ShowImageAction();
+
+					//alert("money"+task[0].MONEY);
+					//alert("money1"+task[0].IF_MONEY);
+					if(task[0].MONEY>0){
+						$("#scan_money").text("支付金额:"+task[0].MONEY);
+					  }else {
+						$("#scan_money").hide();
+					  }
+	              
+					
+					//todo  du 添加历史    start
+					var ass_ans_back = $("#ass_ans_back");
+
+					//执行SQL  根据task_id  获取单个工单的所有数据流程历史 
+
+					var taskHistoryList = window.csq_db.db_select(0,"select * from task_process where task_process.task_id='"+ taskId+ "' order by task_process.PROCESS_TIME asc",'', 2);
+				
+					var taskHistoryData = eval("(" + taskHistoryList + ")");
+					if (taskHistoryData.length <= 0) {
+						window.csq_hw.showToast("工单流程记录同步错误，请更新工单后重新操作");
+					}
+					var isCompleted = false;//标记该工单是否已经完成
+					var isFinished = false;//标记该工单是否已经完结
+					var afterHtml = "";
+
+					for (var i = 0; i < taskHistoryData.length; i++) {
+						var process = taskHistoryData[i];
+						if (!taskHistoryData) {
+							continue;
+						}
+						var desc = process.PROCESS_CONTENT ? process.PROCESS_CONTENT
+								: '';
+						var name = getUserAlias(process.PROCESS_MAN);
+						
+					
+						if (process.TASK_STATUS == "Completed") {
+							isCompleted = true;
+							
+							if(type_num==2||type_num==3){
+							    desc = desc+'<br/>';
+								var s1 = task[0].CUS_EVAL_TEXT ? task[0].CUS_EVAL_TEXT: '无';
+								    s1 = "客户评价内容:"+s1 +'<br/>';
+								var s2 = task[0].CUS_EVAL_STAR ? task[0].CUS_EVAL_STAR: '无';
+								    s2 = "客户评价星级:"+ s2 +'<br/>';
+								    desc = desc + s1 + s2;
+							}
+							
+						}
+
+						if (process.TASK_STATUS == "Finished") {
+							isFinished = true;
+						}
+						afterHtml += '<div class="liucheng_yi">';
+						afterHtml += '<div class="circle"></div>';
+						afterHtml += '<div class="liucheng_nei">';
+						afterHtml += '<div class="liucheng_neinei">';
+						afterHtml += '<div class="liucheng_ren">' + name
+								+ '</div>';
+						if (isFinished) { //工单完成并且是评价人员的 ,显示评价按钮    && ismonitor==2
+							//待数据库工单表添加了评分字段，将下面替换为真实数据。
+							afterHtml += '<div class="liucheng_xiang">'
+									+ covertStatus(process.TASK_STATUS);
+							afterHtml += '<div class="liucheng_ren" style="margin-top:30px;font-size: 14px;color: rgb(0, 168, 255);">评分：'
+									+ task[0].CUSTOMER_IDEA + '</div>';
+							afterHtml += '</div>';
+						} else {
+
+							//工单状态转换为汉字描述
+							afterHtml += '<div class="liucheng_xiang">'
+									+ covertStatus(process.TASK_STATUS)
+									+ '</div>';
+						}
+						afterHtml += '<div class="liucheng_time">'
+								+ formatDataWithoutMillisecond(process.PROCESS_TIME) + '</div>'; //工单流程时间 
+						afterHtml += '<div class="gongdan_miaoshu">' + desc + '</div>';
+						
+
+						var paidanBtnFlag = '<div class="do">'
+								+ '<input type="button" onclick="paiDan(0);" id="paiBtn" value="派单">'
+								+ '</div>';
+						var liuZhuanBtnFlag = '<div class="do">'
+								+ '<input type="button" onclick="paiDan(1);" id="paiBtn" value="转发">'
+								+ '</div>';		
+					
+						var qiangdanBtnFlag = '<div class="do">'
+									+ '<input type="button" onclick="rogTask();" id="robBtn" value="抢单">'
+									+ '</div>';
+						
+						var aboundBtnFlag = '<div class="do">'
+									+ '<input type="button" onclick="CancleTaskShow();" id="abound" value="废弃">'
+									+ '</div>';	
+						var moneyScanBtnFlag = '<div class="do">'
+									+ '<input type="button" onclick="scanPupWindow();" id="scanMoney" value="支付">'
+									+ '</div>';					
+					
+
+					    var zhixingBtnFlag = '<div name="zhixinBtn" class="do" id="action_order">'
+									+ '<input type="button" id="exeWorkOrderId" onclick="execTask();" value="执行工单">'
+									+ '</div>';			
+							
+						  if (afterHtml.indexOf(paidanBtnFlag) > -1) {
+									afterHtml = afterHtml.replace(paidanBtnFlag, "");
+					     }
+						  if (afterHtml.indexOf(liuZhuanBtnFlag) > -1) {
+								afterHtml = afterHtml.replace(liuZhuanBtnFlag, "");
+				          }
+						  
+						  if (afterHtml.indexOf(aboundBtnFlag) > -1) {
+								afterHtml = afterHtml.replace(aboundBtnFlag, "");
+				         }
+						  
+						//此处作用，只保留流程状态最后一次【抢单】按钮
+							if (afterHtml.indexOf(qiangdanBtnFlag) > -1) {
+								afterHtml = afterHtml.replace(qiangdanBtnFlag, "");
+							}
+						
+							//此处作用，只保留流程状态最后一次 执行 按钮
+							
+						 if (afterHtml.indexOf(zhixingBtnFlag) > -1) {
+								afterHtml = afterHtml.replace(zhixingBtnFlag, "");
+						 }
+
+
+						//新建的工单，物业人员派单逻辑
+						if (task[0].TASK_STATUS == "Processed") {
+							
+							 if(getUserType()==4 ){
+								 if(canPaiDan){
+			                      afterHtml += paidanBtnFlag;
+									}
+								 
+								 if(canAbound){
+				                     afterHtml += aboundBtnFlag;
+									}
+								 
+		                      }
+							
+						    if(task[0].IF_ROB==1){
+								 afterHtml += qiangdanBtnFlag;
+		                      }
+							
+						}
+						
+						 
+							//此处作用，只保留流程状态最后一次【派单】按钮
+					/* 		
+						 if (afterHtml.indexOf(paidanBtnFlag) > -1 &&(task[0].TASK_STATUS == "Assigned"||task[0].TASK_STATUS == "TimeOut"||task[0].TASK_STATUS == "Backed")) {
+							afterHtml = afterHtml.replace(paidanBtnFlag, "");
+						  }
+						 
+						  */
+							
+						if ((process.TASK_STATUS == "Assigned"||process.TASK_STATUS == "Processing"||process.TASK_STATUS == "Answered") &&task[0].DUTY_MAN == getUserMsg('user_id')) {
+							
+							afterHtml += zhixingBtnFlag;
+									
+						 }	
+					
+
+					   if(task[0].TASK_STATUS == "Backed"){
+							
+							if (afterHtml.indexOf(zhixingBtnFlag) > -1) {
+								 afterHtml = afterHtml.replace(zhixingBtnFlag, "");
+							}
+							if (afterHtml.indexOf(paidanBtnFlag) > -1) {
+								 afterHtml = afterHtml.replace(paidanBtnFlag, "");
+							}
+							if (afterHtml.indexOf(liuZhuanBtnFlag) > -1) {
+								 afterHtml = afterHtml.replace(liuZhuanBtnFlag, "");
+							}
+							// 人员类型为主管
+							if(getUserType()==4){
+								//有派单权限
+								if(canPaiDan){
+				                      afterHtml += paidanBtnFlag;
+				                       // 工单类型是普通类型
+				                      if(task[0].TASK_TYPE == "A"){
+								       afterHtml += liuZhuanBtnFlag;
+				                      }
+								 }
+								  if(canAbound){
+				                     afterHtml += aboundBtnFlag;
+									}
+		                      }
+						}else if(task[0].TASK_STATUS == "TimeOut"){
+							
+							if (afterHtml.indexOf(paidanBtnFlag) > -1) {
+								 afterHtml = afterHtml.replace(paidanBtnFlag, "");
+							}
+							if (afterHtml.indexOf(zhixingBtnFlag) > -1) {
+								 afterHtml = afterHtml.replace(zhixingBtnFlag, "");
+							}
+							
+							 if(getUserType()==4&&canPaiDan){
+								 afterHtml += paidanBtnFlag;
+		                      }
+							 if(getUserType()==4&&canAbound){
+			                     afterHtml += aboundBtnFlag;
+								}
+						}
+					
+						
+						/* if(process.TASK_STATUS=='Completed'&& process.PRICE>0){
+							afterHtml += '<div class="gongdan_miaoshu">收费金额:' +process.PRICE+'</div>';//+ 
+						} */
+						if(process.TASK_STATUS=='Completed'&&task[0].IF_MONEY==1){
+						afterHtml += '<div class="gongdan_miaoshu" style="color:#FF0000;">支付状态:已支付</div>';//+ 
+					    }
+						
+						if(process.TASK_STATUS=='Completed'&& Finishimages.length>=1){
+						   
+							
+							afterHtml += '<div  class="gongdan_pic"><span id="process_image"></span><div style="clear:both; float:none; width:0; height:0; line-height:0; font-size:0;"></div></div>';
+						}
+						if(process.TASK_STATUS=='Completed'&&task[0].DUTY_MAN == getUserMsg('user_id')&&type_num==3&&task[0].MONEY>0&&task[0].IF_MONEY==0){//需要改动为pushmark
+							afterHtml += moneyScanBtnFlag;
+						}	
+						
+						afterHtml += '</div>';
+						afterHtml += '</div>';
+						afterHtml += '</div>';
+					}
+					
+					
+					 
+
+					if (!isCompleted) {
+						var noCompleteDiv = '<div class="liucheng_yi">'
+								+ '<div class="circle"></div>'
+								+ '<div class="liucheng_nei">'
+								+ '<div class="liucheng_neinei">'
+								+ '<div class="liucheng_xiang">已完成</div>'
+								+ '</div>' + '</div>' + '</div>';
+							
+						$("#noProcessDivId").append(noCompleteDiv);
+					}
+					if (!isFinished) {
+						var commentStar = '<div class="do" style="margin: ;margin-top:0px;">'
+								+ '<input  type="button" onclick="commentStar(1);" id="commentStarBtnId" value="评价">'
+								+ '</div>';
+						
+						var noCompleteDiv = '<div class="liucheng_yi">'
+								+ '<div class="circle"></div>'
+								+ '<div class="liucheng_nei">'
+								+ '<div class="liucheng_neinei">';
+						//if(isCompleted && ismonitor==2){
+                      //  alert(isCompleted);
+                       // alert(canPingJia);
+                       // alert(type_num);
+						if (isCompleted && canPingJia) {
+							noCompleteDiv += '<div class="liucheng_xiang" style="display:inline;">完结工单';
+							
+							//主管只能评价公区报事
+							if(getUserType()==4&&type_num==1){
+			                    noCompleteDiv += commentStar;
+			                 //管家只能评价公区代客
+							}else if(getUserType()==6&&type_num==2){
+								 noCompleteDiv += commentStar;
+							}
+							if(getUserType()==4&&(task[0].TASK_TYPE == "P"||task[0].TASK_TYPE == "X"||task[0].TASK_TYPE == "E")){
+			                    noCompleteDiv += commentStar;
+							}
+							//noCompleteDiv += moneyScanBtnFlag;
+							
+							noCompleteDiv += '</div>';
+						} else {
+							
+							//if(isCompleted&&type_num==3){
+								//noCompleteDiv += moneyScanBtnFlag;
+						//	}
+							noCompleteDiv += '<div class="liucheng_xiang">完结工单';
+							//noCompleteDiv += commentStar;
+							noCompleteDiv += '</div>';
+						}
+						noCompleteDiv += '</div>' + '</div>' + '</div>';
+						$("#noProcessDivId").append(noCompleteDiv);
+					}
+
+                 
+					//显示完结人、时间，完结描述，评分
+					// 添加 评价按钮 和对应的方法   evaluate(); 跳转界面 ,评价完毕,返回流程页面查看评价.
+
+					//var task_status = task[0].TASK_STATUS;
+					//var undoProcess = statusLineCss(task_status);//根据当前工单状态或许后两次未执行状态
+					/* afterHtml = '<div class="liucheng_yi"><div class="circle"></div><div class="liucheng_nei"><div class="liucheng_neinei"><div class="liucheng_xiang">处理中</div>'
+					+'</div></div></div>'; */
+					ass_ans_back.after(afterHtml);
+					
+					//添加流程的图片
+					
+					$("#process_image").html(imageFinishTag);
+					
+					if (task[0].TASK_STATUS == "Processed") { //工单创建完之后，自动进入待分派状态
+						activityShow(0);
+						$("#clBtn").hide();
+						
+						/* if(type_num==1||type_num==2){
+							$("#robBtn").hide();
+						} */
+						
+						if(getUserType()!=4){
+							$("#abound").hide();
+						}
+						
+						  if(task[0].IF_ROB==1&&task[0].TASK_TYPE != "P" ){
+							
+							  $("#robBtn").show();
+		                  }
+					
+					}else if (task[0].TASK_STATUS == "Assigned") { //已经指定责任人
+						activityShow(1);
+						$("#robBtn").hide();
+						//可以重复派单
+						//$("#paiBtn").show();
+						
+					} else if (task[0].TASK_STATUS == "Backed") { //手机APP返单，这种任务只能由班长分派，不再进行抢单
+						activityShow(0);
+						$("#robBtn").hide();
+						$("#clBtn").hide();
+						$("#task_back_show").hide();
+						
+						if (!canPaiDan) {
+							$("#paiBtn").hide();
+						}
+
+					} else if (task[0].TASK_STATUS == "Completed") { //员工通过手机APP确定完成				
+						$("#robBtn").hide();
+						$("#clBtn").hide();
+						$("#paiBtn").hide();
+						$("#action_order").hide();
+						$("#task_back_show").hide();
+					
+						activityShow(5);
+					} else if (task[0].TASK_STATUS == "Finished") {
+						$("#robBtn").hide();
+						$("#clBtn").hide();
+						$("#paiBtn").hide();
+						$("#task_back_show").hide();
+						$("#action_order").hide();
+						$("#task_006").attr("class", "liucheng_yi");
+						activityShow(6);
+					}
+
+				
+
+				}, 500);
+		//控制页面 end
+		$(".xuanxiang_danren").click(function() {
+			isSingle = false;
+			$(".xuanxiang_danren").hide();
+			$(".paidan_danren").hide();
+			$(".xuanxiang_duoren").show();
+			$(".paidan_duoren").show();
+		});
+		$(".xuanxiang_duoren").click(function() {
+			isSingle = true;
+			$(".xuanxiang_duoren").hide();
+			$(".paidan_duoren").hide();
+			$(".xuanxiang_danren").show();
+			$(".paidan_danren").show();
+		});
+		$(".close").click(function() {
+			$("#liucheng_tanchu_paidan").fadeOut();
+			$(".liucheng_tanchu").hide();
+			$("#fade").fadeOut();
+			$("#bodyId")[0].style.position = "static";//滚动条恢复
+			
+			 $("#er_code").html("");
+		});
+	});
+
+	//流程<--返回到工单页
+	function backTrack() {
+		backToList();
+	}
+
+	//派单人员搜索
+	$(function() {
+		filterList($("#form"), $(".liucheng_paidan"));
+	});
+
+	function dialPhone(phoneNumber) {
+		if (phoneNumber.trim().length != 0) {
+			window.csq_hw.dialNumber(phoneNumber);
+		}
+	}
+	
+	
+</script>
+
+<style>
+#zzbg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 999;
+	display: none;
+}
+
+#zzbg img {
+	width: 80%;
+	position: absolute;
+	left: 10%;
+	top: 50%;
+}
+
+.liucheng_tanchu_tijiao {
+	margin-top: 10px;
+}
+
+.liucheng_tanchu {
+	padding-bottom: 10px;
+}
+</style>
+
+
+	<!--弹出_退回-->
+	<div class="liucheng_tanchu" id="task_back_show"
+		style="display: none; z-index: 9001; opacity: 1;">
+		<div class="tit">
+			<strong><span>工单退回</span></strong><i class="close"><span>关闭</span></i>
+		</div>
+		<div class="liucheng_tanchu_shuru">
+			<textarea id='backcontent' placeholder="请输入退回原因…"></textarea>
+		</div>
+		<div class="liucheng_tanchu_tijiao">
+			<button onclick="taskBack();" class="bottonStyle button_left">确认</button>
+			<button onclick="goBack();" class="bottonStyle button_right">取消</button>
+		</div>
+	</div>
+	
+	<!--弹出_撤销-->
+	<div class="liucheng_tanchu" id="task_cancle_show"
+		style="display: none; z-index: 9001; opacity: 1;">
+		<div class="tit">
+			<strong><span>撤销工单</span></strong><i class="close" onclick="cancleBack();"><span>关闭</span></i>
+		</div>
+		<div class="liucheng_tanchu_shuru">
+			<textarea id='canclecontent' placeholder="请输入撤销原因…"></textarea>
+		</div>
+		<div class="liucheng_tanchu_tijiao">
+			<button onclick="CancleTask();" class="bottonStyle button_left">确认</button>
+			<button onclick="cancleBack();" class="bottonStyle button_right">取消</button>
+		</div>
+	</div>
+	
+
+
+	<!--弹出_派单-->
+	<div id="liucheng_tanchu_paidan" class="liucheng_tanchu"
+		style="z-index: 9001; opacity: 1;">
+		<div style='height: 480px;'>
+			<div class="tit" style="margin-top:50px;">
+				<i> <span class="xuanxiang_danren">单人</span> <span
+					class="xuanxiang_duoren" style="display: none; color: #fccb00;">多人</span>
+				</i> <strong><span>派发工单</span></strong>
+			</div>
+			<!--===========搜索框star=============-->
+			<div class="soso" id="form">
+				<span></span>
+			</div>
+			<!--===========搜索框end=============-->
+
+			<!--===========多人派单=============-->
+			<div id="listnavChecked"></div>
+			<div class="liucheng_paidan">
+				<ul id="paidan_danren" class="paidan_danren">
+					<!--弹出_派单_单人-->
+				<!-- 	<li><strong class="num_name">张三</strong><i><input
+							name="xiezhu" type="radio" /></i></li> -->
+				</ul>
+
+				<ul id="paidan_duoren" class="paidan_duoren paidanNameList"
+					style="display: none;">
+					<!--弹出_派单_多人-->
+					<!-- <li><strong class="num_name">张三</strong><i><input
+							name="xiezhu" type="radio" /></i></li> -->
+				</ul>
+
+			</div>
+		</div>
+		<div class="liucheng_dibu_btn">
+			<span>
+			<i class="liucheng_dibu_btn_left" style="padding: 0 15px 0px 25px;"> 
+			<input style="height: 38px; padding: 10px; background: #fccb00;" type="submit" value="派单" onclick="paiDanAction()" />
+			</i>
+			</span> 
+			
+			<span>
+			<i class="liucheng_dibu_btn_right" style="padding: 0 25px 0px 15px;"> 
+			<input style="height: 38px; padding: 10px; background: #fccb00;" type="submit" value="取消" onclick="close_01()" />
+			</i>
+			</span>
+					
+		</div>
+	</div>
+	
+  <div class="unit liucheng_tanchu" id="type_pop">
+    <div class="con">
+        <div class="title">
+            <h4>支付类型</h4>
+            <span class="close">关闭</span>
+        </div>
+        <div class="unit-list">
+            <ul id="customer_name_list" class="car_item">
+               <!--  <li id="0">现金</li> -->
+                <li id="1">支付宝</li>
+                <li id="2">微信支付</li>
+            </ul>
+        </div>
+    </div>
+</div>	
+	
+  <div class="zzbg liucheng_tanchu scan_pup">
+		    
+		 <div class="tit">
+			<strong><span>扫码支付</span></strong><i
+				class="close"><span>关闭</span></i>
+		</div>   
+		<div style="text-align: center;padding: 16px 30px 10px;">
+			<p>
+				<span id="scan_money" style="color: #fccb00; font-size: 18px;"></span>
+			</p>
+		</div>
+       
+        <div style="text-align:center;margin-bottom:50px;" id="er_code">
+      		<!-- <img id="er_code_src"  width="100" height="100"/> --> <!-- src="img/demo.png" -->
+        </div>
+
+		<div class="bottomBtn">
+			<input type="button" value="完成支付" onclick="submitScan();">
+		</div>
+	</div> 
+	
+
+</html>

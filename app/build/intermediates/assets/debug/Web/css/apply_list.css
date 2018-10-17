@@ -1,0 +1,12 @@
+body{background: #ffffff;margin-bottom: 20px;}
+
+
+/* 二装，收发函list列表的统一样式管理*/
+
+.applay-list{padding:0 4%;max-width: 640px;margin: 0 auto;margin-top:48px;}
+.applay-list li{line-height: 40px;color: #333333;border-bottom: 1px solid #e0e0e0;font-size: 14px;position:relative;}
+.applay-list li p:after{content: "";height:0;display: block;clear:both;}
+.applay-list .tit{width:32%;float:left; }
+.applay-list .detail{width:68%;float:left;overflow:hidden;font-size: 16px;font-weight:bold;}
+.applay-list .date{position:absolute;right:0;top:0;color: #a199a1;font-size: 12px;}
+.applay-list .status{position:absolute;right:0;bottom:5px;color: #a199a1;font-weight:bold;font-size: 15px;background: ;color:#ffffff;height:30px;width:80px;display:block;-webkit-border-radius: 5px;border-radius: 5px;text-align: center;line-height: 30px;}

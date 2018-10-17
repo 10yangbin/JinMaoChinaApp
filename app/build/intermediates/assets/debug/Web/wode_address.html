@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<link type="text/css" rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/slidernav1.css" media="screen, projection" />
+<link rel="stylesheet" type="text/css" href="css/listnav.css" media="screen, projection" />
+<link href="css/liucheng.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<!--ListNav是一个用于创建按字母顺序分类导航的jQuery插件。-->
+<script type="text/javascript" src="js/jQuery.Hz2Py-min.js"></script>
+<script type="text/javascript" src="js/pinyin.js"></script>
+<script src="js/jquery.charfirst.pinyin.js"></script>
+
+<script type="text/javascript" src="js/afm_user.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+<script type="text/javascript">
+	//专家通信录 
+	function professorContacts() {
+	 	var sql = " select DISTINCT afm.user_name as name ,afm.mobile,ute.role_name as label from afm_users afm , user_site ute  where afm.data_status!=0 and afm.user_id = ute.user_id and ute.cf_type>2 and ute.SITE_ID='"+ window.csq_hw.getcurrUserSiteID() + "' ";
+		var userList = window.csq_db.db_select(0, sql, null, 1);
+		//alert(userList);
+		var userList = eval("(" + userList + ");");
+		//alert(retObj.msg);
+		if(userList.length<1){
+		   window.csq_hw.showToast("人员信息为空!");
+		   return;
+		}
+		var paiHtml01 = "";
+		for (var i = 0; i < userList.length; i++) {
+			paiHtml01 += '<li onclick=dialPhone("' + userList[i].mobile+ '");><strong class="num_name">'
+					+ userList[i].name
+					+ '</strong><strong class="num_name">['
+					+ userList[i].label
+					+ ']</strong><strong  class="num_name">('
+					+ userList[i].mobile
+					+ ')</strong><i><input type="radio" onclick=dialPhone("' + userList[i].mobile+ '"); value="1" name="xiezhu"/></i></li>';
+		}
+		$(".liucheng_dibu_btn").hide();
+		// window.csq_hw.showToast(userData);
+		$("#paidan_danren").html(paiHtml01);
+
+		//初始化单人和多人的派单界面
+		initials();
+		
+		$(".graybg_pd").fadeIn();
+		$("#fade").fadeIn();
+		$("#bodyId")[0].style.position = "fixed";//滚动条恢复 
+		$("#liucheng_tanchu_paidan").show();
+		uiFlag = 2;
+		$('#paidan_danren').listnav();
+		$('#paidan_duoren').listnav();
+
+
+}
+ 
+	    $(function(){
+	    	filterList($("#form"), $(".liucheng_paidan"));
+	    	professorContacts();
+		});
+	    
+		function backTrack() {
+			 window.location.href = "wode_shezhi.html";
+		}
+		 //安卓虚拟返回键   ios 去掉 
+        function backCallBack() {
+        	backTrack();
+        }
+		 
+     
+      
+	</script>
+	
+</head>
+<body id="bodyId">
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">项目通讯录</p>
+		<span></span>
+	</header>
+	
+	<!--弹出_派单-->
+	<div id="liucheng_tanchu_paidan" class="liucheng_tanchu"
+		style="z-index: 9001; opacity: 1;">
+		<div style='height: 480px;margin-top:50px;'>
+			
+			<!--===========搜索框star=============-->
+			<div class="soso" id="form">
+				<span></span>
+			</div>
+			<!--===========搜索框end=============-->
+
+			<!--===========多人派单=============-->
+			<div id="listnavChecked"></div>
+			<div class="liucheng_paidan">
+				<ul id="paidan_danren" class="paidan_danren">
+					<!--弹出_派单_单人-->
+				<!-- 	<li><strong class="num_name">张三</strong><i><input
+							name="xiezhu" type="radio" /></i></li> -->
+				</ul>
+
+			</div>
+		</div>
+	
+	</div>
+
+
+</body>
+</html>

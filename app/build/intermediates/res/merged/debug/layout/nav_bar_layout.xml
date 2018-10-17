@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:background="@color/blue_text_color" >
+
+        <ImageView
+            android:id="@+id/leftImageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_blue_selector"
+            android:clickable="true"
+            android:drawableLeft="@drawable/icon_back"
+            android:onClick="onLeftButtonClick"
+            android:scaleType="center"
+            android:src="@drawable/icon_back"
+            android:contentDescription="TODO"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/rightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15.0dip"
+            android:clickable="true"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            android:onClick="onRightButtonClick"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18.0sp"
+            android:visibility="gone"
+            android:focusable="true" />
+    </RelativeLayout>
+
+</LinearLayout>

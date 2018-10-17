@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:bottom="0dp" android:right="0dp">
+        <shape >
+            <!-- 渐变 -->
+            <gradient
+                android:angle="180"
+                android:startColor="@color/ali_sdk_openaccount_button_text"
+                android:endColor="@color/ali_sdk_openaccount_button_text" />
+            <corners android:radius="21dp"/>
+        </shape>
+    </item>
+</layer-list>

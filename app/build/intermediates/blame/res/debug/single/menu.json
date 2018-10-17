@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\menu\\use_camera.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\menu\\use_camera.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\menu\\ali_sdk_openaccount_menu.xml",
+        "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\openaccount-ui-default-3.5.1.8.aar\\20ada2a271962ca03e45b5a727b1872c\\res\\menu\\ali_sdk_openaccount_menu.xml"
+    },
+    {
+        "merged": "E:\\AsPrcject\\JinMaoChinaApp\\app\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "E:\\AsPrcject\\JinMaoChinaApp\\app\\src\\main\\res\\menu\\main.xml"
+    }
+]

@@ -1,0 +1,1267 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+<link href="css/listnav.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="js/tanchu.js"></script>
+<script type="text/javascript" src="js/pinyin.js"></script>
+
+ <!-- 日期样式 -->
+    <link rel="stylesheet" href="DTPicker/css/normalize3.0.2.min.css" />
+    <link rel="stylesheet" href="DTPicker/css/style.css?v=7" />
+    <link href="DTPicker/css/mobiscroll.css" rel="stylesheet" />
+    <link href="DTPicker/css/mobiscroll_date.css" rel="stylesheet" />
+ <!-- 日期插件 -->
+    <script src="DTPicker/js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="DTPicker/js/mobiscroll.js"></script>    
+  
+<!-- 公用js文件引用 -->
+<script type="text/javascript" src="js/photo_operate.js"></script>
+<script type="text/javascript" src="js/iscroll5.js"></script>
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/baoshi.css" rel="stylesheet" type="text/css">
+<link href="css/baoxiu.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/common.js"></script>
+
+ <link type="text/css" rel="stylesheet" href="css/bounced.css">
+  <link type="text/css" rel="stylesheet" href="css/reason_cause.css">
+ <script src="js/bounced.js"></script>
+ <script type="text/javascript" src="js/get_reason_baoshi.js"></script>
+
+<script type="text/javascript" src="js/roomListShow.js"></script>
+<script type="text/javascript" src="js/permission.js"></script>
+
+<style>
+
+#baoshi_yezhu li {
+	word-break: break-all;
+}
+.pay_list_c1{
+    margin:0;
+}
+.name-degree label{display: inline-block;height:24px;line-height: 24px;}
+.name-degree label span{float: left;padding:0;display: block!important;}
+.name-degree label .pay_list_c1{margin-right:5px;}
+.name-degree label input{visibility: hidden;}
+.onColor>span{color:#fccb00;}
+.headtabs2 .headtabs_this{border-bottom: 1px solid #fccb00;color:#fccb00;}
+</style>
+
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backCallBack();">
+		<span onclick="backCallBack();"></span>
+		<p class="title">报修管理</p>
+		<span class="right"></span>
+	</header>
+	
+	<!-- 整个报事界面的view展示 -->
+
+	<div class="marg marginTop">
+		<ul class="sgclamin">
+
+			
+			<li class="baoshi_yezhu repair_unit" id="car_type">
+				<div class="baoshi_yezhu_biaoti">
+					<i style="font-size: 16px; color: #FF0000;">报事类型</i>
+				</div>
+                <div class="baoshi_yezhu_input">
+                   <span class="unit_name" id="car"></span>
+                </div>
+			</li>	
+			
+			<li class="baoshi_yezhu repair_unit" id="car_type" onclick="bsTypeShow();">
+				<div class="baoshi_yezhu_biaoti">
+					<i style="font-size: 16px; color: #FF0000;">故障分类</i>
+				</div>
+                <div class="baoshi_yezhu_input">
+                   <span class="unit_name" id="bstypedisplay"></span>
+                </div>
+			</li>	
+
+					
+			<!-- <li class="baoshi_kaiguan customer_infor" id="money" onclick="needMoney('#money');">
+				是否有偿</li> -->
+			
+			<!-- <li class="baoshi_kaiguan customer_infor" id="byself" onclick="needSlefTake('#byself');">
+				是否本人处理</li>	 -->
+
+			<li class="baoshi_yezhu customer_infor" id="yezhu_name">
+				<div class="baoshi_yezhu_biaoti">
+					<i style="font-size: 14px;color: #FF0000;">联系人</i>
+				</div>
+				<div class="baoshi_yezhu_input">
+					<input id="contact_name" value="" class="name" type="text" />
+				</div>
+			</li>
+
+			<li class="baoshi_yezhu customer_infor" >
+				<div class="baoshi_yezhu_biaoti">
+					<i style="font-size: 14px;color: #FF0000;">联系电话</i>
+				</div>
+				<div class="baoshi_yezhu_input">
+					<input id="tel" value="" class="phonenumber" type="number" />
+				</div>
+			</li>
+			
+			<li class="baoshi_yezhu customer_infor" id="yezhu_phone">
+				<div class="baoshi_yezhu_biaoti">
+					<i style="font-size: 14px">预约时间</i>
+				</div>
+				<div class="baoshi_yezhu_input">
+					<input id="start_time" value="" class="phonenumber" type="text" />
+				</div>
+			</li>
+
+			<!--紧急程度  的样式 -->
+			<li>
+                <div class="baoshi_yezhu_biaoti">
+                    <i style="font-size: 14px">紧急程度</i>
+                </div>
+				<div class="baoshi_yezhu_input">
+								<div class="name-degree">
+                                    <label  class="onColor">
+                                        <span class="pay_list_c1 on"> <input type="radio"
+                                            checked="checked" name="degree" value="1" class="radioclass"
+                                            id="di" />
+                                        </span>
+                                        <span>非紧急</span>
+                                    </label>
+                                   <!--  <label>
+                                        <span
+                                            class="pay_list_c1" style="margin-left: 0;"> <input
+                                            type="radio" name="degree" value="2" class="radioclass"
+                                            id="zhong" />
+                                        </span>
+                                         <span>中</span>
+                                    </label> -->
+                                    <label>
+                                        <span class="pay_list_c1"
+                                            style="margin-left: 0;"> <input type="radio"
+                                            name="degree" value="3" class="radioclass" id="gao" />
+                                        </span>
+                                        <span>紧急</span>
+                                    </label>
+								</div>
+				</div>
+            </li>
+			<!-- 房间数据的展示样式 开始-->
+					
+			<!--定位样式  -->
+			<li class="baoshi_putong">
+                <div class="baoshi_yezhu_biaoti">
+                    <i style="font-size: 16px; color: #FF0000;">定位方式</i>
+                </div>
+               <span>
+					
+					<a id='saoma' href="#" onclick="toQR()"><img src="img/btn_scan.png"></a> 
+					<a href="#" onclick="showSSandSBList()"><img src="img/btn_equipment.png"></a> 
+					<a href="#" onclick="showRoomList();"><img src="img/btn_space.png"></a>
+		          
+		       </span>
+		    </li>
+			
+			
+			<!--定位数据展示的样式  -->
+			<li class="baoshi_yezhu" style="border-bottom: none;">
+				<div id="baoshi_yezhu"></div>
+			</li>
+
+			<li><b>附件<span style="color: #fccb00; display: inline-block; padding: 0;"></span></b>
+				<span id="Photo"> 
+				<a onclick="toSelectPhoto();"><img src="img/btn_add.png"></a>
+			    </span>
+			</li>
+
+			<li>
+                <div class="baoshi_yezhu_biaoti">
+                    <i style="font-size: 16px; color: #FF0000;">添加描述</i>
+                </div>
+                <span><textarea
+						placeholder="请输入相关描述…" class="webare" id="bsDesc"
+						onblur="testRed('a');"></textarea></span></li>
+		</ul>
+	</div>
+	
+		<!--确认提交报事的按钮-->
+	<div class="bottomBtn">
+		<input type="button" value="提 交" id="tijiao" onclick="save()" />
+	</div>
+
+<script>
+
+var location_text; 
+ 
+
+//计划完成时间 方法实现
+$(function(){
+
+		
+	var currYear = (new Date()).getFullYear();	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.default = {
+		theme: 'android-ics light', //皮肤样式
+		display: 'modal', //显示方式 
+		mode: 'scroller', //日期选择模式
+		dateFormat: 'yyyy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear - 50, //开始年份
+		endYear: currYear + 10 //结束年份
+	};
+	
+	//  修改 datetime 时间格式为  date
+	$("#start_time").mobiscroll($.extend(opt['datetime'], opt['default']));
+	
+
+});
+
+    // 页面根据权限的初始化展示
+    $(function(){
+    
+     $(".customer_infor").hide();
+   
+     if(getUrlParamValByKey("task_num")==3){
+       $("#car").text('入室维修');
+	   inform_type = 3;
+	   isSelfTake=1;
+	   $(".customer_infor").show();
+     
+     }else {
+    	 
+    	   //报事类型的展示
+       $("#car_type").click(function(){
+               $("#type_pop").show();
+               new IScroll(".unit .unit-list",{preventDefault:false});
+               $("body").css("position","fixed");
+    	 });   
+    	   
+    	 //报事类型 item 的点击   非自检的可以点击
+   	   $(".car_item li").click(function(){
+   	   $(".unit").hide();
+         $("body").css("position","static");
+   	   $("#car").text($(this).text());
+   	   inform_type = $(this).attr("id");
+   	  // alert(inform_type);
+   	  
+   	   if(inform_type==2||inform_type==3){
+   		  $(".customer_infor").show();
+   	   }else{
+   		  $(".customer_infor").hide();
+   	   }
+
+   	   }); 
+     }
+     
+     //alert(inform_type + isSelfTake);
+     //	报事类型的关闭 
+     $(".unit .close").click(function(){
+             $(".unit").hide();
+             $("body").css("position","static");
+         });
+    	 
+   	  
+        var typeGQ = hasPermission(CONST_PERM_TYPE_GQ);
+		var typeGQDK = hasPermission(CONST_PERM_TYPE_GQDK);
+		var typeGQRSWX = hasPermission(CONST_PERM_TYPE_RSWX);
+		
+    if (typeGQ) {
+    	 $("#1").show();
+	} else {
+		 $("#1").hide();
+	}
+    
+    if (typeGQDK) {
+   	 $("#2").show();
+	} else {
+		 $("#2").hide();
+	}
+    
+    if (typeGQRSWX) {
+   	 $("#3").show();
+	} else {
+		 $("#3").hide();
+	}
+ 	 
+    	 //紧急程度的点击
+    	$(".pay_list_c1").on("click",function(){
+           $(".name-degree .pay_list_c1").removeClass("on");
+           $(this).addClass("on");
+           $(".name-degree label").removeClass("onColor");
+		    $(this).parent().addClass('onColor');
+		});
+    	 
+
+       //设备的选择     
+    	$("#searchDom").change(function() {
+			var chValue = $(this).val();
+		});
+	
+    	//关闭设备设施定位框  
+		$("#close_00").click(function() {
+			closeSearchFM();
+		});
+		
+		//关闭故障原因框
+		$("#close_01").click(function() {
+			closeTypeOrDetp();
+		});
+			
+		$('.headtabs2').children().each(function() {
+			var clickSpan = $(this);
+			clickSpan.click(function() {
+				//切换标签时，清空搜索框的Value
+				$("#searchKey").val("");
+				$('.headtabs_this').removeClass('headtabs_this');
+				clickSpan.addClass('headtabs_this');
+				//初始化数据
+				var tab_id = clickSpan.data('id'); //页签编号
+				currentType = tab_id;
+				switch (tab_id) {
+					case 0: //RM
+						curr_tanchu_tab_id = 0;
+						filterCurrentPage = 1;
+						break;
+					case 1: //EQ
+						curr_tanchu_tab_id = 1;
+						filterCurrentPage = 1;
+						break;
+				}
+				$('.listmain2').empty();
+				onSearch();
+			});
+		});
+		
+		
+		$(".rooms_headtabs span").click(function(event) {
+				var roomSpan = $(this);
+				$('.headtabs_this').removeClass('headtabs_this');
+				roomSpan.addClass('headtabs_this');							
+		        $("#roomsTab ul").eq($(this).index()).show().siblings().hide();
+		});
+        
+    
+		 //对于拍照引起内存不够，程序崩溃，重新加载界面 。
+		 window.longformain.onPageLoaded();
+
+    })
+</script>
+
+<script type="text/javascript">
+		
+			//报事分类  代客 ,自检等
+			var inform_type = 0; 
+			
+			//保存本地拍照图片的路径，不同图片间问号分割
+			var files = ""; 
+			//扫码,或者手动输入的设备设施的fmcode 
+			var fmcode = "";   
+			//房屋编码
+			var rm_code = "";
+		
+			//报事原因大类
+			var bstype="";
+			
+			//设备设施的当前tab标签
+			var curr_tanchu_tab_id = 0;
+		
+			var filterCurrentPage = 1;
+			var pageCount = 30;
+			//用以标识是选择房屋还是设备，0为房屋，1为设备
+			var eqFlag = 0;
+			//用以标识现在的界面，0-报事主界面,1-选择报事类型,2-设备定位,3-选择组团,4-选择楼栋,5-选择房屋
+			var uiFlag =0; 
+			//当前项目id 
+			var dingwei_Siteid = window.csq_hw.getcurrUserSiteID();
+			//从计划工单获取的task_code 
+			var task_code = (!getUrlParamValByKey("taskid"))?'': getUrlParamValByKey("taskid");	
+			
+			var task_id = (!getUrlParamValByKey("TASK_ID"))?'': getUrlParamValByKey("TASK_ID");
+			
+			var isNeedMoney = false;
+			
+			var isSelfTake = 0;
+			
+			var  plan_time;
+			
+
+			//回退按钮回调  包含房间层级的返回
+			function backCallBack(url){
+				//根据现在显示的界面确定要回退到哪一个界面上
+				//用以标识现在的界面，0-报事主界面,1-选择报事类型,2-设备定位,3-选择组团,4-选择楼栋,5-选择房屋 6-选择部门 7-选择图纸
+				switch (uiFlag){
+					case 0:
+						backTrack();//退出报事
+						break;
+					case 2:
+						closeSearchFM();
+						break;
+					case 3:
+						backGz();//返回报事
+						break;
+					case 4:
+						backStage();
+						break;
+					case 5:
+						backBuilding();
+						break;
+					case 6:
+						backUnitList();
+					break;
+					case 7:
+						backFloorList();	
+						break;
+						
+				}
+							
+			}
+		
+						
+			//关闭查询窗
+			function closeSearchFM(){
+				$(".graybg_pd").fadeOut();
+				$(".liucheng_tanchu").slideUp(500);
+				//史振伟UI 遮罩
+				$("#fade").fadeOut();
+				$("#bodyId")[0].style.position="static";	
+				uiFlag = 0;
+			}	
+			
+		
+			 //扫码操作
+			function toQR() {
+				window.csq_hw.scanQR();
+			}
+		
+	       
+			 //扫码回调----返回 result  
+			 //展示对应的房间或者设施设备数据
+			function scanBarcodeSuccessCallBack(phCode) {
+				
+				$(".graybg_pd").fadeOut();
+				$("#liucheng_tanchu").slideUp(500);
+				uiFlag = 0;
+				
+				phCode = eval("(" + phCode + ");");
+				fmcode = trim(phCode.id);
+
+				if (fmcode == "") {
+					return;
+				}
+	             
+	             // 扫码查询房间的信息 
+                    var sqlRm_Name = "select RM_NAME,BL_ID from RM where RM_ID='"+fmcode+"'";
+                    sqlRm_Name = sqlRm_Name + " COLLATE NOCASE ";	
+					var Scan_room_name = window.csq_db.db_select(0, sqlRm_Name,'',1);
+					
+					Scan_room_name = eval("(" + Scan_room_name + ");");   
+				
+					//如果编码有房间数据， 展示 
+					if(Scan_room_name.length>0){
+						
+						var sql_001 = " select * from RM where upper(rm_id)='"+fmcode.toUpperCase()+"' order by rm_id desc";
+						var data = window.csq_db.db_select(0,sql_001, '',1);
+						var _room = eval("(" + data + ")");
+						if(_room.length < 1){
+							window.csq_hw.showToast("没有房间信息。");
+						}
+						
+						$("#baoshi_yezhu").empty();
+						for (var i = 0; i < _room.length; i++) {
+							var item = _room[i];
+							var rmname1 = (!item.stage_name)?'无': item.stage_name; 
+							var rmname2= (!item.bl_name)?'无': item.bl_name; 
+							var rmname3 = (!item.unit_name)?'无': item.unit_name; 
+							var rmname4 = (!item.fl_name)?'无': item.fl_name; 
+							var rmname5 = (!item.rm_name)?'无': item.rm_name;
+			
+							rm_code = fmcode;
+							var czRS;
+							czRS = "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>地块</i></div>" + "<div class='baoshi_yezhu_biaoti'><i>" + rmname1 + "</i></div>" + "</li>" + "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>楼栋</i></div>" + "<div class='baoshi_yezhu_biaoti'><i>" + rmname2 + "</i></div>" + "</li>" + "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>单元</i></div>" + "<div class='baoshi_yezhu_biaoti'><i>" + rmname3 + "</i></div>" + "</li>"+"<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>楼层</i></div>" + "<div class='baoshi_yezhu_biaoti'><i>" + rmname4 + "</i></div>" + "</li>" + "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>房间</i></div>" + "<div class='baoshi_yezhu_biaoti'><i>" + rmname5 + "</i></div>"; 
+							
+							$("#baoshi_yezhu").append(czRS);
+						}
+							$("#gzType,#gz_bujian,#gzxianxiang").css("display","none");
+							$("#bodyId")[0].style.position = "static";
+							eqFlag = 0;
+							uiFlag = 0;
+							fmcode='';	
+					}
+					
+				// 扫码查询设备设施的信息 
+				var sqlScan = "select EQ_ID,CSI_ID from EQ where EQ_CODE='"+fmcode+"'";
+				
+				sqlScan = sqlScan + " COLLATE NOCASE ";	
+				var dataScan = window.csq_db.db_select(0, sqlScan,'',1);
+				//alert(dataScan);
+				dataScan = eval("(" + dataScan + ");");
+				//alert("设施设备数据"+dataScan.length);
+				if(dataScan.length>0){
+					
+					var eq_id = dataScan[0].eq_id;
+					var csi_id_Scan =  dataScan[0].csi_id;
+					var sql1 = " select BL_ID as bl_id,EQ_CODE as fm_code ,RM_ID as rm_code,EQ_NAME as app_eq_name ,CONVENT_EQ as sitedesc ,EQ_CODE as app_eq_code from eq ";
+					var sql2 = " select BL_ID as bl_id,EQ_CODE as fm_code ,RM_ID as rm_code,EQ_NAME as app_eq_name ,CONVENT_ADDRESS as sitedesc ,EQ_CODE as app_eq_code from eq ";
+					
+					//alert(csi_id_Scan);
+					var sql = "SB" == csi_id_Scan.substring(0,2)?sql1:sql2;
+					
+					sql += " where EQ_ID='" + eq_id + "' ";
+					sql+=" and SITE_ID = '"+dingwei_Siteid+"' ";
+					//加上不区分大小写的
+					sql = sql + " COLLATE NOCASE ";	
+					//alert(sql);
+					var data = window.csq_db.db_select(0, sql, '',1);
+					data = eval("(" + data + ");");
+					$("#baoshi_yezhu").empty();
+					if(data.length < 1){
+						window.csq_hw.showToast("没有查到该设施／设备");
+					}else{
+						for (var i = 0; i < data.length; i++) {
+							item = data[i];
+							fmcode = item.fm_code;  
+							var app_eq_code = item.app_eq_code;
+							var app_eq_name = item.app_eq_name;
+							var sitedesc = (!item.sitedesc)?"无":item.sitedesc;
+							var bl_id = (!item.bl_id)?"":item.bl_id;
+							//房间编码和描述缺少唯一编码
+							rm_code = item.rm_code; 
+							
+					var sqlRoomInfo = "select rm_id,rm_name from rm where rm_id='"+rm_code+"'";
+					var roomData = window.csq_db.db_select(0, sqlRoomInfo, '',1);
+				  //	alert("数据   "+roomData);		
+					    roomData = eval("(" + roomData + ");");
+					    if(roomData.length < 1){
+							window.csq_hw.showToast("没有查到该设施／设备相对房屋编码和描述");
+						} else {
+							  for (var i = 0; i < roomData.length; i++) {
+								    var roomItem= roomData[i];
+									var room_code= roomItem.rm_id;
+									var room_name = roomItem.rm_name;
+							  }
+						}
+					
+							var czRS;
+							var sbNoun = "SB" == csi_id_Scan.substring(0,2)?"设备":"设施";
+							czRS = "<li>" 
+										+ "<div class='baoshi_yezhu_biaoti'><i>"+sbNoun+"编码</i></div>" 
+										+ "<div class='baoshi_yezhu_biaoti'><i>" + app_eq_code + "</i></div>" 
+								+ "</li>" 
+								+ "<li>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>"+sbNoun+"名称</i></div>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>" + app_eq_name + "</i></div>" 
+								+ "</li>" 
+								+ "<li>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>"+sbNoun+"惯用名</i></div>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>" + sitedesc + "</i></div>" 
+								+ "</li>"
+								+ "<li>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>房屋编码</i></div>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>" + room_code + "</i></div>" 
+								+ "</li>"
+								+ "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>房屋描述</i></div>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>" + room_name + "</i></div>" 
+							+ "</li>"
+							 	+ "<div>" + "<input  type='hidden' id='roomcod_" + fmcode + "' value=\"" + app_eq_code + "\"/>" + "<input  type='hidden' id='roomname_" + fmcode + "' value=\"" + app_eq_name + "\"/>" + "<input  type='hidden' id='sitedesc_" + fmcode + "' value=\"" + sitedesc + "\"/>" + "<input type='hidden'  id='room_" + rm_code + "' value=\"" + room_code + "\"/>" + "<input  type='hidden' id='roomcod_" + fmcode + "' value=\"" + room_name + "\"/>"+"</div>";
+							$("#baoshi_yezhu").append(czRS);
+						}
+					}
+				}
+				
+				//史振伟UI
+				$("#fade").fadeOut();//遮罩消失
+				$("#bodyId")[0].style.position="static";//滚动条恢复
+				eqFlag =1 ;
+				
+			}
+	
+			function save() {
+				
+				//var inform_type = self==1 ? 1 : 2; /*报事类型*/
+				
+				var reason_main_id = bstype; /*原因大类*/
+				
+				var degree = $("input:radio[name=degree]:checked").val();//紧急3  不紧急 1 
+			
+				var task_describe = $("#bsDesc").val(); /*任务描述*/
+				
+				var dv_name = $("#unit_name").text();
+			
+				var contact_name= $("#contact_name").val();
+				var tel = $("#tel").val();
+				
+				if(inform_type==0){
+					window.csq_hw.showToast("请选择报事类型");
+					return;
+				}
+				
+				if(inform_type !=1&&(contact_name.length<1||tel.length<1)){
+					window.csq_hw.showToast("请填写客户联系人信息,或本人联系方式!");
+					return;
+				}
+				
+				//alert($("#start_time").val());
+				//alert($("#start_time").val().length);
+				
+				if($("#start_time").val().length>8){
+				 plan_time = $("#start_time").val() +":00";
+				}
+
+				if(task_describe.length>90){
+					window.csq_hw.showToast("描述内容超过90个字的最大限度,请重新填写。");
+					return;
+				}
+				
+				var task_status = 'Processed'; /*任务状态*/
+				var task_type = "A"; /*报事类型*/
+				var fm_code = fmcode; /*二维码  ss 是rm  不是ss是设施 eq*/
+				
+				
+				if(!reason_main_id){
+						window.csq_hw.showToast("请选择故障分类");
+						return;
+					}
+				
+				  if(!fmcode && !rm_code){
+					window.csq_hw.showToast("请选择定位方式");
+					return;
+				}
+				
+				
+				if(!task_describe){
+					window.csq_hw.showToast("请填写报事描述");
+					$("#bsDesc")[0].style.borderColor = "red";
+					return;
+				} 
+
+
+				var site_id = getUserMsg('site_id');
+				var inform_man = getUserMsg('user_id'); /*当前登录人 user_id*/
+				var inform_man_name = getUserMsg('name'); /*报事人姓名*/
+				var inform_mobile = getUserMsg('phone') == null ? "" : getUserMsg('phone'); /*报事人电话*/
+							
+			
+				var A = "WO_BS";
+				var Param = {
+					"inform_man": inform_man,
+					"inform_man_name": inform_man_name,
+					"site_id": site_id,
+					"inform_room": rm_code,
+					"inform_mobile": inform_mobile,
+					"inform_type": inform_type,
+					"task_describe": task_describe,
+					"task_status": task_status,
+					"task_type": task_type,
+					"fm_code": fm_code,
+					"priority":degree,
+					"task_code":task_code,
+					"string_plan_time":plan_time,
+					"contacts":contact_name,
+					"inform_describe":location_text,
+					"telephone":tel,
+					"self_todo":isSelfTake,
+					"reason_main_id": reason_main_id
+				};
+				var m_file = processImage(files);
+				var m_drawing = $("#map_location").find("img").attr("data-path");
+				if(m_drawing && m_drawing.length>0){
+					if(m_file && m_file.length>0){
+						m_file = m_file+","+m_drawing;
+					}else{
+						m_file = m_drawing;
+					}
+				}
+				
+				var bool = window.csq_exe.exec(A, JSON.stringify(Param), m_file, false);
+				
+				
+				if (bool){
+					//window.csq_hw.showToast("报事成功");
+					//window.csq_hw.showToast("更新报事工单，请稍候");
+					//删除临时文件
+					var _siteid = getUserMsg('site_id');
+					var _tmp = 'gdbstmp'+_siteid;
+					window.csq_io.delfile(_tmp);
+					
+					bouncedShow("报事成功！");
+					setTimeout(function(){
+						
+						if(isSelfTake==1){
+							window.location.href = "gongdanzhixing.html?task_type="+'A'+ "&TASK_ID=" +task_id;
+						}else{
+						    window.location.href = "gongdan_list.html?task_type="+'A'+ "&index=" +1;
+						}
+				    },1000);
+					
+					
+				
+				} else{
+					window.csq_hw.showToast("报事失败");
+					return;
+				} 
+				
+
+			}
+
+		    //设备实施查找按钮的点击
+			function chazhao(csi_id) {
+				$(".graybg_pd").fadeIn();
+				$("#liucheng_tanchu").slideDown(500);
+				changeList(getDataList(curr_tanchu_tab_id, csi_id), curr_tanchu_tab_id);
+			}
+			
+
+			//选择设施设备
+			function showSSandSBList() {
+				
+				if(inform_type==1||inform_type==2||inform_type==3){
+					uiFlag = 2;
+					$(".graybg_pd").fadeIn();
+					$("#liucheng_tanchu").slideDown(500);
+					
+					//设施设备弹出的同时默认加载下标0的数据
+					onSearch();
+					$("#liucheng_tanchu").css("top",$(window).height()-400+"px");
+					//史振伟UI 遮罩
+					$("#fade").fadeIn();
+					$("#bodyId")[0].style.position="fixed";		
+				}else{
+					window.csq_hw.showToast("请选择报事类型");
+					return;
+				}
+						
+			}
+			
+
+			function getDataList(tab_id, csi_id) {
+				if (csi_id != "") {
+					csi_id = csi_id + "-__";
+				}
+				var sql;
+				if (tab_id == "0") { //sheshi  RM  Table
+					//sql = "select SITE_DESCRIPTION as site_desc, csi_id as csi_id, rm_id as id,FM_CODE as roomcode,NAME as roomname ,SITE_DESCRIPTION as sitedesc from rm ";
+					//sql = "select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq ";
+					
+					 if(inform_type==1||inform_type==2){
+						 sql = "select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='PublicArea') ";
+				   	   }else{
+				   		sql = "select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='House')";
+				   	  }
+					
+				} else { //  EQ Table
+					//sql = "select SITE_DESCRIPTION as site_desc, csi_id as csi_id, eq_id as id,FM_CODE as roomcode,NAME as roomname ,SITE_DESCRIPTION as sitedesc from eq ";
+					//sql = "select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq ";
+					if(inform_type==1||inform_type==2){
+						sql = "select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='PublicArea') ";
+				   	   }else{
+				   		sql = "select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='House')";
+				   	  }
+				
+				}
+				if (csi_id != "") {
+					sql += " where csi_id='" + csi_id + "' ";
+					sql+=" and SITE_ID = '"+dingwei_Siteid+"'";
+				}
+			
+				//加上不区分大小写的
+				sql = sql + " COLLATE NOCASE";	
+			
+				var data = window.csq_db.db_select(0,sql, '',1);
+				data = eval("(" + data + ");");
+				return data;
+			};
+
+			
+			//设备设施的数据展示
+			function changeList(data, tab_id) {
+				$('.listmain2').empty();
+				if (data.length <= 0) {
+					window.csq_hw.showToast("当前没有匹配数据");
+					return;
+				}
+				for (var i = 0; i < data.length; i++) {
+					item = data[i];
+					//fmcode = item.roomcode; //编码 APP_EQ_CODE  去掉fmcode无效赋值
+					var roomcode = item.roomcode;
+					var roomname = item.roomname; // APP_EQ_NAME
+					var address = item.address;
+					var name = item.name;
+					//var site_desc = item.site_desc ? item.site_desc : '';   暂时无用
+					var eq_id = item.id;  //EQ_ID  根据它去查设施设备的展示数据
+					
+					var csi_id = item.csi_id; //区别设施和设备 
+					var text = "";
+					/* if(address && trim(address) != 'undefined'){
+					 text+="【"+ address+"】&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+					} */
+					if(name  && trim(name) != 'undefined'){
+						text+="【"+ name+"】&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+					}
+					/* if(roomname  && trim(roomname) != 'undefined'){
+						text+="【"+  roomname+ "】";
+					} */
+					var html_csi = 
+					"<li data-id='" + eq_id + "' data-csi_id = '" + csi_id + "' onclick=\"listClick(this);\" style='line-height:40px;padding-left:10px;'>" +
+						text +
+					"</li>";
+					$('.listmain2').append(html_csi);
+				}
+				
+			}
+			function csiFilter() {
+				covertFilterData(getFilterData(""));
+			}
+
+			function covertFilterData(data) {
+				$('.listmain2').empty();
+				var html_csi = "<div>";
+				for (var i = 0; i < data.length; i++) {
+					item = data[i];
+					var csi_id = item.csi_id;
+					var name = item.description;
+					html_csi =
+						"<dd id='" + csi_id + "'>" + "<span>" + "<a href='javascript:;' onclick=\"chazhao(\'" + csi_id + "\');\">" + csi_id + "[" + name + "]" + "</a><a><i onclick=\"csiData(\'" + csi_id + "\');\"><img src='img/arrow_r.png'></i></a>" + "</span>" + "</dd>";
+					$('.listmain2').append(html_csi);
+				}
+				html_csi += "</div>";
+			}
+
+			function getFilterData(csi_id) {
+				var sql;
+				if (csi_id == "") {
+					csi_id = "__";
+				} else {
+					csi_id += "-__";
+				}
+				sql = "select csi_id as csi_id,description as description from csi ";
+				sql += " where csi_id like'" + csi_id + "'";
+				//window.csq_db.db_open('longfor.db', '', '');
+				//加上不区分大小写的
+				sql = sql + " COLLATE NOCASE";		
+				
+				var data = window.csq_db.db_select(0,sql, '',1);
+				data = eval("(" + data + ");");
+				return data;
+			}
+
+			function csiData(csi_id) {
+				covertFilterData(getFilterData(csi_id));
+			}
+
+			//没用
+			function subcis() {
+				var csi_id = $("input[name='csidata']").val();
+				covertFilterData(getFilterData(csi_id));
+			}
+
+			//设备设施的item点击和数据展示
+			function listClick(obj) {
+				$(".graybg_pd").fadeOut();
+				$("#liucheng_tanchu").slideUp(500);
+				uiFlag = 0;
+				var id = $(obj).data('id');
+				var csi_id = $(obj).data('csi_id');
+				
+				//参数为CSI_ID
+				if (csi_id == "") {
+					return;
+				}
+				
+				var sql1 = " select RM_ID,RM_NAME,BL_ID as bl_id,EQ_CODE as fm_code ,RM_ID as rm_code,EQ_NAME as app_eq_name ,CONVENT_EQ as sitedesc ,EQ_CODE as app_eq_code from eq ";
+				
+				var sql2 = " select RM_ID,RM_NAME,BL_ID as bl_id,EQ_CODE as fm_code ,RM_ID as rm_code,EQ_NAME as app_eq_name ,CONVENT_ADDRESS as sitedesc ,EQ_CODE as app_eq_code from eq ";
+				
+				var sql = "SB" == csi_id.substring(0,2)?sql1:sql2;
+				
+				/* if(curr_tanchu_tab_id == 0){
+					sql = "select rm_id as id,FM_CODE as roomcode,NAME as roomname ,SITE_DESCRIPTION as sitedesc ,virtual_space_site as virtual_space_site from rm ";
+				}else{
+				  	sql = "select eq_id as id,FM_CODE as roomcode,NAME as roomname ,SITE_DESCRIPTION as sitedesc ,virtual_space_site as virtual_space_site from eq ";
+				} */
+				
+				sql += " where EQ_ID='" + id + "' ";
+				sql+=" and SITE_ID = '"+dingwei_Siteid+"' ";
+				
+				
+				//加上不区分大小写的
+				
+				sql = sql + " COLLATE NOCASE ";	
+				//alert(sql);
+				var data = window.csq_db.db_select(0, sql, '',1);
+				
+				data = eval("(" + data + ");");
+				
+				$("#baoshi_yezhu").empty();
+				if(data.length < 1){
+					window.csq_hw.showToast("没有查到该设施／设备");
+				}else{
+					for (var i = 0; i < data.length; i++) {
+						item = data[i];
+						fmcode = item.fm_code;  
+						var app_eq_code = item.app_eq_code;
+						var app_eq_name = item.app_eq_name;
+						var sitedesc = (!item.sitedesc)?"无":item.sitedesc;
+						var bl_id = (!item.bl_id)?"":item.bl_id;
+						
+						//房间编码和描述缺少唯一编码
+						
+						rm_code = item.rm_code; 
+						
+						
+				var sqlRoomInfo = "select rm_id,rm_name from rm where rm_id='"+rm_code+"'";
+				
+				
+				var roomData = window.csq_db.db_select(0, sqlRoomInfo, '',1);
+				
+			  //	alert("数据   "+roomData);		
+				
+				    roomData = eval("(" + roomData + ");");
+				   
+				    if(roomData.length < 1){
+						window.csq_hw.showToast("没有查到该设施／设备相对房屋编码和描述");
+					} else {
+						
+						  for (var i = 0; i < roomData.length; i++) {
+						    	
+							    var roomItem= roomData[i];
+							
+								var room_code= roomItem.rm_id;
+								var room_name = roomItem.rm_name;
+					
+						  }
+					   
+					}
+
+						var czRS;
+						var sbNoun = "SB" == csi_id.substring(0,2)?"设备":"设施";
+						czRS = "<li>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>"+sbNoun+"编码</i></div>" 
+									+ "<div class='baoshi_yezhu_biaoti'><i>" + app_eq_code + "</i></div>" 
+							+ "</li>" 
+							+ "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>"+sbNoun+"名称</i></div>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>" + app_eq_name + "</i></div>" 
+							+ "</li>" 
+							+ "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>"+sbNoun+"惯用名</i></div>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>" + sitedesc + "</i></div>" 
+							+ "</li>"
+							+ "<li>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>房屋编码</i></div>" 
+								+ "<div class='baoshi_yezhu_biaoti'><i>" + room_code + "</i></div>" 
+							+ "</li>"
+							+ "<li>" 
+							+ "<div class='baoshi_yezhu_biaoti'><i>房屋描述</i></div>" 
+							+ "<div class='baoshi_yezhu_biaoti'><i>" + room_name + "</i></div>" 
+						+ "</li>"
+						 	+ "<div>" + "<input  type='hidden' id='roomcod_" + fmcode + "' value=\"" + app_eq_code + "\"/>" + "<input  type='hidden' id='roomname_" + fmcode + "' value=\"" + app_eq_name + "\"/>" + "<input  type='hidden' id='sitedesc_" + fmcode + "' value=\"" + sitedesc + "\"/>" + "<input type='hidden'  id='room_" + rm_code + "' value=\"" + room_code + "\"/>" + "<input  type='hidden' id='roomcod_" + fmcode + "' value=\"" + room_name + "\"/>"+"</div>";
+						$("#baoshi_yezhu").append(czRS);
+					}
+				}
+				//史振伟UI
+				$("#fade").fadeOut();//遮罩消失
+				$("#bodyId")[0].style.position="static";//滚动条恢复
+				eqFlag =1 ;
+			}
+			
+			//设施设备的查找触发动作
+			function onSearch() {
+				//$("#changeDivId")[0].style.height="280px";
+				var searchkey = $("#searchKey").val();
+				//alert(searchkey);
+				var sql;
+				var whereStr="";
+				if (curr_tanchu_tab_id == "0") { //sheshi  RM  Table
+					
+					//sql = " select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq ";
+					 if(inform_type==1||inform_type==2){
+						 sql = " select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='PublicArea') ";
+				   	   }else{
+				   		sql = " select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='House')";
+				   	  }
+					whereStr = " and csi_id like 'SS%' ";
+					whereStr += " and  name like '%" + searchkey + "%'";
+				} else { //  EQ Table
+					//sql = " select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq ";
+					 if(inform_type==1||inform_type==2){
+						 sql = "select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='PublicArea') ";
+				   	   }else{
+				   		sql = " select CONVENT_ADDRESS as site_desc,csi_id as csi_id, eq_id as id,EQ_CODE as roomcode,EQ_NAME as roomname ,CONVENT_ADDRESS as address , EQ_NAME as name from eq where rm_id IN ( select rm_id from RM where property_type='House')";
+				   	  }
+				     whereStr = " and csi_id like 'SB%' ";
+					whereStr += " and name like '%" + searchkey + "%'";
+				}
+				
+				
+				sql = sql + whereStr;
+				sql+=" and SITE_ID = '"+dingwei_Siteid+"' ";
+				sql += " ORDER BY csi_id DESC Limit " + (filterCurrentPage - 1) * pageCount + "," + pageCount;
+				
+				//加上不区分大小写的
+				sql = sql + " COLLATE NOCASE ";	  
+				
+				//alert(sql);
+				var data = window.csq_db.db_select(0, sql, '',1);
+				//alert(data);
+				
+				data = eval("(" + data + ");");
+				if(data.length <= 0){
+					window.csq_hw.showToast("已到最后一页");
+					if(filterCurrentPage != 1){
+						filterCurrentPage = filterCurrentPage-1;
+					}
+					return;
+				}
+				changeList(data, curr_tanchu_tab_id);
+			}
+			
+			
+			function pageFront(){
+				filterCurrentPage = filterCurrentPage - 1;
+				if(filterCurrentPage <= 0){
+					window.csq_hw.showToast("已返回到第一页");
+					filterCurrentPage = 1;
+					return;
+				}
+			 	onSearch() ;	 	
+			}
+			
+			function pageNext(){
+				filterCurrentPage = filterCurrentPage + 1;
+				onSearch() ;
+			}
+			//史振伟UI 返回方法
+			function backTrack(){
+				window.location.href = "index.html";
+			}
+			
+			
+			function testRed(){
+				$("#bsDesc")[0].style.borderColor="red";
+			}
+
+		</script>
+
+
+</head>
+
+<body id="bodyId">
+	
+	<!-- 报事成功提示-->
+	<section id="bounced">
+    <section class="box">
+        <p class="con"></p>
+    </section>
+    </section>
+    
+	<!--史振伟UI 遮罩-->
+	<div id="fade" class="black_overlay"></div>
+	
+
+	<!--弹出_设施设备的数据和样式-->
+	<div class="liucheng_tanchu" id="liucheng_tanchu"
+		style="width: 100%; display: none; z-index: 9001; opacity: 1; ">
+		<!--史振伟UI --查找修改-如下-->
+		<div style="padding: 10px 10px 5px; height: 35px">
+
+			<div class="fl" style="width: 62%;">
+				<input type="text" id="searchKey"
+					style="width: 90%; background: #f6f6f6; border-top-left-radius: 4px; border-bottom-left-radius: 4px; border: none; height: 34px; line-height: 0px; font-size: 16px; padding: 0px 3%" />
+			</div>
+			<div class="fl" style="width: 20%; margin-left: -8px;">
+				<button type="button" onclick="onSearch();" class="bottonStyle"
+					style="height: 34px; font-size: 14px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">查找</button>
+			</div>
+			<div class="fr" style="width: 20%;">
+				<button type="button" id="close_00" class="bottonStyle"
+					style="height: 34px; color: #fccb00; font-size: 14px; background: #ffffff;">关闭</button>
+			</div>
+
+		</div>
+
+		<div class="headtabs2">
+			<span class="headtabs_this" data-id="0">设施</span> <span data-id="1">设备</span>
+		</div>
+
+		<div class="liucheng_paidan" id="changeDivId"
+			style="max-height: 280px; min-height: 100px; overflow-y: auto; padding-bottom: 0px;">
+			<div>
+				<dl class="listmain2">
+				</dl>
+			</div>
+		</div>
+
+		<div class="liucheng_dibu_btn">
+			<span><i class="liucheng_dibu_btn_left"> <input
+					style="height: 38px; padding: 10px; background-color: #fccb00;"
+					type="submit" value="上一页" onclick="pageFront()" />
+			</i></span> <span><i class="liucheng_dibu_btn_left"> <input
+					style="height: 38px; padding: 10px; background-color: #fccb00;"
+					type="submit" value="下一页" onclick="pageNext()" />
+			</i></span>
+		</div>
+
+	</div>
+
+
+	
+
+<div class="unit" id="type_pop">
+    <div class="con">
+        <div class="title">
+            <h4>报事类型</h4>
+            <span class="close">关闭</span>
+        </div>
+        <div class="unit-list">
+            <ul id="customer_name_list" class="car_item">
+                <li id="1">公区报事</li>
+                <li id="2">公区代客</li>
+                <li id="3">入室维修</li>
+            </ul>
+        </div>
+    </div>
+</div>
+	
+	<div class="graybg"></div>
+
+	
+	<div class="baoshi_gdlx" id="bstypeselect"
+		style="display: none; z-index: 9001; opacity: 1;">
+		<div class="tit">
+			<strong><span>工单类型</span></strong><i id="close_01" class="close"><span
+				style="color: #fccb00;">关闭</span></i>
+		</div>
+		<div class="liucheng_paidan" style="height: 320px;">
+			<ul id="bs_type_list_id" class="paidan_danren" style="padding-bottom: 0px;">	
+			</ul>
+		</div>	
+	</div>
+
+	<!-- 房间数据的展示样式 开始-->
+
+	<div class="gzTypeShows" id="gzType">
+
+		<div
+			style="float: left; width: 15%; margin-left: 0px; line-height:0px;"
+			onclick="backGz();">
+			<a href="javascript:void(0)" style="margin-left: 20px;"> <img
+				src="img/arrow_l.png" width="12" height="21"
+				style="vertical-align: middle;" />
+			</a>
+		</div>
+		<!-- 地块展示  start-->
+		<span>请选择地块</span>
+		<div class="scroll_container">
+			<ul id="gzType_show" class="paidan_danren gzType_show gzType_marbo">
+			</ul>
+		</div>
+	</div>
+
+	<div id="gzxianxiang" class="gzTypeShows">
+
+       <div
+			style="float: left; width: 15%; margin-left: 0px; line-height:0px;"
+			onclick="backStage();">
+			<a href="javascript:void(0)" style="margin-left: 20px;"> <img
+				src="img/arrow_l.png" width="12" height="21"
+				style="vertical-align: middle;" />
+			</a>
+		</div>
+		<span> <span id="phenomenon"> </span> <span> > </span> 请选择楼栋
+		</span>
+
+		<div class="scroll_container">
+			<ul id="gzPhenomenon_show"
+				class="paidan_danren gzType_show gzType_marbo">
+
+			</ul>
+		</div>
+	</div>
+
+	<div id="gz_unit" class="gzTypeShows">
+
+        <div
+			style="float: left; width: 15%; margin-left: 0px; line-height:0px;"
+			onclick="backBuilding();">
+			<a href="javascript:void(0)" style="margin-left: 20px;"> <img
+				src="img/arrow_l.png" width="12" height="21"
+				style="vertical-align: middle;" />
+			</a>
+		</div>
+		<span> <span id="phenomenon_01"> </span> <span> > </span> <span 
+			id="component"> </span> <span> > </span> 请选择单元
+		</span>
+
+		<div id="roomsTab" class="scroll_container">
+			<ul id="gzComponent_show"
+				class="paidan_danren gzType_show roomsTab_show gzType_marbo">
+
+			</ul>
+		</div>
+	</div>
+
+	<div id="gz_floor" class="gzTypeShows">
+
+        
+        <div
+			style="float: left; width: 15%; margin-left: 0px; line-height:0px;"
+			onclick="backUnitList();">
+			<a href="javascript:void(0)" style="margin-left: 20px;"> <img
+				src="img/arrow_l.png" width="12" height="21"
+				style="vertical-align: middle;" />
+			</a>
+		</div>
+		<span> <span id="phenomenon_02"> </span> <span> > </span> <span
+			id="component_01"> </span> <span> > </span> <span id="unit"> </span>
+			<span> > </span> 请选择楼层
+		</span>
+
+		<div class="scroll_container">
+			<ul id="gzFloor_show"
+				class="paidan_danren gzType_show roomsTab_show gzType_marbo">
+
+			</ul>
+		</div>
+	</div>
+	
+	<div id="gz_room" class="gzTypeShows">
+
+        <div
+			style="float: left; width: 15%; margin-left: 0px;line-height:0px;"
+			onclick="backFloorList();">
+			<a href="javascript:void(0)" style="margin-left: 20px;"> <img
+				src="img/arrow_l.png" width="12" height="21"
+				style="vertical-align: middle;" />
+			</a>
+		</div>
+		<span> <span id="phenomenon_03"> </span> <span> > </span> <span
+			id="component_02"> </span> <span> > </span> <span id="unit_01"></span>
+			<span> > </span> <span id="floor_name"></span> <span> ></span> 请选择房屋
+		</span>
+
+		<div class="scroll_container">
+			<ul id="gzRoom_show" class="paidan_danren gzType_show roomsTab_show gzType_marbo">
+			</ul>
+		</div>
+	</div>
+
+</body>
+
+</html>

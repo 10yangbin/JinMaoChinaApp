@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:state_focused="true">
+        <bitmap android:src="@drawable/openaccount_ic_search_pressed" android:tint="@color/ali_sdk_openaccount_hw_color_primary_dark"/>
+    </item><!-- pressed -->
+    <item android:state_enabled="false">
+        <bitmap android:src="@drawable/openaccount_ic_search_disabled" android:tint="@color/ali_sdk_openaccount_hw_color_primary_disabled"/>
+    </item><!-- focused -->
+    <item>
+        <bitmap android:src="@drawable/openaccount_ic_search_normal" android:tint="@color/ali_sdk_openaccount_hw_color_primary"/>
+    </item><!-- default -->
+</selector>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qPIkFwxnyHOqPLNO6dKYPhNLVU03TbBb"></script>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+	
+<script type="text/javascript" src="js/jquery-1.7.min.js"></script>	
+		
+<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	
+	ul, ol, li{
+	list-style:none;
+}
+
+.marg{
+	margin:0 auto;
+	width:100%;
+	max-width:640px;
+}
+
+.clearfix{
+	*zoom:1;
+}
+    body{padding-top: 48px;}
+    #allmap{max-width: 640px;margin:0 auto;}
+	</style>
+
+</head>
+
+<script>
+
+
+var site_data;
+//回退按钮回调
+function backCallBack(url){
+	window.location.href = "index.html";
+}
+
+function backTrack(){
+	window.location.href = "index.html";
+}
+$(function(){
+    $("#allmap").height($(window).height()-98);
+    $(window).resize(function(){
+        $("#allmap").height($(window).height()-98);
+    })
+    
+    var sql_qr;
+	
+	sql_qr = "SELECT * FROM SITE ";
+	
+    site_data =window.csq_db.db_select(0,sql_qr, '',1);
+	   
+	   //alert(site_data);
+	   
+	   site_data = eval("(" + site_data + ");");
+	   
+	   var map = new BMap.Map("allmap");
+	    var point = new BMap.Point(116.404, 39.915);
+	    map.centerAndZoom(point, 5);
+	    map.enableScrollWheelZoom(true);
+	    map.enableDragging();
+	  /*   var dataInfo=[
+	                  
+	                  ["116.59854","40.13188","普洛斯北京空港物流园","地址：普洛斯北京空港物流园地址地址地址"],
+	                  ["116.350659","39.703113","大兴物流园","地址：大兴物流园地址地址地址地址"],
+	                  ["114.285298","30.799185","普洛斯(武汉临空经济区)产业园","地址：红旗路32号"],
+	    
+	    ]; */
+	    var opts = {
+	        width : 200,     // 信息窗口宽度
+	        height: 100,     // 信息窗口高度
+	        title : "" , // 信息窗口标题
+	        enableMessage:true
+	    }
+
+
+
+	    function openInfo(tit,content,e){
+	        opts.title=tit;
+	        var p = e.target;
+	        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+	        var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
+	        map.openInfoWindow(infoWindow,point); //开启信息窗口
+	    }
+	    for(var i=0;i<site_data.length;i++){
+	        var point = new BMap.Point(site_data[i].dms_longitude,site_data[i].dms_latitude);
+	        var marker = new BMap.Marker(point);
+	        map.addOverlay(marker);
+	        var content = site_data[i].address+"<br/>经度："+site_data[i].dms_longitude +"<br/>纬度："+site_data[i].dms_latitude;
+	        map.addOverlay(marker);               // 将标注添加到地图中
+	        var tit=site_data[i].site_name;
+	        addClickHandler(tit,content,marker);
+	    }
+	    function addClickHandler(tit,content,marker) {
+	        marker.addEventListener("click", function (e) {
+	            openInfo(tit,content,e)
+	        })
+	    }
+	   
+
+})
+
+ 
+</script>
+
+<body>
+
+    <header>
+    <img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+    <span onclick="backTrack();"></span>
+    <p class="title">项目分布图</p>
+    <span class="right"></span>
+</header>
+	<div id="allmap"></div>
+		<!--底部导航条图片更改 张赛赛-->
+		<div class="footnav">
+			<ul class="marg clearfix">
+				  <li ><a href="index.html" > <img
+						src="img/nav_home1.png"><i>首页</i>
+				</a></li>
+				<li class="footnav_this" ><a class="active"> <img
+						src="img/nav_yq.png"><i>项目</i>
+				</a></li>
+				<li id="logout"><a href="wode_shezhi.html"> <img src="img/nav_my1.png"><i>我的</i>
+				</a></li>
+			</ul>
+		</div>
+</body>
+
+
+
+
+</html>

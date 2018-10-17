@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+
+<link type="text/css" rel="stylesheet" href="css/base.css">
+
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+
+<script type="text/javascript">
+	
+var changeData;
+var prob_type = getUrlParamValByKey('probtype');
+
+var task_id = getUrlParamValByKey('taskid');
+/* 
+alert(prob_type);
+alert(task_id); */
+
+		$(function() {
+			
+			 var A = "/onlinehelp/selectOnlineHelpList";
+			var param = {
+				"probtype":prob_type
+			};
+			 var bool = window.csq_exe.doexec(A, JSON.stringify(param)); 
+			 //var bool ='{"ret":true,"msg":[{"id":"4763","sub_man":"张萌","sub_time":"2017-09-20 00:00:00.0","prob_type":"201101101","help_title":"空调使用技巧"},{"id":"4763","sub_man":"张萌","sub_time":"2017-09-20 00:00:00.0","prob_type":"201101101","help_title":"空调使用技巧"}]}';
+			 //var bool ='{"ret":true,"msg":[{"id":"4763","sub_man":"张萌","sub_time":"2017-09-20 00:00:00.0","prob_type":"201101101","help_title":"空调使用技巧"},{"id":"4763","sub_man":"张萌","sub_time":"2017-09-20 00:00:00.0","prob_type":"201101101","help_title":"空调使用技巧"}]}';
+
+			// alert(bool);
+			 var retObj = eval("(" + bool + ");");
+			 var data = eval("(" + retObj.msg + ");");
+			appendList(data);
+		});
+		
+		function backTrack() {
+			window.location.href = "gongdanzhixing.html?TASK_ID=" + task_id + "&task_type=" +'A';
+		}
+		function help_new() {
+			window.location.href = "help_new.html?probtype=" + prob_type +"&taskid=" +task_id;
+		}
+		
+        //拼接整改数据
+    	function appendList(data) {
+    		
+    		var item;
+    		//主键rn_id 
+			var id;
+    		// 单子创建时间 
+			var time;
+    		// 创建人
+			var name;
+			
+			for (var i = 0; i < data.length; i++) {
+				item = data[i];  
+				id = item.id;
+				name = item.help_title;
+				time = formatDataWithoutMillisecond(item.sub_time);
+				//change_items = item.change_items;
+				var htmlStr='';
+				htmlStr = "<li data-id='" + id + "'  onclick='onItemClick(this)'>";
+				htmlStr = htmlStr +	"<span class='tit'>" + name + "</span><span class='date'>" + time + "</span></li>";
+			  
+			   $('#things-list').append(htmlStr);
+			}
+			
+    	}
+        
+        
+    	function onItemClick(obj) {
+			var $this = $(obj);
+			var help_id = $this.data('id');
+			window.location.href="help_detail.html?help_id="+help_id+"&probtype=" + prob_type +"&taskid=" +task_id;
+
+		}
+        
+		
+		 //安卓虚拟返回键   ios 去掉 
+        function backCallBack() {
+        	backTrack();
+        }
+		 
+      
+	</script>
+</head>
+<body>
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">帮助列表</p>
+		<span onclick="help_new();">新增帮助</span>
+	</header>
+	
+	<div class="things-list" style="margin-top:50px;">
+			<ul id="things-list">
+			 <!--  <li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li>
+				<li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li>
+				<li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li>
+				<li><a href="notice_detail.html"><span class="tit">2号楼3单元电梯日常巡检</span><span class="date">2016-12-06</span></a></li> -->
+				
+			</ul>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+
+body{margin-bottom: 50px;}
+textarea{margin: 0;padding: 0;}
+
+.liucheng{margin: 0;background: none;margin-left: 5%;background: none;border-left:1px solid #fccb00;}
+.liucheng-no{border-left: 1px solid #e0e0e0;}
+.liucheng_yi{background: none;position: relative;}
+.liucheng_nei{padding: 12px 0 8px 0;background: none;border-bottom: 1px solid #e0e0e0;margin-left: 20px;}
+.liucheng_mo .liucheng_nei{background: none;}
+.liucheng_neinei{padding-right:6%;padding-bottom: 0;border-bottom: none;}
+
+.liucheng .circle{background: url("../img/liucheng_yuan.png") no-repeat;width:15px;height:15px;background-size: 100% 100%;position: absolute;left:-7px;top:15px;}
+.liucheng-no .circle{width:10px;height:10px;background: #e0e0e0;position: absolute;left:-5px;top:15px;border-radius: 5px;-webkit-border-radius: 5px;}
+
+.liucheng_xiang{color: #fccb00;float: none;}
+.liucheng_time{padding: 11px 0 5px 0;}
+.liucheng .task_name{font-size: 14px;line-height:36px;color: #333333;}
+.gongdan_pic{margin-bottom:12px;padding: 0;} /* height:60px; */
+.gongdan_pic img{width:60px;height:60px;margin:12px 12px 0 0;line-height:60px;}
+
+.gongdan_xinxi{position: relative;}
+.gongdan_xinxi ul{padding: 0;padding-top: 10px;}
+.gongdan_xinxi li{font-size: 12px;color:#666666;line-height: 28px;}
+
+
+#infophone{width:32px;height:32px;position:absolute;right:0;bottom:22px;}
+.gongdan_xinxi_dianhua:hover{box-shadow: none;}
+.gongdan_xinxi_dianhua{width: 32px;height: 32px;}
+.gongdan_xinxi_dianhua img{width:100%;height:100%;}
+
+
+.liucheng_ren{position: absolute;right:6%;top:0;color: #333333;}
+.gongdan_miaoshu{color: #333333;word-break: break-all;}
+.liucheng .do{width: 100%;height:32px;margin: 8px 0;}
+.liucheng .do input{float:right;background: #fccb00;width:60px;height:32px; border:0 none;color:#ffffff;border-radius:10px;}
+
+.no-border{border-bottom: none;}
+
+/*底部导航栏*/
+.foot_menu{border: none;}
+.foot_menu a + a{background: #fccb00;}
+.foot_menu a{background: #fccb00;}
+
+
+/*工单退回样式*/
+.liucheng_tanchu{padding-bottom: 0;}
+.liucheng_tanchu .tit{width:90%;padding: 0 5%;border-bottom: 1px solid #fccb00;}
+.liucheng_tanchu .tit strong span{color:#fccb00;text-align: left;font-size: 20px;}
+.liucheng_tanchu .tit i span{color:#fccb00;text-align: right;font-size: 16px;}
+.bottonStyle{background: #fccb00;}
+.button_right{background: #cbcbcb;}
+
+.liucheng_tanchu .tit i{position: absolute;right:5%;top:0;}
+.liucheng_tanchu_tijiao{padding: 0;height:50px;margin: 0;}
+.button_left{width:50%;height:50px;line-height: 50px;padding: 0;border-radius: 0;-webkit-border-radius: 0;float:left;}
+.button_right{width:50%;height:50px;line-height: 50px;padding: 0;border-radius: 0;-webkit-border-radius: 0;float:left;}
+
+.liucheng_tanchu_shuru{width:88%;margin: 20px 6%;}
+.liucheng_tanchu_shuru textarea{border-radius: 0;-webkit-border-radius: 0;}
+
+.liucheng_tanchu{
+    position:fixed;
+    bottom: 0;
+    border:1px solid #ccc;
+    /*padding-bottom: 40px;*/
+    background-color: #fff;
+    display:none;
+    width:100%;
+    left:0;
+}
+.liucheng_tanchu .tit{
+    display:block;
+    height:48px;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+    background-color: #fff;
+}
+.liucheng_tanchu .tit strong{
+    display: table-cell;
+    vertical-align: middle;
+    /* width: 3000px; */
+    padding-left: 15px;
+}
+.liucheng_tanchu .tit strong span{
+    display: block;
+    text-align: center;
+    line-height: 48px;
+    font-size: 18px;
+    color: #fccb00;
+    font-weight: normal;
+}
+.liucheng_tanchu .tit i{
+    display:table-cell;
+    width:76px;
+    cursor:pointer;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.liucheng_tanchu .tit i span{
+    display: block;
+    line-height: 48px;
+    width: 76px;
+    font-size: 14px;
+    color: #fccb00;
+    text-align: center;
+}
+.liucheng_tanchu_shuru{
+    margin: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+.liucheng_tanchu_shuru textarea{
+    display: block;
+    width: 100%;
+    height: 80px;
+    padding: 0;
+    border: 0 none;
+    overflow-x: visible;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei";
+}
+.liucheng_tanchu_tijiao{
+    padding: 0 0px 15px 0px;
+    margin-top: 20px;
+}
+.liucheng_tanchu_tijiao input{
+    -webkit-appearance:none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    display: block;
+    width: 100%;
+    height: 48px;
+    background: #1892ba;
+    color: #FFFFFF;
+    border: 0 none;
+    border-radius: 4px;
+}
+.liucheng_tanchu_tijiao input:hover{
+    background: #006E92;
+}
+.liucheng_tanchu#liucheng_tanchu_paidan {
+    /* width: auto; */
+    top: 0;
+}
+.liucheng_tanchu#liucheng_tanchu_paidan .tit strong span{
+    padding-left: 0;
+}
+.liucheng_tanchu#liucheng_tanchu_paidan .tit i{
+    display: table-cell;
+    width: 76px;
+    font-style: normal;
+}
+.liucheng_tanchu#liucheng_tanchu_paidan .tit i span{
+    display: block;
+    width: 36px;
+    font-size: 12px;
+    margin-left: 15px;
+    padding-left: 24px;
+}
+.liucheng_tanchu#liucheng_tanchu_paidan .tit .xuanxiang_danren{
+    color: #CCCCCC;
+    font-size:16px;
+    font-weight:bold;
+    background: url(../img/baoshi_kaiguan.png) no-repeat left;
+    background-size: auto 16px;
+}
+.liucheng_tanchu#liucheng_tanchu_paidan .tit .xuanxiang_duoren{
+    color: #57C2FF;
+    font-size:16px;
+    font-weight:bold;
+    background: url(../img/baoshi_kaiguan_on.png) no-repeat left;
+    background-size: auto 16px;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<link type="text/css" rel="stylesheet" href="css/base.css">
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+
+</head>
+<style>
+	body{padding-top: 48px;background:#f1f1f1;}
+	.help-info .title{border:none;height:38px;width: 100%;outline:none;padding: 0 3%;margin: 10px 0;color:#666;font-size: 14px;box-sizing: border-box;font-family: sans-serif}
+	.help-info .info{border:none;height:72px;width: 100%;outline:none;padding: 0 3%;line-height: 24px;resize: none;color:#666;font-size: 14px;box-sizing: border-box;font-family:sans-serif}
+</style>
+<body>
+	<header>
+		<img class="arrow-left" src="img/arrow_l.png" onclick="backTrack();">
+		<span onclick="backTrack();"></span>
+		<p class="title">新建帮助</p>
+		<span onclick="backTrack();">关闭</span>
+	</header>
+    
+    <section class="help-info">
+		<input type="text" class="title help_title" placeholder="请填写帮助标题">
+		
+		<textarea class="info" placeholder="请填写帮助信息"></textarea>
+	</section>
+
+	<div class="bottomBtn">
+		<input type="button" value="提 交" id="tijiao" onclick="submitHelp()" />
+	</div>
+
+</body>
+
+<script type="text/javascript">
+	
+var prob_type = getUrlParamValByKey('probtype');
+var task_id = getUrlParamValByKey('taskid');
+
+/* alert(prob_type);
+alert(task_id); */
+
+
+		function  submitHelp(){
+	    
+		var  title= $(".help_title").val(); 
+		var content = $(".info").val();
+		
+			if(!content||!title){
+				window.csq_hw.showToast("描述能为空");
+				return;
+			}else{
+			
+	    	var A = "/onlinehelp/save";
+			var param = {
+				"prob_type":prob_type,
+				"help_title":title,
+				"help_content":content
+			 };
+			 var bool = window.csq_exe.doexec(A, JSON.stringify(param));
+			 var retObj = eval("(" +bool + ");");
+			 
+			 window.location.href = "helplist.html?probtype=" + prob_type +"&taskid=" +task_id;
+		
+			} 
+		}
+		
+		function backTrack() {
+			 window.location.href = "helplist.html?probtype=" + prob_type +"&taskid=" +task_id;
+		}
+        function backCallBack() {
+        	backTrack();
+        }
+	</script>
+	
+</html>

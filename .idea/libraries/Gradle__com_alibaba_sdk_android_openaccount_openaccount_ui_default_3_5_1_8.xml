@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.alibaba.sdk.android.openaccount:openaccount-ui-default-3.5.1.8">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/openaccount-ui-default-3.5.1.8.aar/20ada2a271962ca03e45b5a727b1872c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/openaccount-ui-default-3.5.1.8.aar/20ada2a271962ca03e45b5a727b1872c/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
